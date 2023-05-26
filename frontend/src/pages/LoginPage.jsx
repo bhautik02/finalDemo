@@ -2,6 +2,8 @@ import { useContext, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { userContext } from "../contextStore/userContext";
 
+import axios from "axios";
+
 const BASEURL = "http://localhost:5000/api/v1/";
 
 const LoginPage = () => {
@@ -26,26 +28,41 @@ const LoginPage = () => {
     // const data = await axios.post("users/signup", formdata);
     // console.log(data);
 
-    fetch(`${BASEURL}users/login`, {
-      method: "POST",
-      // credentials: "include",
-      body: JSON.stringify(formdata),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => res.json())
+    axios
+      .post(`${BASEURL}users/login`, formdata, { withCredentials: true })
       .then((res) => {
-        if (res.status === "success") {
-          // localStorage.setItem("data", JSON.stringify(res));
-          console.log("user logged.");
-          setUser(res.user);
-          setRedirect(true);
-        }
-        if (res.status === "failed") {
-          console.log(res.message);
-        }
+        const cookies = res.headers["set-cookie"];
+        console.log("cookies ---->", cookies);
+        console.log("HEADERS ----------->", res.headers);
+        console.log("user from axnkadnv", res.data.user);
+        setUser(res.data.user);
+        setRedirect(true);
+      })
+      .catch((err) => {
+        console.log("ERROR in LOGIN ---->", err);
       });
+
+    // fetch(`${BASEURL}users/login`, {
+    //   method: "POST",
+    //   // credentials: "include",
+    //   body: JSON.stringify(formdata),
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    // })
+    //   .then((res) => res.json())
+
+    //   .then((res) => {
+    //     if (res.status === "success") {
+    //       // localStorage.setItem("data", JSON.stringify(res));
+    //       console.log("user logged.");
+    //       setUser(res.user);
+    //       setRedirect(true);
+    //     }
+    //     if (res.status === "failed") {
+    //       console.log(res.message);
+    //     }
+    //   });
 
     setEmail("");
     setPassword("");

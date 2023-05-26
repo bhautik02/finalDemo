@@ -67,7 +67,7 @@ const signupUser = async (req, res, next) => {
 const loginUser = async (req, res, next) => {
   try {
     const { email, password } = req.body;
-    const user = await User.findOne({ email }).select("+password");
+    let user = await User.findOne({ email }).select("+password");
 
     if (!user) {
       throw new Error("User doesn't exist", 401);
@@ -122,14 +122,27 @@ const profile = async (req, res, next) => {
       throw new Error("Please Login to Access");
     }
 
-    jwt.verify(token, process.env.JWT_SECRET, {}, (err, user) => {
-      if (err) {
-        throw new Error();
+    jwt.verify(token, process.env.JWT_SECRET, {}, async (err, user) => {
+      console.log(user);
+      if (!err) {
+        try {
+          const userr = await User.findById(user.id);
+          console.log(userr);
+
+          if (!userr) {
+            throw new Error("ERRRRRRRRRRRRRRRR");
+          }
+
+          res.status(200).json({
+            status: "success",
+            user: userr,
+          });
+        } catch (error) {
+          console.log("error from ptonsdign", error);
+        }
       } else {
-        res.status(200).json({
-          status: "success",
-          user,
-        });
+        // console.log(user);
+        throw new Error();
       }
     });
   } catch (error) {

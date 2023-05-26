@@ -5,6 +5,9 @@ import Layout from "./components/Layout";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import UserContextProvider from "./contextStore/userContext";
+// import axios from "axios";
+
+// axios.defaults.withCredentials = true;
 
 function App() {
   return (

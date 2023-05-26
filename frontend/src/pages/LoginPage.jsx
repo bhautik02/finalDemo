@@ -1,13 +1,19 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
+import { userContext } from "../contextStore/userContext";
 
 const BASEURL = "http://localhost:5000/api/v1/";
 
 const LoginPage = () => {
+  //to take input from user while login
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { setUser } = useContext(userContext);
+
+  //to redirect user after login
   const [redirect, setRedirect] = useState(false);
 
+  //submit handler for userlogin
   const onUserLogin = (event) => {
     event.preventDefault();
     const formdata = {
@@ -31,12 +37,13 @@ const LoginPage = () => {
       .then((res) => res.json())
       .then((res) => {
         if (res.status === "success") {
-          localStorage.setItem("data", JSON.stringify(res));
-          alert("user logged.");
+          // localStorage.setItem("data", JSON.stringify(res));
+          console.log("user logged.");
+          setUser(res.user);
           setRedirect(true);
         }
         if (res.status === "failed") {
-          alert(res.message);
+          console.log(res.message);
         }
       });
 

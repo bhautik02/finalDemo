@@ -5,11 +5,12 @@ const sendCookie = (user = {}, statusCode, res) => {
     maxAge: new Date(
       Date.now() + process.env.COOKIE_EXPIRE * 24 * 60 * 60 * 1000
     ),
-    httpOnly: true,
+    // httpOnly: true,
+    // sameSite: "none",
   };
 
   res.status(statusCode).cookie("token", token, options).json({
-    success: true,
+    status: "success",
     user,
   });
 };

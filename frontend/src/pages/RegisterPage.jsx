@@ -1,8 +1,6 @@
+import axios from "axios";
 import { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
-// import axios from "axios";
-
-const BASEURL = "http://localhost:5000/api/v1/";
 
 const RegisterPage = () => {
   const [name, setName] = useState("");
@@ -18,27 +16,14 @@ const RegisterPage = () => {
       password,
     };
 
-    // console.log(formdata);
-
-    // const data = await axios.post("users/signup", formdata);
-    // console.log(data);
-
-    fetch(`${BASEURL}users/signup`, {
-      method: "POST",
-      body: JSON.stringify(formdata),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        if (res.status === "success") {
-          alert("user created");
-          setRedirect(true);
-        }
-        if (res.status === "failed") {
-          alert(res.message);
-        }
+    axios
+      .post("users/signup", formdata)
+      .then(() => {
+        alert("user created");
+        setRedirect(true);
+      })
+      .catch((err) => {
+        alert(err.response.data.message);
       });
 
     setName("");
@@ -62,7 +47,6 @@ const RegisterPage = () => {
             value={name}
             onChange={(event) => {
               setName(event.target.value);
-              // console.log(name);
             }}
           />
           <input
@@ -72,7 +56,6 @@ const RegisterPage = () => {
             value={email}
             onChange={(event) => {
               setEmail(event.target.value);
-              // console.log(email);
             }}
           />
           <input
@@ -82,7 +65,6 @@ const RegisterPage = () => {
             value={password}
             onChange={(event) => {
               setPassword(event.target.value);
-              // console.log(password);
             }}
           />
           <button className="primary">register</button>

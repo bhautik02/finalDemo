@@ -10,7 +10,6 @@ app.use(
   cors({
     origin: "http://localhost:3000",
     credentials: true,
-    exposedHeaders: ["set-cookie"],
   })
 );
 app.use(function (req, res, next) {

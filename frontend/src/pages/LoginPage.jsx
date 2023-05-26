@@ -31,14 +31,11 @@ const LoginPage = () => {
     axios
       .post(`${BASEURL}users/login`, formdata, { withCredentials: true })
       .then((res) => {
-        const cookies = res.headers["set-cookie"];
-        console.log("cookies ---->", cookies);
-        console.log("HEADERS ----------->", res.headers);
-        console.log("user from axnkadnv", res.data.user);
         setUser(res.data.user);
         setRedirect(true);
       })
       .catch((err) => {
+        console.log(err.message);
         console.log("ERROR in LOGIN ---->", err);
       });
 

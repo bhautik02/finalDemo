@@ -1,9 +1,9 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { userContext } from "../contextStore/userContext";
-import Logosvg from "../svg/LogoSvg";
-import SearchSvg from "../svg/SearchSvg";
-import UserSvg from "../svg/UserSvg";
+import { userContext } from "../store/userContext";
+import Logosvg from "../utils/svg/LogoSvg";
+import SearchSvg from "../utils/svg/SearchSvg";
+import UserSvg from "../utils/svg/UserSvg";
 
 const Header = () => {
   const { user } = useContext(userContext);
@@ -25,10 +25,10 @@ const Header = () => {
         </button>
       </div>
       <Link
-        to="/login"
+        to={user ? "/account/myAccount" : "/login"}
         className="flex border items-center border-grey-500 rounded-full gap-2 p-2">
         <UserSvg />
-        {!!user && <div>{user.name}</div>}
+        {!!user ? <div>{user.name}</div> : <div>Login</div>}
       </Link>
     </header>
   );

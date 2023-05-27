@@ -5,6 +5,7 @@ const URL = "http://localhost:5000/api/v1/users/profile";
 
 const UserContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
     if (!user) {
@@ -12,6 +13,7 @@ const UserContextProvider = ({ children }) => {
         .then((res) => res.json())
         .then((res) => {
           setUser(res.user);
+          setReady(true);
         })
         .catch((err) => {
           console.log(err);
@@ -20,7 +22,7 @@ const UserContextProvider = ({ children }) => {
   }, [user]);
 
   return (
-    <userContext.Provider value={{ user, setUser }}>
+    <userContext.Provider value={{ user, setUser, ready }}>
       {children}
     </userContext.Provider>
   );

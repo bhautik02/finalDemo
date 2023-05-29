@@ -5,7 +5,9 @@ import Step from "@mui/material/Step";
 import StepButton from "@mui/material/StepButton";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import First from "./SliderComponent/First";
+import FirstStep from "./SliderComponent/FirstStep";
+import SecondStep from "./SliderComponent/SecondStep";
+import ThirdStep from "./SliderComponent/ThirdStep";
 
 const steps = ["Add basic Details", "Add Perks & Photos", "Add extra info"];
 
@@ -64,7 +66,14 @@ export default function HostingSlider() {
     <Box sx={{ width: "100%" }}>
       <Stepper nonLinear activeStep={activeStep}>
         {steps.map((label, index) => (
-          <Step key={label} completed={completed[index]}>
+          <Step
+            key={label}
+            completed={completed[index]}
+            sx={{
+              "& .MuiStepLabel-root .Mui-active": {
+                color: "#F5385D", // circle color (ACTIVE)
+              },
+            }}>
             <StepButton color="inherit" onClick={handleStep(index)}>
               {label}
             </StepButton>
@@ -78,9 +87,24 @@ export default function HostingSlider() {
             <Typography sx={{ mt: 2, mb: 1 }}>
               All steps completed - you&apos;re finished
             </Typography>
-            <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                pt: 2,
+              }}>
               <Box sx={{ flex: "1 1 auto" }} />
-              <Button onClick={handleReset}>Reset</Button>
+              <Button
+                onClick={handleReset}
+                sx={{
+                  color: "#F5385D",
+                  ":hover": {
+                    bgcolor: "#F5385D",
+                    color: "white",
+                  },
+                }}>
+                Reset
+              </Button>
             </Box>
           </React.Fragment>
         ) : (
@@ -89,29 +113,55 @@ export default function HostingSlider() {
               Step {activeStep + 1}
             </Typography> */}
 
-            <Box>{activeStep === 0 && <First />}</Box>
+            <Box>{activeStep === 0 && <FirstStep />}</Box>
+            <Box>{activeStep === 1 && <SecondStep />}</Box>
+            <Box>{activeStep === 2 && <ThirdStep />}</Box>
 
             <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
               <Button
                 color="inherit"
                 disabled={activeStep === 0}
                 onClick={handleBack}
-                sx={{ mr: 1 }}>
+                sx={{
+                  mr: 1,
+                  color: "#F5385D",
+                  ":hover": {
+                    bgcolor: "#F5385D",
+                    color: "white",
+                  },
+                }}>
                 Back
               </Button>
               <Box sx={{ flex: "1 1 auto" }} />
-              <Button onClick={handleNext} sx={{ mr: 1 }}>
+              <Button
+                onClick={handleNext}
+                sx={{
+                  mr: 1,
+                  color: "#F5385D",
+                  ":hover": {
+                    bgcolor: "#F5385D",
+                    color: "white",
+                  },
+                }}>
                 Next
               </Button>
               {activeStep !== steps.length &&
                 (completed[activeStep] ? (
                   <Typography
                     variant="caption"
-                    sx={{ display: "inline-block" }}>
+                    sx={{ display: "flex", alignItems: "center" }}>
                     Step {activeStep + 1} already completed
                   </Typography>
                 ) : (
-                  <Button onClick={handleComplete}>
+                  <Button
+                    onClick={handleComplete}
+                    sx={{
+                      color: "#F5385D",
+                      ":hover": {
+                        bgcolor: "#F5385D",
+                        color: "white",
+                      },
+                    }}>
                     {completedSteps() === totalSteps() - 1
                       ? "Finish"
                       : "Complete Step"}

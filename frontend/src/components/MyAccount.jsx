@@ -13,11 +13,13 @@ export default function MyAccount(props) {
   // const [redirect, setRedirect] = useState(false);
   const navigate = useNavigate();
   const { setUser } = React.useContext(userContext);
+  console.log(setUser);
 
   const logoutHandler = () => {
     axios
       .get(`users/logout`)
       .then((res) => {
+        console.log(res, "res");
         // setRedirect(true);
         navigate("/");
         setUser(null);

@@ -24,12 +24,15 @@ const Header = () => {
           <SearchSvg />
         </button>
       </div>
-      <Link
-        to={user ? "/account/myAccount" : "/login"}
-        className="flex border items-center border-grey-500 rounded-full gap-2 p-2">
-        <UserSvg />
-        {!!user ? <div>{user.name}</div> : <div>Login</div>}
-      </Link>
+      <Link to={user ? "/account/places" : "/login"}>host your place</Link>
+      <div>
+        <Link
+          to={user ? "/account/myAccount" : "/login"}
+          className="flex border items-center border-grey-500 rounded-full gap-2 p-2">
+          <UserSvg />
+          {!!user ? <div>{user.name}</div> : <div>Login</div>}
+        </Link>
+      </div>
     </header>
   );
 };

@@ -1,47 +1,60 @@
-function inputHeader(text) {
-  return <h2 className="text-2xl mt-4">{text}</h2>;
-}
-
-function inputDescription(text) {
-  return <p className="text-gray-500 text-sm">{text}</p>;
-}
-
-function preInput(header, description) {
+const ThirdStep = () => {
   return (
-    <>
-      {inputHeader(header)}
-      {inputDescription(description)}
-    </>
-  );
-}
-
-const First = () => {
-  return (
-    <>
-      {preInput(
-        "Title",
-        "Title for your place. should be short and catchy as in advertisement"
-      )}
-      <input
-        type="text"
-        // value={title}
-        // onChange={(ev) => setTitle(ev.target.value)}
-        placeholder="title, for example: My lovely apt"
-      />
-      {preInput("Address", "Address to this place")}
-      <input
-        type="text"
-        // value={address}
-        // onChange={(ev) => setAddress(ev.target.value)}
-        placeholder="address"
-      />
-      {preInput("Description", "description of the place")}
-      <textarea
-      // value={description}
-      // onChange={(ev) => setDescription(ev.target.value)}
-      />
-    </>
+    <div className="p-4">
+      <div className="grid mt-2 gap-2 lg:grid-cols-2  md:grid-cols-2 sm:grid-cols-1 ">
+        <label for="points" className="text-xl mt-4">
+          Number of Bedrooms
+        </label>
+        <input
+          type="number"
+          className="w-full border my-1 py-2 px-3 rounded-2xl"
+          placeholder="2"
+          min="1"
+          max="10"
+        />
+        <label for="points" className="text-xl mt-4">
+          Number of Bathroom
+        </label>
+        <input
+          type="number"
+          className="w-full border my-1 py-2 px-3 rounded-2xl"
+          placeholder="2"
+          min="1"
+          max="5"
+        />
+        <label for="points" className="text-xl mt-4">
+          Maximum Guest allowed
+        </label>
+        <input
+          type="number"
+          className="w-full border my-1 py-2 px-3 rounded-2xl"
+          placeholder="2"
+          min="1"
+          max="10"
+        />
+        <label for="points" className="text-xl mt-4">
+          Prefered Check In time
+        </label>
+        <input
+          type="time"
+          id="cit"
+          name="cit"
+          placeholder="12:00am"
+          className="w-full border my-1 py-2 px-3 rounded-2xl"
+        />
+        <label for="points" className="text-xl mt-4">
+          Prefered Check Out time
+        </label>
+        <input
+          type="time"
+          id="cot"
+          name="cot"
+          placeholder="12:00am"
+          className="w-full border my-1 py-2 px-3 rounded-2xl"
+        />
+      </div>
+    </div>
   );
 };
 
-export default First;
+export default ThirdStep;

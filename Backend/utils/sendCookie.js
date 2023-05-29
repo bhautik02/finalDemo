@@ -3,6 +3,7 @@ const sendCookie = (user = {}, statusCode, res) => {
   const expireIn = eval(process.env.COOKIE_EXPIRE);
   const options = {
     maxAge: expireIn,
+    httpOnly: true,
   };
 
   res.status(statusCode).cookie("token", token, options).json({

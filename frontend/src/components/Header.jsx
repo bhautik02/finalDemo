@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { userContext } from "../store/userContext";
 import Logosvg from "../utils/svg/LogoSvg";
 import SearchSvg from "../utils/svg/SearchSvg";
-import UserSvg from "../utils/svg/UserSvg";
+import UserSvg from "../utils/svg/UserLoginSvg";
 
 const Header = () => {
   const { user } = useContext(userContext);

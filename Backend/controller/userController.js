@@ -81,22 +81,28 @@ const loginUser = async (req, res, next) => {
   }
 };
 
-const logoutUser = async (req, res, next) => {
-  res.cookie("token", null, {
-    expires: new Date(Date.now()),
-    httpOnly: true,
-  });
+const logoutUser = (req, res, next) => {
+  try {
+    // res.cookie("token", null).json(true);
+    res.cookie("token", null, {
+      expires: new Date(Date.now()),
+      httpOnly: true,
+    });
+    // res.cookie("token", "", { expires: new Date(0), path: "/" });
+    // res.clearCookie("token", { path: "/" });
 
-  res.status(200).json({
-    success: true,
-    message: "Logged Out",
-  });
+    // console.log(new Date(Date.now()));
+  } catch (error) {
+    res.status(401).json({
+      status: "failed",
+      message: error.message,
+    });
+  }
 };
 
 const profile = async (req, res, next) => {
   try {
     const { token } = req.cookies;
-    console.log("token:" + token);
 
     if (!token) {
       throw new Error("Please Login to Access");

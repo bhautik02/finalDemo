@@ -22,6 +22,9 @@ function App() {
             path="/account/"
             element={<Navigate replace to="/account/myAccount" />}></Route>
           <Route path="/account/:param" element={<AccountPage />}></Route>
+          <Route
+            path="/account/:param/:action"
+            element={<AccountPage />}></Route>
         </Route>
       </Routes>
     </UserContextProvider>

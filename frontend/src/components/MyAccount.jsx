@@ -4,8 +4,33 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { Button, CardActionArea } from "@mui/material";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { userContext } from "../store/userContext";
 
 export default function MyAccount(props) {
+  //to redirect user after login
+  // const [redirect, setRedirect] = useState(false);
+  const navigate = useNavigate();
+  const { setUser } = React.useContext(userContext);
+
+  const logoutHandler = () => {
+    axios
+      .get(`users/logout`)
+      .then((res) => {
+        // setRedirect(true);
+        navigate("/");
+        setUser(null);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    // if (redirect) {
+    //   Navigate("/");
+    // }
+  };
+
   return (
     <div className="flex justify-center p-24">
       <Card sx={{ maxWidth: 1000 }}>
@@ -32,9 +57,9 @@ export default function MyAccount(props) {
                 <Typography variant="body2" color="text.secondary">
                   Email: {props.user.email}
                 </Typography>
-                <div className="flex justify-center  mt-3 relative">
-                  <Button>Logout</Button>
-                </div>
+                {/* <div className="flex justify-center  mt-3 relative"> */}
+                <Button onClick={logoutHandler}>Logout</Button>
+                {/* </div> */}
               </CardContent>
             </div>
           </div>

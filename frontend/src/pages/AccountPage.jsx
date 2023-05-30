@@ -7,7 +7,7 @@ import UserSvg from "../utils/svg/UserSvg";
 import ReservationSvg from "../utils/svg/ReservationSvg";
 import LikeSvg from "../utils/svg/LikeSvg";
 import PlaceSvg from "../utils/svg/PlaceSvg";
-import MyPlaces from "../components/MyPlaces";
+import MyPlaces from "../components/MyPlaces/MyPlaces";
 
 const AccountPage = () => {
   const param = useParams();

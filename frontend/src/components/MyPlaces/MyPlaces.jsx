@@ -1,7 +1,7 @@
 import { Box, Modal } from "@mui/material";
-import PlusSvg from "../utils/svg/PlusSvg";
+import PlusSvg from "../../utils/svg/PlusSvg";
 import { useState } from "react";
-import HostingSlider from "./HostingSlider";
+import HostingSlider from "../HostingSlider";
 
 const style = {
   position: "absolute",
@@ -10,7 +10,6 @@ const style = {
   transform: "translate(-50%, -50%)",
   width: "50%",
   bgcolor: "background.paper",
-  //   border: "2px solid #000",
   borderRadius: "10px",
   boxShadow: 24,
   p: 4,
@@ -42,7 +41,6 @@ const MyPlaces = () => {
           aria-describedby="modal-modal-description">
           <Box sx={style}>
             <div className="flex justify-center ">
-              {/* <button>x</button> */}
               <div className="text-2xl">Host Your Place</div>
             </div>
             <div className="p-8">

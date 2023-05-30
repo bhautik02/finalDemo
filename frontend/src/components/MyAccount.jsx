@@ -9,28 +9,23 @@ import { useNavigate } from "react-router-dom";
 import { userContext } from "../store/userContext";
 
 export default function MyAccount(props) {
-  //to redirect user after login
-  // const [redirect, setRedirect] = useState(false);
-  const navigate = useNavigate();
   const { setUser } = React.useContext(userContext);
-  console.log(setUser);
+  //to redirect user after login
+  const navigate = useNavigate();
 
   const logoutHandler = () => {
     axios
       .get(`users/logout`)
       .then((res) => {
-        console.log(res, "res");
-        // setRedirect(true);
         navigate("/");
+        document.cookie = `token=; Max-Age=0 expires=${
+          new Date().getTime() - 1000
+        }`;
         setUser(null);
       })
       .catch((err) => {
         console.log(err);
       });
-
-    // if (redirect) {
-    //   Navigate("/");
-    // }
   };
 
   return (
@@ -59,9 +54,19 @@ export default function MyAccount(props) {
                 <Typography variant="body2" color="text.secondary">
                   Email: {props.user.email}
                 </Typography>
-                {/* <div className="flex justify-center  mt-3 relative"> */}
-                <Button onClick={logoutHandler}>Logout</Button>
-                {/* </div> */}
+                <div className="flex justify-center  mt-5 relative">
+                  <Button
+                    onClick={logoutHandler}
+                    sx={{
+                      color: "#F5385D",
+                      ":hover": {
+                        bgcolor: "#F5385D",
+                        color: "white",
+                      },
+                    }}>
+                    Logout
+                  </Button>
+                </div>
               </CardContent>
             </div>
           </div>

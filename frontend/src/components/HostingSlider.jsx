@@ -12,6 +12,7 @@ import ThirdStep from "./SliderComponent/ThirdStep";
 const steps = ["Add basic Details", "Add Perks & Photos", "Add extra info"];
 
 export default function HostingSlider() {
+  const ref = React.useRef();
   const [activeStep, setActiveStep] = React.useState(0);
   const [completed, setCompleted] = React.useState({});
 
@@ -50,17 +51,18 @@ export default function HostingSlider() {
   };
 
   const handleComplete = () => {
+    ref.current.click();
     const newCompleted = completed;
     newCompleted[activeStep] = true;
     setCompleted(newCompleted);
     handleNext();
   };
 
-  const handleReset = () => {
-    setActiveStep(0);
-    setCompleted({});
-  };
-  console.log(activeStep);
+  // const handleReset = () => {
+  //   setActiveStep(0);
+  //   setCompleted({});
+  // };
+  // console.log(activeStep);
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -94,7 +96,7 @@ export default function HostingSlider() {
                 pt: 2,
               }}>
               <Box sx={{ flex: "1 1 auto" }} />
-              <Button
+              {/* <Button
                 onClick={handleReset}
                 sx={{
                   color: "#F5385D",
@@ -104,7 +106,7 @@ export default function HostingSlider() {
                   },
                 }}>
                 Reset
-              </Button>
+              </Button> */}
             </Box>
           </React.Fragment>
         ) : (
@@ -113,9 +115,9 @@ export default function HostingSlider() {
               Step {activeStep + 1}
             </Typography> */}
 
-            <Box>{activeStep === 0 && <FirstStep />}</Box>
+            <Box>{activeStep === 0 && <FirstStep ref={ref} />}</Box>
             <Box>{activeStep === 1 && <SecondStep />}</Box>
-            <Box>{activeStep === 2 && <ThirdStep />}</Box>
+            <Box>{activeStep === 2 && <ThirdStep ref={ref} />}</Box>
 
             <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
               <Button

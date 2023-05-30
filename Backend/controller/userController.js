@@ -81,51 +81,19 @@ const loginUser = async (req, res, next) => {
   }
 };
 
-// const logoutUser = (req, res, next) => {
-//   try {
-//     // res.cookie("token", null).json(true);
-//     res.status(200).cookie("token", null, {
-//       expires: new Date(Date.now()),
-//       httpOnly: true,
-//     });
-//     console.log("logging out");
-//     // res.cookie("token", "", { expires: new Date(0), path: "/" });
-//     // res.clearCookie("token", { path: "/" });
-
-//     // console.log(new Date(Date.now()));
-//   } catch (error) {
-//     res.status(401).json({
-//       status: "failed",
-//       message: error.message,
-//     });
-//   }
-// };
-const logoutUser = async (req, res, next) => {
+const logoutUser = (req, res, next) => {
   try {
-    // const options = {
-    //   expires: new Date(0),
-    //   httpOnly: true,
-    // };
-
-    // res.cookie.remove("token", options);
-    // res.status(200).json({
-    //   status: "success",
-    //   message: "logged out",
-    // });
     const options = {
-      maxAge: new Date(0),
-      httpOnly: true,
+      maxAge: 0,
     };
 
-    res.status(200).cookie("token", null, options).json({
+    res.status(200).cookie("token", "", options).json({
       status: "success",
     });
-  } catch (err) {
-    console.log(err, "err");
-
+  } catch (error) {
     res.status(401).json({
-      success: "failed",
-      message: err.message,
+      status: "failed",
+      message: error.message,
     });
   }
 };

@@ -14,7 +14,7 @@ const Header = () => {
         <Logosvg />
         <p className="font-bold text-2xl">bhautik</p>
       </a>
-      <div className="flex border  border-grey-500 rounded-full gap-2 p-2 shadow-lg shadow-grey-100">
+      <div className="flex border   border-grey-500 rounded-full gap-2 p-2 shadow-lg shadow-grey-100">
         <div>Any where</div>
         <div className="border-l border-grey-500" />
         <div>Any week</div>
@@ -24,8 +24,13 @@ const Header = () => {
           <SearchSvg />
         </button>
       </div>
-      <Link to={user ? "/account/places" : "/login"}>host your place</Link>
-      <div>
+
+      <div className="flex  gap-1 ">
+        <Link
+          className="p-2 items-center  hover:text-white hover:bg-primary rounded-full px-4"
+          to={user ? "/account/places" : "/login"}>
+          host your place
+        </Link>
         <Link
           to={user ? "/account/myAccount" : "/login"}
           className="flex border items-center border-grey-500 rounded-full gap-2 p-2">

@@ -1,13 +1,11 @@
-import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { userContext } from "../store/userContext";
 import Logosvg from "../utils/svg/LogoSvg";
 import SearchSvg from "../utils/svg/SearchSvg";
 import UserSvg from "../utils/svg/UserLoginSvg";
+import { useSelector } from "react-redux";
 
 const Header = () => {
-  const { user } = useContext(userContext);
-
+  const user = useSelector((state) => state.user.user);
   return (
     <header className="flex justify-between">
       <a href="/" className="flex item-center gap-1">

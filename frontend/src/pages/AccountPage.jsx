@@ -1,5 +1,3 @@
-import { useContext } from "react";
-import { userContext } from "../store/userContext";
 import LoadingSpinner from "../utils/LoadingSpinner";
 import { NavLink, Navigate, useParams } from "react-router-dom";
 import MyAccount from "../components/MyAccount";
@@ -8,20 +6,24 @@ import ReservationSvg from "../utils/svg/ReservationSvg";
 import LikeSvg from "../utils/svg/LikeSvg";
 import PlaceSvg from "../utils/svg/PlaceSvg";
 import MyPlaces from "../components/MyPlaces/MyPlaces";
+import { useSelector } from "react-redux";
 
 const AccountPage = () => {
   const param = useParams();
-  const { user, ready } = useContext(userContext);
+  const isUserLoggedIn = useSelector((state) => state.user.isUserLoggedIn);
+  const user = useSelector((state) => state.user.user);
+  console.log(user);
+  const ready = useSelector((state) => state.user.isReady);
 
   if (!ready) {
     return <LoadingSpinner />;
   }
 
-  if (ready & !user) {
+  if (ready & !isUserLoggedIn) {
     return <Navigate to={"/login"} />;
   }
 
-  if (ready && user) {
+  if (ready && isUserLoggedIn) {
     const activeClassName = ({ isActive }) =>
       isActive
         ? "inline-flex gap-1 py-2 px-6 bg-primary rounded-full text-white"

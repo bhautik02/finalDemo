@@ -101,7 +101,6 @@ const logoutUser = (req, res, next) => {
 const profile = async (req, res, next) => {
   try {
     const { token } = req.cookies;
-
     if (!token) {
       throw new Error("Please Login to Access");
     }
@@ -110,7 +109,6 @@ const profile = async (req, res, next) => {
       if (!err) {
         try {
           const userDoc = await User.findById(user.id);
-
           if (!userDoc) {
             throw new Error("User not Found!");
           }

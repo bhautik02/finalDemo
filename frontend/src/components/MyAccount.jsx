@@ -6,10 +6,11 @@ import Typography from "@mui/material/Typography";
 import { Button, CardActionArea } from "@mui/material";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { userContext } from "../store/userContext";
+import { useDispatch } from "react-redux";
+import { userActions } from "../store/userRedux";
 
 export default function MyAccount(props) {
-  const { setUser } = React.useContext(userContext);
+  const dispatch = useDispatch();
   //to redirect user after login
   const navigate = useNavigate();
 
@@ -21,7 +22,8 @@ export default function MyAccount(props) {
         document.cookie = `token=; Max-Age=0 expires=${
           new Date().getTime() - 1000
         }`;
-        setUser(null);
+        dispatch(userActions.userData({}));
+        dispatch(userActions.logout());
       })
       .catch((err) => {
         console.log(err);

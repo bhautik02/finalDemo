@@ -38,7 +38,7 @@ export default function HostingSlider() {
   };
 
   const handleNext = () => {
-    console.log("handleNext.......");
+    // console.log("handleNext.......");
     const newActiveStep =
       isLastStep() && !allStepsCompleted()
         ? // It's the last step, but not all steps have been completed,
@@ -58,13 +58,11 @@ export default function HostingSlider() {
 
   const handleComplete = () => {
     ref.current.click();
-    console.log("handleComplete called---->", data);
   };
 
   React.useEffect(
     () => {
       if (data.title) {
-        console.log("------------ DATA -------------");
         const newCompleted = completed;
         newCompleted[activeStep] = true;
         setCompleted(newCompleted);
@@ -83,8 +81,11 @@ export default function HostingSlider() {
             key={label}
             completed={completed[index]}
             sx={{
+              "& .MuiStepLabel-root .Mui-completed": {
+                color: "#F5385D", // circle color (COMPLETED)
+              },
               "& .MuiStepLabel-root .Mui-active": {
-                color: "#F5385D",
+                color: "grey",
               },
             }}>
             <StepButton color="inherit" onClick={handleStep(index)}>
@@ -112,7 +113,7 @@ export default function HostingSlider() {
         ) : (
           <React.Fragment>
             <Box>{activeStep === 0 && <FirstStep ref={ref} />}</Box>
-            <Box>{activeStep === 1 && <SecondStep />}</Box>
+            <Box>{activeStep === 1 && <SecondStep ref={ref} />}</Box>
             <Box>{activeStep === 2 && <ThirdStep ref={ref} />}</Box>
 
             <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>

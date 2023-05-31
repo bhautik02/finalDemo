@@ -41,6 +41,7 @@ const ThirdStep = forwardRef((props, ref) => {
           type="number"
           className="w-full border my-1 py-2 px-3 rounded-2xl"
           placeholder="2"
+          required
           onChange={(event) => setNumberOfBedrooms(event.target.value)}
           min="1"
           max="10"
@@ -51,6 +52,7 @@ const ThirdStep = forwardRef((props, ref) => {
           type="number"
           className="w-full border my-1 py-2 px-3 rounded-2xl"
           placeholder="2"
+          required
           min="1"
           max="5"
           onChange={(event) => setNumberOfBathrooms(event.target.value)}
@@ -61,6 +63,7 @@ const ThirdStep = forwardRef((props, ref) => {
           type="number"
           className="w-full border my-1 py-2 px-3 rounded-2xl"
           placeholder="2"
+          required
           min="1"
           max="10"
           onChange={(event) => setNumberOfGuest(event.target.value)}
@@ -70,6 +73,7 @@ const ThirdStep = forwardRef((props, ref) => {
         <input
           type="time"
           id="cit"
+          required
           name="cit"
           placeholder="12:00"
           className="w-full border my-1 py-2 px-3 rounded-2xl"
@@ -81,6 +85,7 @@ const ThirdStep = forwardRef((props, ref) => {
           type="time"
           id="cot"
           name="cot"
+          required
           placeholder="12:00"
           className="w-full border my-1 py-2 px-3 rounded-2xl"
           onChange={(event) => setCheckOutTime(event.target.value)}

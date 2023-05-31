@@ -18,10 +18,11 @@ const style = {
 
 const MyPlaces = () => {
   const data = useSelector((state) => state.addPlace.hostPlaceData);
+
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
+  console.log(data);
   return (
     <>
       <div className="text-center p-6">
@@ -48,8 +49,6 @@ const MyPlaces = () => {
             </div>
           </Box>
         </Modal>
-
-        {console.log(data)}
       </div>
     </>
   );

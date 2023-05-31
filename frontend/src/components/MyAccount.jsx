@@ -7,7 +7,7 @@ import { Button, CardActionArea } from "@mui/material";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { userActions } from "../store/userRedux";
+import { userActions } from "../store/user";
 
 export default function MyAccount(props) {
   const dispatch = useDispatch();

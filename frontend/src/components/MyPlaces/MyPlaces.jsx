@@ -2,6 +2,7 @@ import { Box, Modal } from "@mui/material";
 import PlusSvg from "../../utils/svg/PlusSvg";
 import { useState } from "react";
 import HostingSlider from "../HostingSlider";
+import { useSelector } from "react-redux";
 
 const style = {
   position: "absolute",
@@ -16,8 +17,7 @@ const style = {
 };
 
 const MyPlaces = () => {
-  //   const { action } = useParams();
-  //   console.log(action);
+  const data = useSelector((state) => state.addPlace.hostPlaceData);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -48,6 +48,8 @@ const MyPlaces = () => {
             </div>
           </Box>
         </Modal>
+
+        {console.log(data)}
       </div>
     </>
   );

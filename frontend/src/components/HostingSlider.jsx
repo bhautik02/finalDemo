@@ -8,13 +8,18 @@ import Typography from "@mui/material/Typography";
 import FirstStep from "./SliderComponent/FirstStep";
 import SecondStep from "./SliderComponent/SecondStep";
 import ThirdStep from "./SliderComponent/ThirdStep";
+import { useSelector } from "react-redux";
 
 const steps = ["Add basic Details", "Add Perks & Photos", "Add extra info"];
 
 export default function HostingSlider() {
+  const data = useSelector((state) => state.addPlace.hostPlaceData);
+
   const ref = React.useRef();
   const [activeStep, setActiveStep] = React.useState(0);
   const [completed, setCompleted] = React.useState({});
+
+  // const [disabled, setDisabled] = React.useState(data ? false : true);
 
   const totalSteps = () => {
     return steps.length;
@@ -33,6 +38,7 @@ export default function HostingSlider() {
   };
 
   const handleNext = () => {
+    console.log("handleNext.......");
     const newActiveStep =
       isLastStep() && !allStepsCompleted()
         ? // It's the last step, but not all steps have been completed,
@@ -52,17 +58,22 @@ export default function HostingSlider() {
 
   const handleComplete = () => {
     ref.current.click();
-    const newCompleted = completed;
-    newCompleted[activeStep] = true;
-    setCompleted(newCompleted);
-    handleNext();
+    console.log("handleComplete called---->", data);
   };
 
-  // const handleReset = () => {
-  //   setActiveStep(0);
-  //   setCompleted({});
-  // };
-  // console.log(activeStep);
+  React.useEffect(
+    () => {
+      if (data.title) {
+        console.log("------------ DATA -------------");
+        const newCompleted = completed;
+        newCompleted[activeStep] = true;
+        setCompleted(newCompleted);
+        handleNext();
+      }
+    },
+    // eslint-disable-next-line
+    [data]
+  );
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -73,7 +84,7 @@ export default function HostingSlider() {
             completed={completed[index]}
             sx={{
               "& .MuiStepLabel-root .Mui-active": {
-                color: "#F5385D", // circle color (ACTIVE)
+                color: "#F5385D",
               },
             }}>
             <StepButton color="inherit" onClick={handleStep(index)}>
@@ -96,25 +107,10 @@ export default function HostingSlider() {
                 pt: 2,
               }}>
               <Box sx={{ flex: "1 1 auto" }} />
-              {/* <Button
-                onClick={handleReset}
-                sx={{
-                  color: "#F5385D",
-                  ":hover": {
-                    bgcolor: "#F5385D",
-                    color: "white",
-                  },
-                }}>
-                Reset
-              </Button> */}
             </Box>
           </React.Fragment>
         ) : (
           <React.Fragment>
-            {/* <Typography sx={{ mt: 2, mb: 1, py: 1 }}>
-              Step {activeStep + 1}
-            </Typography> */}
-
             <Box>{activeStep === 0 && <FirstStep ref={ref} />}</Box>
             <Box>{activeStep === 1 && <SecondStep />}</Box>
             <Box>{activeStep === 2 && <ThirdStep ref={ref} />}</Box>
@@ -134,7 +130,6 @@ export default function HostingSlider() {
                 }}>
                 Back
               </Button>
-              <Box sx={{ flex: "1 1 auto" }} />
               <Button
                 onClick={handleNext}
                 sx={{
@@ -147,6 +142,8 @@ export default function HostingSlider() {
                 }}>
                 Next
               </Button>
+              <Box sx={{ flex: "1 1 auto" }} />
+
               {activeStep !== steps.length &&
                 (completed[activeStep] ? (
                   <Typography

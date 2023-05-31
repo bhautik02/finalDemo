@@ -1,4 +1,6 @@
 import { forwardRef, useState } from "react";
+import { useDispatch } from "react-redux";
+import { addPlaceActions } from "../../store/addPlace";
 
 function preInput(label) {
   return (
@@ -9,6 +11,8 @@ function preInput(label) {
 }
 
 const ThirdStep = forwardRef((props, ref) => {
+  const dispatch = useDispatch();
+
   const [numberOFBedrooms, setNumberOfBedrooms] = useState(0);
   const [numberOFBathrooms, setNumberOfBathrooms] = useState(0);
   const [numberOFGuest, setNumberOfGuest] = useState(0);
@@ -26,6 +30,7 @@ const ThirdStep = forwardRef((props, ref) => {
       CheckOutTime,
     };
     console.log(thirdSlideInput);
+    dispatch(addPlaceActions.addPlaceData(thirdSlideInput));
   };
 
   return (

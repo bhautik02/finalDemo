@@ -3,7 +3,7 @@ import { Link, Navigate } from "react-router-dom";
 
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { userActions } from "../store/userRedux";
+import { userActions } from "../store/user";
 
 const LoginPage = () => {
   //to take input from user while login

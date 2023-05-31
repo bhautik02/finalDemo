@@ -1,4 +1,6 @@
 import { forwardRef, useState } from "react";
+import { useDispatch } from "react-redux";
+import { addPlaceActions } from "../../store/addPlace";
 
 function preInput(header) {
   return (
@@ -17,6 +19,8 @@ function errorinInput(errorMessage) {
 }
 
 const FirstStep = forwardRef((props, ref) => {
+  const dispatch = useDispatch();
+
   const [title, setTitle] = useState("");
   const [titleIsTouched, setTitleIsTouched] = useState(false);
 
@@ -52,6 +56,7 @@ const FirstStep = forwardRef((props, ref) => {
       description,
     };
     console.log(firstSlideInput);
+    dispatch(addPlaceActions.addPlaceData(firstSlideInput));
 
     setTitleIsTouched(false);
     setAddressIsTouched(false);
@@ -62,11 +67,12 @@ const FirstStep = forwardRef((props, ref) => {
   };
 
   return (
-    <form className=" p-4" onSubmit={onclickHandler}>
+    <form className="p-4" onSubmit={onclickHandler}>
       {preInput("Title")}
       <input
         type="text"
         value={title}
+        required
         onChange={(event) => setTitle(event.target.value)}
         onBlur={() => setTitleIsTouched(true)}
         placeholder="Title for your place."
@@ -77,6 +83,7 @@ const FirstStep = forwardRef((props, ref) => {
       <input
         type="text"
         value={address}
+        required
         onChange={(event) => setAddress(event.target.value)}
         onBlur={() => setAddressIsTouched(true)}
         placeholder="Address to this place"
@@ -86,6 +93,7 @@ const FirstStep = forwardRef((props, ref) => {
       {preInput("Description")}
       <textarea
         value={description}
+        required
         onChange={(event) => setDescription(event.target.value)}
         onBlur={() => setDescriptionIsTouched(true)}
         placeholder="Description of the place"

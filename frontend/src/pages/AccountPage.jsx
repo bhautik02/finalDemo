@@ -10,20 +10,19 @@ import { useSelector } from "react-redux";
 
 const AccountPage = () => {
   const param = useParams();
-  const isUserLoggedIn = useSelector((state) => state.user.isUserLoggedIn);
+
   const user = useSelector((state) => state.user.user);
-  console.log(user);
   const ready = useSelector((state) => state.user.isReady);
 
   if (!ready) {
     return <LoadingSpinner />;
   }
 
-  if (ready & !isUserLoggedIn) {
+  if (ready & !user) {
     return <Navigate to={"/login"} />;
   }
 
-  if (ready && isUserLoggedIn) {
+  if (ready && user) {
     const activeClassName = ({ isActive }) =>
       isActive
         ? "inline-flex gap-1 py-2 px-6 bg-primary rounded-full text-white"

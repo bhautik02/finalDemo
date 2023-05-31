@@ -8,7 +8,7 @@ import axios from "axios";
 import AccountPage from "./pages/AccountPage";
 
 import { useEffect } from "react";
-import { userActions } from "./store/userRedux";
+import { userActions } from "./store/user";
 import { useDispatch, useSelector } from "react-redux";
 
 axios.defaults.baseURL = "http://localhost:5000/api/v1/";

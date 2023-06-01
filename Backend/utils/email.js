@@ -24,17 +24,17 @@ async function sendEmail(options) {
   let transporter = nodemailer.createTransport({
     service: "Gmail",
     auth: {
-      user: "bhautikjani1102@gmail.com",
-      pass: "plltqquuzuvkeyng",
+      user: process.env.EMAIL_USERNAME,
+      pass: process.env.EMAIL_PASSWORD,
     },
   });
 
   try {
     // Send mail with defined transport object
     let info = await transporter.sendMail({
-      from: "bhautikjani1102@gmail.com", // Sender address
+      from: process.env.EMAIL_USERNAME, // Sender address
       to: options.email, // Recipient address
-      subject: "Thank you for Signing Up", // Subject line
+      subject: options.subject, // Subject line
       html: htmlContent,
     });
 

@@ -1,5 +1,5 @@
 import LoadingSpinner from "../utils/LoadingSpinner";
-import { NavLink, Navigate, useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import MyAccount from "../components/MyAccount";
 import UserSvg from "../utils/svg/UserSvg";
 import ReservationSvg from "../utils/svg/ReservationSvg";
@@ -14,20 +14,14 @@ const AccountPage = () => {
   const user = useSelector((state) => state.user.user);
   const ready = useSelector((state) => state.user.isReady);
 
-  if (!ready) {
-    return <LoadingSpinner />;
-  }
-
-  if (ready & !user) {
-    return <Navigate to={"/login"} />;
-  }
-
-  if (ready && user) {
-    const activeClassName = ({ isActive }) =>
-      isActive
-        ? "inline-flex gap-1 py-2 px-6 bg-primary rounded-full text-white"
-        : "inline-flex gap-1 py-2 px-6 bg-gray-200 rounded-full";
-    return (
+  const activeClassName = ({ isActive }) =>
+    isActive
+      ? "inline-flex gap-1 py-2 px-6 bg-primary rounded-full text-white"
+      : "inline-flex gap-1 py-2 px-6 bg-gray-200 rounded-full";
+  return !ready ? (
+    <LoadingSpinner />
+  ) : (
+    ready && user && (
       <>
         <nav className="w-full justify-center flex mt-8 gap-2">
           <NavLink className={activeClassName} to={"/account/myAccount"}>
@@ -54,8 +48,8 @@ const AccountPage = () => {
         {param.param === "myAccount" && <MyAccount user={user} />}
         {param.param === "places" && <MyPlaces />}
       </>
-    );
-  }
+    )
+  );
 };
 
 export default AccountPage;

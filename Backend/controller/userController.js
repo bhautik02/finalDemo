@@ -1,9 +1,9 @@
-const User = require("../models/userModel");
 const sendEmail = require("../utils/email");
 const sendCookie = require("../utils/sendCookie");
+const User = require("../models/userModel");
 const jwt = require("jsonwebtoken");
 
-const signupUser = async (req, res, next) => {
+const signupUser = async (req, res) => {
   try {
     const { name, email, password } = req.body;
     if (password.includes(" ")) {
@@ -21,6 +21,7 @@ const signupUser = async (req, res, next) => {
     await sendEmail({
       email: newUser.email,
       name: newUser.name,
+      subject: "Thank you for Signing Up",
     });
 
     res.status(200).json({
@@ -57,7 +58,7 @@ const signupUser = async (req, res, next) => {
   }
 };
 
-const loginUser = async (req, res, next) => {
+const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
     let user = await User.findOne({ email }).select("+password");
@@ -81,7 +82,7 @@ const loginUser = async (req, res, next) => {
   }
 };
 
-const logoutUser = (req, res, next) => {
+const logoutUser = (req, res) => {
   try {
     const options = {
       maxAge: 0,
@@ -98,7 +99,7 @@ const logoutUser = (req, res, next) => {
   }
 };
 
-const profile = async (req, res, next) => {
+const profile = async (req, res) => {
   try {
     const { token } = req.cookies;
     if (!token) {

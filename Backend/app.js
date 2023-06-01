@@ -6,6 +6,7 @@ const morgan = require("morgan");
 const app = express();
 
 const user = require("./routes/userRoutes");
+const place = require("./routes/placeRoute");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -19,6 +20,8 @@ app.use(
     credentials: true,
   })
 );
+
 app.use("/api/v1/users", user);
+app.use("/api/v1/place", place);
 
 module.exports = app;

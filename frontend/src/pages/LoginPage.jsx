@@ -28,7 +28,9 @@ const LoginPage = () => {
       .then((res) => {
         dispatch(userActions.userData(res.data.user));
         dispatch(userActions.login());
+        // dispatch(userActions.ready());
         // setUser(res.data.user);
+
         setRedirect(true);
       })
       .catch((err) => {

@@ -1,4 +1,4 @@
-import { forwardRef, useState } from "react";
+import { forwardRef, useEffect, useState } from "react";
 import PrivateEntrance from "../../utils/svg/PrivateEntransSvg";
 import PetsSvg from "../../utils/svg/PetsSvg";
 import RadioSvg from "../../utils/svg/RadioSvg";
@@ -7,6 +7,16 @@ import ParkingSvg from "../../utils/svg/ParkingSvg";
 import TvSvg from "../../utils/svg/TvSvg";
 import { useDispatch } from "react-redux";
 import { addPlaceActions } from "../../store/addPlace";
+import storage from "../../utils/firebaseStorage";
+import LoadingSpinner from "./../../utils/LoadingSpinner";
+import {
+  ref as addRef,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage";
+import UploadSvg from "../../utils/svg/UploadSvg";
+
+let images = [];
 
 function inputHeader(text) {
   return <h2 className="text-2xl mt-4">{text}</h2>;
@@ -27,7 +37,36 @@ function preInput(header, description) {
 
 const SecondStep = forwardRef((props, ref) => {
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
   const [checkData, setCheckData] = useState({});
+
+  const uploadPhoto = (event) => {
+    setLoading((prev) => !prev);
+
+    let file = event.target.files;
+    if (!file) {
+      alert("Please upload an image first!");
+    }
+    for (let i = 0; i < file.length; i++) {
+      const storageRef = addRef(storage, `/files/${file[i].name}`);
+      const uploadTask = uploadBytesResumable(storageRef, file[i]);
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {},
+        (err) => console.log(err),
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+            images.push(url);
+
+            if (i === file.length - 1) {
+              setLoading(false);
+            }
+          });
+        }
+      );
+    }
+    console.log(loading);
+  };
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -44,21 +83,21 @@ const SecondStep = forwardRef((props, ref) => {
 
     const secondSlideInput = {
       perks: Perks,
+      photo: images,
     };
 
     console.log(secondSlideInput);
     dispatch(addPlaceActions.addPlaceData(secondSlideInput));
   };
 
+  useEffect(() => {}, [loading]);
+
   function handleCbClick(ev) {
     const { checked, name } = ev.target;
     setCheckData({ ...checkData, [name]: checked });
   }
 
-  //only for log
-  // useEffect(() => {
-  //   console.log(".......... CHECKED DATA -------------> ", checkData);
-  // }, [checkData]);
+  // only for log
 
   return (
     <form className="p-4" onSubmit={submitHandler}>
@@ -101,28 +140,22 @@ const SecondStep = forwardRef((props, ref) => {
         </label>
       </div>
       {preInput("Photos", "add one or more photos of your place")}
-
       <label className="h-32 cursor-pointer flex items-center gap-1 justify-center border bg-transparent rounded-2xl p-2 text-2xl text-gray-600">
-        <input
-          type="file"
-          multiple
-          className="hidden"
-          // onChange={uploadPhoto}
-        />
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="currentColor"
-          className="w-8 h-8">
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z"
-          />
-        </svg>
-        Upload
+        {loading ? (
+          <LoadingSpinner />
+        ) : (
+          <>
+            <input
+              type="file"
+              multiple
+              className="hidden"
+              accept="image/*"
+              onChange={uploadPhoto}
+            />
+            <UploadSvg />
+            Upload
+          </>
+        )}
       </label>
       <button style={{ display: "none" }} type="submit" ref={ref}></button>
     </form>

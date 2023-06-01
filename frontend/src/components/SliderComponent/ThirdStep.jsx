@@ -23,11 +23,11 @@ const ThirdStep = forwardRef((props, ref) => {
     event.preventDefault();
 
     const thirdSlideInput = {
-      numberOFBathrooms,
-      numberOFBedrooms,
-      numberOFGuest,
-      checkInTime,
-      CheckOutTime,
+      noOfBathrooms: numberOFBathrooms,
+      noOfBedrooms: numberOFBedrooms,
+      maxGuest: numberOFGuest,
+      checkIn: checkInTime,
+      checkOut: CheckOutTime,
     };
     console.log(thirdSlideInput);
     dispatch(addPlaceActions.addPlaceData(thirdSlideInput));

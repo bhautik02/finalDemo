@@ -85,7 +85,7 @@ export default function HostingSlider() {
                 color: "#F5385D", // circle color (COMPLETED)
               },
               "& .MuiStepLabel-root .Mui-active": {
-                color: "grey",
+                color: "black",
               },
             }}>
             <StepButton color="inherit" onClick={handleStep(index)}>
@@ -99,7 +99,9 @@ export default function HostingSlider() {
         {allStepsCompleted() ? (
           <React.Fragment>
             <Typography sx={{ mt: 2, mb: 1 }}>
-              All steps completed - you&apos;re finished
+              <div className="justify-center flex text-3xl m-8">
+                Place Hosted
+              </div>
             </Typography>
             <Box
               sx={{
@@ -162,9 +164,7 @@ export default function HostingSlider() {
                         color: "white",
                       },
                     }}>
-                    {completedSteps() === totalSteps() - 1
-                      ? "Finish"
-                      : "Complete Step"}
+                    {completedSteps() === totalSteps() - 1 ? "Finish" : "NEXT"}
                   </Button>
                 ))}
             </Box>

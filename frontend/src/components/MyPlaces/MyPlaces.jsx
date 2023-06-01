@@ -1,8 +1,14 @@
+//mui imports
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Typography from "@mui/material/Typography";
 import { Box, Modal } from "@mui/material";
+
 import PlusSvg from "../../utils/svg/PlusSvg";
 import { useState } from "react";
 import HostingSlider from "../HostingSlider";
 import { useSelector } from "react-redux";
+import axios from "axios";
 
 const style = {
   position: "absolute",
@@ -17,12 +23,27 @@ const style = {
 };
 
 const MyPlaces = () => {
-  const data = useSelector((state) => state.addPlace.hostPlaceData);
+  const user = useSelector((state) => state.user.user);
+  // const [hostedPlace, setHostedPlace] = useState(null);
+
+  const userId = user._id;
+  console.log(userId);
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  console.log(data);
+
+  axios
+    .get(`place/hostPlace/${userId}`)
+    .then((res) => {
+      console.log(res.data);
+      // setHostedPlace(res);
+    })
+    .catch((err) => {
+      alert(err.response.data.message);
+    });
+
+  console.log(user);
   return (
     <>
       <div className="text-center p-6">
@@ -49,6 +70,27 @@ const MyPlaces = () => {
             </div>
           </Box>
         </Modal>
+      </div>
+
+      {/* hosted places */}
+      <div className="flex justify-center m-3">
+        <Card
+          sx={{
+            width: 800,
+            background: "#eeeeee",
+            display: "flex",
+            // justifyContent: "center",
+          }}>
+          <CardContent>
+            <Typography sx={{ mb: 1.5 }} color="text.secondary">
+              adjective
+            </Typography>
+            <Typography variant="body2">
+              well meaning and kindly.
+              <br />
+            </Typography>
+          </CardContent>
+        </Card>
       </div>
     </>
   );

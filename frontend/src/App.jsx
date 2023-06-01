@@ -39,11 +39,28 @@ function App() {
         <Route path="/index" element={<IndexPage />}></Route>
         <Route path="/login" element={<LoginPage />}></Route>
         <Route path="/register" element={<RegisterPage />}></Route>
+        {console.log(user)}
         <Route
-          path="/account/"
-          element={<Navigate replace to="/account/myAccount" />}></Route>
+          path="/account"
+          element={
+            user ? (
+              <Navigate replace to="/account/myAccount" />
+            ) : (
+              <Navigate replace to="/login" />
+            )
+          }></Route>
         <Route path="/account/:param" element={<AccountPage />}></Route>
         <Route path="/account/:param/:action" element={<AccountPage />}></Route>
+        {/* <Route
+          path="/account/:param"
+          element={
+            user ? <AccountPage /> : <Navigate replace to="/login" />
+          }></Route>
+        <Route
+          path="/account/:param/:action"
+          element={
+            user ? <AccountPage /> : <Navigate replace to="/login" />
+          }></Route> */}
       </Route>
     </Routes>
   );

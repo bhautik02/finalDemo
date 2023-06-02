@@ -162,9 +162,8 @@ const SecondStep = forwardRef((props, ref) => {
       </label>
       {uploading === "Done" &&
         images.map((image) => {
-          console.log(images);
           return (
-            <div className="inline gap-2 mt-5 ">
+            <div className="inline gap-2 mt-5" key={image}>
               <img
                 src={image}
                 style={{

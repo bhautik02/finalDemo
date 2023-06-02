@@ -98,7 +98,17 @@ const MyPlaces = () => {
         </Modal>
       </div>
 
-      {hostedData &&
+      {/* {hostedData === null && (
+        <div className="justify-center">
+          <p>You Don't Have any hosted Place.</p>
+        </div>
+      )} */}
+
+      {hostedData.length === 0 ? (
+        <div className="justify-center">
+          <p>You Don't Have any hosted Place.</p>
+        </div>
+      ) : (
         hostedData.map((place) => {
           return (
             <div className="flex justify-center m-3">
@@ -129,7 +139,8 @@ const MyPlaces = () => {
               </Card>
             </div>
           );
-        })}
+        })
+      )}
     </>
   );
 };

@@ -25,7 +25,7 @@ const preInputForArray = (title, text) => {
   );
 };
 
-const IndexPage = () => {
+const HomePage = () => {
   const allHostedPlaces = useSelector(
     (state) => state.hostedPlace.allHostedPlaces
   );
@@ -83,4 +83,4 @@ const IndexPage = () => {
   );
 };
 
-export default IndexPage;
+export default HomePage;

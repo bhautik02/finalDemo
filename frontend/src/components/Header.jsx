@@ -8,7 +8,7 @@ const Header = () => {
   const user = useSelector((state) => state.user.user);
   return (
     <header className="flex justify-between">
-      <a href="/" className="flex item-center gap-1">
+      <a href="/home" className="flex item-center gap-1">
         <Logosvg />
         <p className="font-bold text-2xl">bhautik</p>
       </a>

@@ -8,6 +8,7 @@ const hostedPlaceSlice = createSlice({
   reducers: {
     hostingData(state, action) {
       state.yourHostedPlace = action.payload;
+      // console.log(state.yourHostedPlace);
     },
     allHostingData(state, action) {
       state.allHostedPlaces = action.payload;

@@ -1,6 +1,6 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import "./App.css";
-import IndexPage from "./pages/IndexPage";
+import HomePage from "./pages/HomePage";
 import Layout from "./components/Layout";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
@@ -35,26 +35,24 @@ function App() {
 
   return (
     <Routes>
+      {/* <Route path="/" element={<Layout />}> */}
       <Route path="/" element={<Layout />}>
-        <Route path="/" element={<IndexPage />}>
-          <Route path="/index" element={<IndexPage />}></Route>
-          <Route path="/login" element={<LoginPage />}></Route>
-          <Route path="/register" element={<RegisterPage />}></Route>
-          {/* {console.log(user)} */}
-          <Route
-            path="/account"
-            element={
-              user ? (
-                <Navigate replace to="/account/myAccount" />
-              ) : (
-                <Navigate replace to="/login" />
-              )
-            }></Route>
-          <Route path="/account/:param" element={<AccountPage />}></Route>
-          <Route
-            path="/account/:param/:action"
-            element={<AccountPage />}></Route>
-          {/* <Route
+        <Route path="/home" element={<HomePage />}></Route>
+        <Route path="/login" element={<LoginPage />}></Route>
+        <Route path="/register" element={<RegisterPage />}></Route>
+        {/* {console.log(user)} */}
+        <Route
+          path="/account"
+          element={
+            user ? (
+              <Navigate replace to="/account/myAccount" />
+            ) : (
+              <Navigate replace to="/login" />
+            )
+          }></Route>
+        <Route path="/account/:param" element={<AccountPage />}></Route>
+        <Route path="/account/:param/:action" element={<AccountPage />}></Route>
+        {/* <Route
           path="/account/:param"
           element={
             user ? <AccountPage /> : <Navigate replace to="/login" />
@@ -64,8 +62,8 @@ function App() {
           element={
             user ? <AccountPage /> : <Navigate replace to="/login" />
           }></Route> */}
-        </Route>
       </Route>
+      {/* </Route> */}
     </Routes>
   );
 }

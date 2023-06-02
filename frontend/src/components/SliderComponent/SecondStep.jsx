@@ -16,8 +16,6 @@ import {
 } from "firebase/storage";
 import UploadSvg from "../../utils/svg/UploadSvg";
 
-let images = [];
-
 function inputHeader(text) {
   return <h2 className="text-2xl mt-4">{text}</h2>;
 }
@@ -38,7 +36,9 @@ function preInput(header, description) {
 const SecondStep = forwardRef((props, ref) => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
+  const [images, setImages] = useState([]);
   const [checkData, setCheckData] = useState({});
+  const [uploading, setUploading] = useState("");
 
   const uploadPhoto = (event) => {
     setLoading((prev) => !prev);
@@ -47,6 +47,8 @@ const SecondStep = forwardRef((props, ref) => {
     if (!file) {
       alert("Please upload an image first!");
     }
+
+    setUploading("Uploading");
     for (let i = 0; i < file.length; i++) {
       const storageRef = addRef(storage, `/files/${file[i].name}`);
       const uploadTask = uploadBytesResumable(storageRef, file[i]);
@@ -56,7 +58,7 @@ const SecondStep = forwardRef((props, ref) => {
         (err) => console.log(err),
         () => {
           getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-            images.push(url);
+            setImages((prevImages) => [...prevImages, url]);
 
             if (i === file.length - 1) {
               setLoading(false);
@@ -65,7 +67,7 @@ const SecondStep = forwardRef((props, ref) => {
         }
       );
     }
-    console.log(loading);
+    setUploading("Done");
   };
 
   const submitHandler = (event) => {
@@ -96,8 +98,6 @@ const SecondStep = forwardRef((props, ref) => {
     const { checked, name } = ev.target;
     setCheckData({ ...checkData, [name]: checked });
   }
-
-  // only for log
 
   return (
     <form className="p-4" onSubmit={submitHandler}>
@@ -140,9 +140,12 @@ const SecondStep = forwardRef((props, ref) => {
         </label>
       </div>
       {preInput("Photos", "add one or more photos of your place")}
-      <label className="h-32 cursor-pointer flex items-center gap-1 justify-center border bg-transparent rounded-2xl p-2 text-2xl text-gray-600">
+      <label className="h-32 cursor-pointer flex items-center gap-1 justify-center border bg-transparent rounded-2xl p-2 text-2xl text-gray-600 mt-2">
         {loading ? (
-          <LoadingSpinner />
+          <>
+            UpLoading
+            <LoadingSpinner />
+          </>
         ) : (
           <>
             <input
@@ -157,6 +160,25 @@ const SecondStep = forwardRef((props, ref) => {
           </>
         )}
       </label>
+      {uploading === "Done" &&
+        images.map((image) => {
+          console.log(images);
+          return (
+            <div className="inline gap-2 mt-5 ">
+              <img
+                src={image}
+                style={{
+                  height: "75px",
+                  width: "100px",
+                  objectFit: "contain",
+                }}
+                key={image}
+                className="rounded-xl inline m-5 mb-0 gap-3 bg-gray-200"
+                alt="uploaded place"
+              />
+            </div>
+          );
+        })}
       <button style={{ display: "none" }} type="submit" ref={ref}></button>
     </form>
   );

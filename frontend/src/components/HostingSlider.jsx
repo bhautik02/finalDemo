@@ -13,7 +13,7 @@ import { useSelector } from "react-redux";
 const steps = ["Add basic Details", "Add Perks & Photos", "Add extra info"];
 
 export default function HostingSlider() {
-  const data = useSelector((state) => state.addPlace.hostPlaceData);
+  const addPlace = useSelector((state) => state.addPlace.addPlace);
 
   const ref = React.useRef();
   const [activeStep, setActiveStep] = React.useState(0);
@@ -62,7 +62,7 @@ export default function HostingSlider() {
 
   React.useEffect(
     () => {
-      if (data.title) {
+      if (addPlace.title) {
         const newCompleted = completed;
         newCompleted[activeStep] = true;
         setCompleted(newCompleted);
@@ -70,8 +70,14 @@ export default function HostingSlider() {
       }
     },
     // eslint-disable-next-line
-    [data]
+    [addPlace]
   );
+
+  // React.useEffect(() => {
+  //   if (activeStep === 2) {
+  //     console.log("fromslider", addPlace);
+  //   }
+  // }, []);
 
   return (
     <Box sx={{ width: "100%" }}>

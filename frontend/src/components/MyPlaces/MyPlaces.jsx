@@ -1,14 +1,14 @@
 //mui imports
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import Typography from "@mui/material/Typography";
 import { Box, Modal } from "@mui/material";
 
 import PlusSvg from "../../utils/svg/PlusSvg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import HostingSlider from "../HostingSlider";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
+import { hostedPlaceActions } from "../../store/place";
 
 const style = {
   position: "absolute",
@@ -22,28 +22,54 @@ const style = {
   p: 4,
 };
 
+const preInput = (title, text) => {
+  return (
+    <div className="flex gap-2">
+      <p className="text-base text-gray-500">{title}:</p>
+      <p className="text-xl font-mono">{text}</p>
+    </div>
+  );
+};
+
+const preInputForArray = (title, text) => {
+  return (
+    <div className="flex gap-2">
+      <p className="text-base text-gray-500">{title}:</p>
+      {text.map((value) => {
+        return <p className="text-xl font-mono">{value},</p>;
+      })}
+    </div>
+  );
+};
+
 const MyPlaces = () => {
   const user = useSelector((state) => state.user.user);
+  const hostedData = useSelector((state) => state.hostedPlace.yourHostedPlace);
+  const dispatch = useDispatch();
   // const [hostedPlace, setHostedPlace] = useState(null);
 
   const userId = user._id;
-  console.log(userId);
+  // console.log(userId);
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  axios
-    .get(`place/hostPlace/${userId}`)
-    .then((res) => {
-      console.log(res.data);
-      // setHostedPlace(res);
-    })
-    .catch((err) => {
-      alert(err.response.data.message);
-    });
+  useEffect(
+    () => {
+      axios
+        .get(`place/hostPlace/${userId}`)
+        .then((res) => {
+          dispatch(hostedPlaceActions.hostingData(res.data.hostedPlace));
+        })
+        .catch((err) => {
+          alert(err.response.data.message);
+        });
+    },
+    // eslint-disable-next-line
+    [userId]
+  );
 
-  console.log(user);
   return (
     <>
       <div className="text-center p-6">
@@ -72,26 +98,38 @@ const MyPlaces = () => {
         </Modal>
       </div>
 
-      {/* hosted places */}
-      <div className="flex justify-center m-3">
-        <Card
-          sx={{
-            width: 800,
-            background: "#eeeeee",
-            display: "flex",
-            // justifyContent: "center",
-          }}>
-          <CardContent>
-            <Typography sx={{ mb: 1.5 }} color="text.secondary">
-              adjective
-            </Typography>
-            <Typography variant="body2">
-              well meaning and kindly.
-              <br />
-            </Typography>
-          </CardContent>
-        </Card>
-      </div>
+      {hostedData &&
+        hostedData.map((place) => {
+          return (
+            <div className="flex justify-center m-3">
+              <Card
+                sx={{
+                  width: 800,
+                  background: "#f5f5f5",
+                  display: "flex",
+                  // justifyContent: "center",
+                }}>
+                <CardContent>
+                  {preInput("Title", place.title)}
+                  {preInput("Address", place.address)}
+                  {preInput("Description", place.description)}
+                  <br />
+                  {preInputForArray("Perks", place.perks)}
+                  {/* {preInputForArray("Photo", place.photo)} */}
+
+                  <br />
+                  {preInput("Number Of BedRooms", place.noOfBedrooms)}
+                  {preInput("Number Of Bathrooms", place.noOfBathrooms)}
+                  {preInput("Max Guest Allowed", place.maxGuest)}
+
+                  <br />
+                  {preInput("Check in Time", place.checkIn)}
+                  {preInput("Check out Time", place.checkOut)}
+                </CardContent>
+              </Card>
+            </div>
+          );
+        })}
     </>
   );
 };

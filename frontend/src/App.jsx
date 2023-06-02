@@ -20,12 +20,12 @@ function App() {
 
   useEffect(() => {
     try {
-      if (user) {
+      if (!user) {
         fetch(URL, { credentials: "include" })
           .then((res) => res.json())
           .then((res) => {
             dispatch(userActions.userData(res.user));
-            dispatch(userActions.ready(true));
+            dispatch(userActions.ready());
           })
           .catch((err) => {});
       }
@@ -36,22 +36,25 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
-        <Route path="/index" element={<IndexPage />}></Route>
-        <Route path="/login" element={<LoginPage />}></Route>
-        <Route path="/register" element={<RegisterPage />}></Route>
-        {console.log(user)}
-        <Route
-          path="/account"
-          element={
-            user ? (
-              <Navigate replace to="/account/myAccount" />
-            ) : (
-              <Navigate replace to="/login" />
-            )
-          }></Route>
-        <Route path="/account/:param" element={<AccountPage />}></Route>
-        <Route path="/account/:param/:action" element={<AccountPage />}></Route>
-        {/* <Route
+        <Route path="/" element={<IndexPage />}>
+          <Route path="/index" element={<IndexPage />}></Route>
+          <Route path="/login" element={<LoginPage />}></Route>
+          <Route path="/register" element={<RegisterPage />}></Route>
+          {/* {console.log(user)} */}
+          <Route
+            path="/account"
+            element={
+              user ? (
+                <Navigate replace to="/account/myAccount" />
+              ) : (
+                <Navigate replace to="/login" />
+              )
+            }></Route>
+          <Route path="/account/:param" element={<AccountPage />}></Route>
+          <Route
+            path="/account/:param/:action"
+            element={<AccountPage />}></Route>
+          {/* <Route
           path="/account/:param"
           element={
             user ? <AccountPage /> : <Navigate replace to="/login" />
@@ -61,6 +64,7 @@ function App() {
           element={
             user ? <AccountPage /> : <Navigate replace to="/login" />
           }></Route> */}
+        </Route>
       </Route>
     </Routes>
   );

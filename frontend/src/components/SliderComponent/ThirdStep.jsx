@@ -1,6 +1,7 @@
-import { forwardRef, useState } from "react";
-import { useDispatch } from "react-redux";
+import { forwardRef, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { addPlaceActions } from "../../store/addPlace";
+import axios from "axios";
 
 function preInput(label) {
   return (
@@ -11,7 +12,10 @@ function preInput(label) {
 }
 
 const ThirdStep = forwardRef((props, ref) => {
+  const addPlace = useSelector((state) => state.addPlace.addPlace);
+  const user = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
+  const [ready, setReady] = useState(false);
 
   const [numberOFBedrooms, setNumberOfBedrooms] = useState(0);
   const [numberOFBathrooms, setNumberOfBathrooms] = useState(0);
@@ -29,9 +33,30 @@ const ThirdStep = forwardRef((props, ref) => {
       checkIn: checkInTime,
       checkOut: CheckOutTime,
     };
-    console.log(thirdSlideInput);
+    // console.log(thirdSlideInput);
     dispatch(addPlaceActions.addPlaceData(thirdSlideInput));
+    setReady(true);
   };
+
+  const sendHostedData = () => {
+    const userId = user._id;
+    axios
+      .post(`place/hostPlace/${userId}`, addPlace)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        alert(err.response.data.message);
+      });
+    setReady(false);
+  };
+
+  useEffect(() => {
+    if (ready) {
+      sendHostedData();
+    }
+    // eslint-disable-next-line
+  }, [ready]);
 
   return (
     <form className="p-4" onSubmit={submitHandler}>

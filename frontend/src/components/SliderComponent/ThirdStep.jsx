@@ -44,11 +44,14 @@ const ThirdStep = forwardRef((props, ref) => {
     axios
       .post(`place/hostPlace/${userId}`, addPlace)
       .then((res) => {
-        console.log(res.data.newHostedPlace);
-        dispatch(hostedPlaceActions.yourHostedPlace(res.data.newHostedPlace));
+        console.log(
+          "------------------res.data.newHostedPlace --->",
+          res.data.newHostedPlace
+        );
+        // dispatch(hostedPlaceActions.hostingData(res.data.newHostedPlace));
       })
       .catch((err) => {
-        alert(err.response.data.message);
+        alert(err);
       });
     setReady(false);
   };

@@ -52,6 +52,10 @@ const MyPlaces = () => {
   const hostedData = useSelector((state) => state.hostedPlace.yourHostedPlace);
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    console.log("---------- HOSTED DATA--->", hostedData);
+  }, [hostedData]);
+
   const userId = user._id;
   // console.log(userId);
 
@@ -64,10 +68,9 @@ const MyPlaces = () => {
       axios
         .get(`place/hostPlace/${userId}`)
         .then((res) => {
-          if (res.data.length === 0) {
-            return;
-          }
-
+          // if (res.data.length === 0) {
+          //   return;
+          // }
           dispatch(hostedPlaceActions.hostingData(res.data.hostedPlace));
         })
         .catch((err) => {
@@ -75,7 +78,7 @@ const MyPlaces = () => {
         });
     },
     // eslint-disable-next-line
-    [userId]
+    []
   );
 
   return (
@@ -106,56 +109,115 @@ const MyPlaces = () => {
         </Modal>
       </div>
 
-      {
-        !hostedData ? (
-          <div className="flex justify-center m-3 ">
-            <Card
-              sx={{
-                width: 500,
-                height: 100,
-                background: "#f5f5f5",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}>
-              <p className="text-2xl">You Don't Have any hosted Place.</p>
-            </Card>
-          </div>
-        ) : (
-          hostedData.map((place) => {
-            return (
-              <div className="flex justify-center m-3" key={place._id}>
-                <Card
-                  sx={{
-                    width: 800,
-                    background: "#f5f5f5",
-                    display: "flex",
-                    // justifyContent: "center",
-                  }}>
-                  <CardContent>
-                    {preInput("Title", place.title)}
-                    {preInput("Address", place.address)}
-                    {preInput("Description", place.description)}
-                    <br />
-                    {(preInputForArray("Perks", place.perks), place._id)}
-                    {/* {preInputForArray("Photo", place.photo)} */}
+      {hostedData.length === 0 ? (
+        <div className="flex justify-center m-3 ">
+          <Card
+            sx={{
+              width: 500,
+              height: 100,
+              background: "#f5f5f5",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}>
+            <p className="text-2xl">You Don't Have any hosted Place.</p>
+          </Card>
+        </div>
+      ) : (
+        //   (
+        //   hostedData.map((place) => {
+        //     return (
+        //       // <div className="flex justify-center m-3" key={place._id}>
+        //       //   <Card
+        //       //     sx={{
+        //       //       width: 800,
+        //       //       background: "#f5f5f5",
+        //       //       display: "flex",
+        //       //       // justifyContent: "center",
+        //       //     }}>
+        //       //     <CardContent>
+        //       //       {preInput("Title", place.title)}
+        //       //       {preInput("Address", place.address)}
+        //       //       {preInput("Description", place.description)}
+        //       //       <br />
+        //       //       {preInputForArray("Perks", place.perks, place._id)}
+        //       //       {/* {preInputForArray("Photo", place.photo)} */}
 
-                    <br />
-                    {preInput("Number Of BedRooms", place.noOfBedrooms)}
-                    {preInput("Number Of Bathrooms", place.noOfBathrooms)}
-                    {preInput("Max Guest Allowed", place.maxGuest)}
+        //       //       <br />
+        //       //       {preInput("Number Of BedRooms", place.noOfBedrooms)}
+        //       //       {preInput("Number Of Bathrooms", place.noOfBathrooms)}
+        //       //       {preInput("Max Guest Allowed", place.maxGuest)}
 
-                    <br />
-                    {preInput("Check in Time", place.checkIn)}
-                    {preInput("Check out Time", place.checkOut)}
-                  </CardContent>
-                </Card>
-              </div>
-            );
-          })
-        )
+        //       //       <br />
+        //       //       {preInput("Check in Time", place.checkIn)}
+        //       //       {preInput("Check out Time", place.checkOut)}
+        //       //     </CardContent>
+        //       //   </Card>
+        //       // </div>
+
+        //       <div className="">
+        //         <div className="max-w-lg mx-auto xl:px-20  md:px-10 sm:px-2 px-4 ">
+        //           <div className="pt-24 grid  grid-cols-1  sm:grid-cols-2  md:grid-cols-3  lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-8 ">
+        //             <div className="col-span-1 cursor-pointer group">
+        //               <div className="flex flex-col gap-2 w-full">
+        //                 <div className="aspect-square w-full relative overflow-hidden rounded-xl ">
+        //                   <img
+        //                     fill
+        //                     className=" object-cover h-full w-full group-hover:scale-110 transition "
+        //                     src={place.photo[0]}
+        //                     alt="Listing"
+        //                   />
+        //                   <div className="absolute top-3 right-3"></div>
+        //                 </div>
+        //                 <div class="font-semibold text-lg">Europe, Belgium</div>
+        //                 <div class="font-light text-neutral-500">Beach</div>
+        //                 <div class="flex flex-row items-center gap-1">
+        //                   <div class="font-semibold">$ 136</div>
+        //                   <div class="font-light">night</div>
+        //                 </div>
+        //               </div>
+        //             </div>
+        //           </div>
+        //         </div>
+        //       </div>
+        //     );
+        //   })
         // )
-      }
+        // )
+
+        <div className="">
+          <div className="mx-auto md:px-10 sm:px-2 px-4 xsm:ml-20px ">
+            <div className=" grid  grid-cols-1  sm:grid-cols-2  md:grid-cols-3  lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-8 ">
+              {hostedData &&
+                // hostedData.length > 0 &&
+                hostedData.map((place) => {
+                  return (
+                    <div className="col-span-1 cursor-pointer group">
+                      {console.log("HOSTED------------->", place)}
+                      <div className="flex flex-col gap-2 w-full">
+                        <div className="aspect-square w-full relative overflow-hidden rounded-xl ">
+                          <img
+                            fill
+                            className=" object-cover h-full w-full group-hover:scale-110 transition "
+                            src={place?.photo[0]}
+                            alt="Listing"
+                          />
+                          <div className="absolute top-3 right-3"></div>
+                        </div>
+                        <div class="font-semibold text-lg">Europe, Belgium</div>
+                        <div class="font-light text-neutral-500">Beach</div>
+                        <div class="flex flex-row items-center gap-1">
+                          <div class="font-semibold">$ 136</div>
+                          <div class="font-light">night</div>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 };

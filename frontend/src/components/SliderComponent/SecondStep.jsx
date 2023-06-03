@@ -7,8 +7,8 @@ import ParkingSvg from "../../utils/svg/ParkingSvg";
 import TvSvg from "../../utils/svg/TvSvg";
 import { useDispatch } from "react-redux";
 import { addPlaceActions } from "../../store/addPlace";
-import storage from "../../utils/firebaseStorage";
 import LoadingSpinner from "./../../utils/LoadingSpinner";
+import storage from "../../utils/firebaseStorage";
 import {
   ref as addRef,
   uploadBytesResumable,

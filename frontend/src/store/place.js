@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const InitialState = { yourHostedPlace: null, allHostedPlaces: null };
+const InitialState = { yourHostedPlace: [], allHostedPlaces: null };
 
 const hostedPlaceSlice = createSlice({
   name: "HostedPlace",
@@ -8,7 +8,15 @@ const hostedPlaceSlice = createSlice({
   reducers: {
     hostingData(state, action) {
       // state.yourHostedPlace = [...state.yourHostedPlace, action.payload];
+      console.log("yourHostedPlace ---------->", state.yourHostedPlace);
+      console.log("yourHostedPnjihiuh8lace ---------->", action.payload);
       state.yourHostedPlace = action.payload;
+
+      // if (state.yourHostedPlace.length === 0) {
+      // } else {
+      //   state.yourHostedPlace = [state.yourHostedPlace, action.payload];
+      // }
+
       console.log(state.yourHostedPlace);
     },
     allHostingData(state, action) {

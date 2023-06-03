@@ -2,7 +2,7 @@ import { forwardRef, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addPlaceActions } from "../../store/addPlace";
 import axios from "axios";
-import { Navigate } from "react-router-dom";
+import { hostedPlaceActions } from "../../store/place";
 
 function preInput(label) {
   return (
@@ -44,8 +44,8 @@ const ThirdStep = forwardRef((props, ref) => {
     axios
       .post(`place/hostPlace/${userId}`, addPlace)
       .then((res) => {
-        // console.log(res);
-        Navigate("/account/places");
+        console.log(res.data.newHostedPlace);
+        dispatch(hostedPlaceActions.yourHostedPlace(res.data.newHostedPlace));
       })
       .catch((err) => {
         alert(err.response.data.message);

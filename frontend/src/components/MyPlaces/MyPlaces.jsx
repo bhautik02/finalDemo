@@ -31,12 +31,17 @@ const preInput = (title, text) => {
   );
 };
 
-const preInputForArray = (title, text) => {
+const preInputForArray = (title, text, id) => {
   return (
     <div className="flex gap-2">
       <p className="text-base text-gray-500">{title}:</p>
+
       {text.map((value) => {
-        return <p className="text-xl font-mono">{value},</p>;
+        return (
+          <p className="text-xl font-mono" key={id + value}>
+            {value},
+          </p>
+        );
       })}
     </div>
   );
@@ -46,7 +51,6 @@ const MyPlaces = () => {
   const user = useSelector((state) => state.user.user);
   const hostedData = useSelector((state) => state.hostedPlace.yourHostedPlace);
   const dispatch = useDispatch();
-  // const [hostedPlace, setHostedPlace] = useState(null);
 
   const userId = user._id;
   // console.log(userId);
@@ -60,6 +64,10 @@ const MyPlaces = () => {
       axios
         .get(`place/hostPlace/${userId}`)
         .then((res) => {
+          if (res.data.length === 0) {
+            return;
+          }
+
           dispatch(hostedPlaceActions.hostingData(res.data.hostedPlace));
         })
         .catch((err) => {
@@ -98,49 +106,56 @@ const MyPlaces = () => {
         </Modal>
       </div>
 
-      {/* {hostedData === null && (
-        <div className="justify-center">
-          <p>You Don't Have any hosted Place.</p>
-        </div>
-      )} */}
+      {
+        !hostedData ? (
+          <div className="flex justify-center m-3 ">
+            <Card
+              sx={{
+                width: 500,
+                height: 100,
+                background: "#f5f5f5",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}>
+              <p className="text-2xl">You Don't Have any hosted Place.</p>
+            </Card>
+          </div>
+        ) : (
+          hostedData.map((place) => {
+            return (
+              <div className="flex justify-center m-3" key={place._id}>
+                <Card
+                  sx={{
+                    width: 800,
+                    background: "#f5f5f5",
+                    display: "flex",
+                    // justifyContent: "center",
+                  }}>
+                  <CardContent>
+                    {preInput("Title", place.title)}
+                    {preInput("Address", place.address)}
+                    {preInput("Description", place.description)}
+                    <br />
+                    {(preInputForArray("Perks", place.perks), place._id)}
+                    {/* {preInputForArray("Photo", place.photo)} */}
 
-      {hostedData.length === 0 ? (
-        <div className="justify-center">
-          <p>You Don't Have any hosted Place.</p>
-        </div>
-      ) : (
-        hostedData.map((place) => {
-          return (
-            <div className="flex justify-center m-3">
-              <Card
-                sx={{
-                  width: 800,
-                  background: "#f5f5f5",
-                  display: "flex",
-                  // justifyContent: "center",
-                }}>
-                <CardContent>
-                  {preInput("Title", place.title)}
-                  {preInput("Address", place.address)}
-                  {preInput("Description", place.description)}
-                  <br />
-                  {preInputForArray("Perks", place.perks)}
-                  {/* {preInputForArray("Photo", place.photo)} */}
+                    <br />
+                    {preInput("Number Of BedRooms", place.noOfBedrooms)}
+                    {preInput("Number Of Bathrooms", place.noOfBathrooms)}
+                    {preInput("Max Guest Allowed", place.maxGuest)}
 
-                  <br />
-                  {preInput("Number Of BedRooms", place.noOfBedrooms)}
-                  {preInput("Number Of Bathrooms", place.noOfBathrooms)}
-                  {preInput("Max Guest Allowed", place.maxGuest)}
-
-                  <br />
-                  {preInput("Check in Time", place.checkIn)}
-                  {preInput("Check out Time", place.checkOut)}
-                </CardContent>
-              </Card>
-            </div>
-          );
-        })
-      )}
+                    <br />
+                    {preInput("Check in Time", place.checkIn)}
+                    {preInput("Check out Time", place.checkOut)}
+                  </CardContent>
+                </Card>
+              </div>
+            );
+          })
+        )
+        // )
+      }
     </>
   );
 };

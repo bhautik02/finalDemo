@@ -14,12 +14,16 @@ const preInput = (title, text) => {
   );
 };
 
-const preInputForArray = (title, text) => {
+const preInputForArray = (title, text, id) => {
   return (
     <div className="flex gap-2">
       <p className="text-base text-gray-500">{title}:</p>
       {text.map((value) => {
-        return <p className="text-xl font-mono">{value},</p>;
+        return (
+          <p className="text-xl font-mono" key={id + value}>
+            {value},
+          </p>
+        );
       })}
     </div>
   );
@@ -50,7 +54,7 @@ const HomePage = () => {
       {allHostedPlaces &&
         allHostedPlaces.map((place) => {
           return (
-            <div className="flex justify-center m-3">
+            <div className="flex justify-center m-3 " key={place._id}>
               <Card
                 sx={{
                   width: 800,
@@ -63,7 +67,7 @@ const HomePage = () => {
                   {preInput("Address", place.address)}
                   {preInput("Description", place.description)}
                   <br />
-                  {preInputForArray("Perks", place.perks)}
+                  {preInputForArray("Perks", place.perks, place._id)}
                   {/* {preInputForArray("Photo", place.photo)} */}
 
                   <br />

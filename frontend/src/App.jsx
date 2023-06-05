@@ -10,6 +10,7 @@ import AccountPage from "./pages/AccountPage";
 import { useEffect } from "react";
 import { userActions } from "./store/user";
 import { useDispatch, useSelector } from "react-redux";
+import PlacePage from "./pages/PlacePage";
 
 axios.defaults.baseURL = "http://localhost:5000/api/v1/";
 const URL = "http://localhost:5000/api/v1/users/profile";
@@ -37,7 +38,7 @@ function App() {
     <Routes>
       {/* <Route path="/" element={<Layout />}> */}
       <Route path="/" element={<Layout />}>
-        <Route path="/home" element={<HomePage />}></Route>
+        <Route index path="/home" element={<HomePage />}></Route>
         <Route path="/login" element={<LoginPage />}></Route>
         <Route path="/register" element={<RegisterPage />}></Route>
         <Route
@@ -50,7 +51,8 @@ function App() {
             )
           }></Route>
         <Route path="/account/:param" element={<AccountPage />}></Route>
-        <Route path="/account/:param/:action" element={<AccountPage />}></Route>
+        <Route path="/places/:id" element={<PlacePage />}></Route>
+        {/* <Route path="/account/:param/:action" element={<AccountPage />}></Route> */}
         {/* <Route
           path="/account/:param"
           element={

@@ -2,7 +2,7 @@ import { forwardRef, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addPlaceActions } from "../../store/addPlace";
 import axios from "axios";
-import { hostedPlaceActions } from "../../store/place";
+// import { hostedPlaceActions } from "../../store/place";
 
 function preInput(label) {
   return (
@@ -21,6 +21,7 @@ const ThirdStep = forwardRef((props, ref) => {
   const [numberOFBedrooms, setNumberOfBedrooms] = useState(0);
   const [numberOFBathrooms, setNumberOfBathrooms] = useState(0);
   const [numberOFGuest, setNumberOfGuest] = useState(0);
+  const [price, setPrice] = useState(100);
   const [checkInTime, setCheckInTime] = useState(0);
   const [CheckOutTime, setCheckOutTime] = useState(0);
 
@@ -33,6 +34,7 @@ const ThirdStep = forwardRef((props, ref) => {
       maxGuest: numberOFGuest,
       checkIn: checkInTime,
       checkOut: CheckOutTime,
+      price,
     };
     // console.log(thirdSlideInput);
     dispatch(addPlaceActions.addPlaceData(thirdSlideInput));
@@ -66,6 +68,14 @@ const ThirdStep = forwardRef((props, ref) => {
   return (
     <form className="p-4" onSubmit={submitHandler}>
       <div className="grid mt-2 gap-2 lg:grid-cols-2  md:grid-cols-2 sm:grid-cols-1 ">
+        {preInput("Price per night")}
+        <input
+          type="number"
+          className="w-full border my-1 py-2 px-3 rounded-2xl"
+          required
+          onChange={(event) => setPrice(event.target.value)}
+        />
+
         {preInput("Number of Bedrooms")}
         <input
           type="number"

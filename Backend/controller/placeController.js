@@ -2,6 +2,28 @@
 
 const Place = require("../models/placeModel");
 
+const getPlace = async (req, res) => {
+  try {
+    const placeId = req.params.id;
+    console.log(placeId);
+    const place = await Place.findById(placeId).select("-__v");
+
+    if (!place) {
+      throw new Error("no place found...");
+    }
+
+    res.status(200).json({
+      status: "success",
+      place,
+    });
+  } catch (error) {
+    res.status(401).json({
+      status: "failed",
+      message: error.message,
+    });
+  }
+};
+
 const getYourHostedPlace = async (req, res) => {
   try {
     const ownerId = req.params.id;
@@ -55,6 +77,7 @@ const hostPlace = async (req, res) => {
       description,
       perks,
       checkIn,
+      price,
       checkOut,
       maxGuest,
       noOfBedrooms,
@@ -68,6 +91,7 @@ const hostPlace = async (req, res) => {
       description,
       perks,
       checkIn,
+      price,
       checkOut,
       maxGuest,
       noOfBedrooms,
@@ -101,6 +125,7 @@ const hostPlace = async (req, res) => {
 };
 
 module.exports = {
+  getPlace,
   getYourHostedPlace,
   getAllHostedplaces,
   hostPlace,

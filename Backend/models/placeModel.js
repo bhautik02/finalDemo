@@ -17,8 +17,15 @@ const placeSchema = mongoose.Schema({
     type: [String],
     required: true,
   },
-  description: String,
+  description: {
+    type: String,
+    required: true,
+  },
   perks: [String],
+  price: {
+    type: Number,
+    required: true,
+  },
   checkIn: {
     type: String,
     required: true,

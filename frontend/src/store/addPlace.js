@@ -14,6 +14,7 @@ const addPlaceSlice = createSlice({
     clearPlaceData(state, action) {
       state.addPlace = {};
     },
+    // isNotEditing(state,action)
   },
 });
 

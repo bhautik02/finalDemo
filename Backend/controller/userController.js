@@ -26,7 +26,7 @@ const signupUser = async (req, res) => {
 
     res.status(200).json({
       status: "success",
-      newUser,
+      message: "User Registerd!",
     });
   } catch (error) {
     if (
@@ -62,12 +62,16 @@ const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
     let user = await User.findOne({ email }).select("+password");
+    // .select("-createdAt")
+    // .select("-updatedAt")
+    // .select("-__v");
 
     if (!user) {
       throw new Error("User doesn't exist");
     }
 
     const isPasswordMatched = await user.comparePassword(password);
+    console.log("ispa", isPasswordMatched);
 
     if (!isPasswordMatched) {
       throw new Error("Password doesn't match");
@@ -75,7 +79,7 @@ const loginUser = async (req, res) => {
 
     sendCookie(user, 201, res);
   } catch (error) {
-    res.status(401).json({
+    res.status(420).json({
       status: "failed",
       message: error.message,
     });
@@ -102,31 +106,37 @@ const logoutUser = (req, res) => {
 const profile = async (req, res) => {
   try {
     const { token } = req.cookies;
-    if (!token) {
+    if (token === "null") {
       throw new Error("Please Login to Access");
     }
 
     jwt.verify(token, process.env.JWT_SECRET, {}, async (err, user) => {
-      if (!err) {
-        try {
-          const userDoc = await User.findById(user.id);
-          if (!userDoc) {
-            throw new Error("User not Found!");
-          }
-
-          res.status(200).json({
-            status: "success",
-            user: userDoc,
-          });
-        } catch (error) {
-          res.status(401).json({
-            status: "failed",
-            message: error.message,
-          });
-        }
+      if (err) {
+        console.log(err);
+        throw new Error(err.message);
       } else {
-        throw new Error();
+        // try {
+        // console.log(user);
+        const userDoc = await User.findById(user.id)
+          .select("-createdAt")
+          .select("-updatedAt")
+          .select("-__v");
+        if (!userDoc) {
+          throw new Error("User not Found!");
+        }
+
+        res.status(200).json({
+          status: "success",
+          user: userDoc,
+        });
       }
+      // catch (error) {
+      //   res.status(401).json({
+      //     status: "failed",
+      //     message: error.message,
+      //   });
+      // }
+      // }
     });
   } catch (error) {
     res.status(401).json({

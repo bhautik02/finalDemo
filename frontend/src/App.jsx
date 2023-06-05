@@ -40,7 +40,6 @@ function App() {
         <Route path="/home" element={<HomePage />}></Route>
         <Route path="/login" element={<LoginPage />}></Route>
         <Route path="/register" element={<RegisterPage />}></Route>
-        {/* {console.log(user)} */}
         <Route
           path="/account"
           element={

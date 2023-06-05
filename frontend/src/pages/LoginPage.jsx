@@ -34,7 +34,8 @@ const LoginPage = () => {
         setRedirect(true);
       })
       .catch((err) => {
-        alert(err.response.data.message);
+        console.log(err);
+        alert(err);
       });
 
     setEmail("");
@@ -42,7 +43,7 @@ const LoginPage = () => {
   };
 
   if (redirect) {
-    return <Navigate to={"/"} />;
+    return <Navigate to={"/home"} />;
   }
 
   return (

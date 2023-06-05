@@ -6,7 +6,7 @@ const getYourHostedPlace = async (req, res) => {
   try {
     const ownerId = req.params.id;
     console.log(ownerId);
-    const hostedPlace = await Place.find({ owner: ownerId });
+    const hostedPlace = await Place.find({ owner: ownerId }).select("-__v");
 
     if (!hostedPlace) {
       throw new Error("no place found...");
@@ -27,7 +27,7 @@ const getYourHostedPlace = async (req, res) => {
 
 const getAllHostedplaces = async (req, res) => {
   try {
-    const hostedPlace = await Place.find();
+    const hostedPlace = await Place.find().select("-__v");
 
     if (!hostedPlace) {
       throw new Error("no place found...");
@@ -80,11 +80,11 @@ const hostPlace = async (req, res) => {
     }
     res.status(200).json({
       status: "success",
-      newHostedPlace,
+      message: "New Place Hosted!",
     });
   } catch (error) {
     if (error.code === 11000) {
-      message = "User already exist.";
+      message = "Place already exist.";
     }
     if (error.name === "ValidationError") {
       const errors = Object.values(error.errors).map((el) => el.message);

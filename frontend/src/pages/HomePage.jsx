@@ -60,22 +60,24 @@ const HomePage = () => {
                 return (
                   <Link
                     className="col-span-1 cursor-pointer group"
-                    to="/account">
+                    to="/account"
+                    key={place._id}>
                     <div className="flex flex-col gap-2 w-full">
                       <div className="aspect-square w-full relative overflow-hidden rounded-xl ">
                         <img
-                          fill
                           className=" object-cover h-full w-full group-hover:scale-110 transition "
                           src={place.photo[0]}
                           alt="Listing"
                         />
                         <div className="absolute top-3 right-3"></div>
                       </div>
-                      <div class="font-semibold text-lg">Europe, Belgium</div>
-                      <div class="font-light text-neutral-500">Beach</div>
-                      <div class="flex flex-row items-center gap-1">
-                        <div class="font-semibold">$ 136</div>
-                        <div class="font-light">night</div>
+                      <div className="font-semibold text-lg">
+                        Europe, Belgium
+                      </div>
+                      <div className="font-light text-neutral-500">Beach</div>
+                      <div className="flex flex-row items-center gap-1">
+                        <div className="font-semibold">$ 136</div>
+                        <div className="font-light">night</div>
                       </div>
                     </div>
                   </Link>

@@ -6,9 +6,9 @@ export default function AddressLink({ children, className = null }) {
   return (
     <a
       className={className}
-      target="_blank"
+      // target="_blank"
       href={"https://maps.google.com/?q=" + children}>
-      <svg
+      {/* <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"
@@ -25,7 +25,7 @@ export default function AddressLink({ children, className = null }) {
           strokeLinejoin="round"
           d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"
         />
-      </svg>
+      </svg> */}
       {children}
     </a>
   );

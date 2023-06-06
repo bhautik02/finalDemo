@@ -36,7 +36,10 @@ const MyPlaces = () => {
 
   const [open, setOpen] = useState(false);
   const [editingPlaceInfo, setEditingPlaceInfo] = useState(false);
-  const handleOpen = () => setOpen(true);
+  const handleOpen = () => {
+    setEditingPlaceInfo(false);
+    setOpen(true);
+  };
   const editHandleOpen = () => {
     setOpen(true);
     console.log("jani");
@@ -92,17 +95,23 @@ const MyPlaces = () => {
       </div>
 
       {hostedData.length === 0 ? (
-        <div className="flex justify-center m-3 ">
+        <div className="flex  justify-center m-3 ">
           <Card
             sx={{
               width: 500,
-              height: 100,
-              background: "#f5f5f5",
+              height: 400,
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
             }}>
-            <p className="text-2xl">You Don't Have any hosted Place.</p>
+            <h1 className="absolute -mt-96">
+              You not Hosted any Place, Start Hosting...
+            </h1>
+            <img
+              src="https://img.freepik.com/free-vector/no-data-concept-illustration_114360-536.jpg?w=2000"
+              alt="No Data Found."
+              height={"500px"}
+            />
           </Card>
         </div>
       ) : (
@@ -148,3 +157,4 @@ const MyPlaces = () => {
 };
 
 export default MyPlaces;
+//

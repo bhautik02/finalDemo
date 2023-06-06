@@ -104,12 +104,7 @@ const SecondStep = forwardRef((props, ref) => {
       {preInput("Perks", "select all the perks of your place")}
       <div className="grid mt-2 gap-2 lg:grid-cols-2  md:grid-cols-2 sm:grid-cols-1 ">
         <label className="border p-4 flex rounded-2xl gap-2 items-center cursor-pointer">
-          <input
-            type="checkbox"
-            name="wifi"
-            value={"wifi"}
-            onChange={handleCbClick}
-          />
+          <input type="checkbox" name="wifi" onChange={handleCbClick} />
           <WifiSvg />
           <span>Wifi</span>
         </label>

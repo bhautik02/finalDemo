@@ -22,6 +22,8 @@ const HomePage = () => {
         });
     };
     getAllHostedData();
+
+    // window.scroll(0, 0);
   }, [dispatch]);
 
   return (
@@ -47,11 +49,11 @@ const HomePage = () => {
                       </div>
                       <div className="mt-1">
                         <div className="font-semibold text-lg">
-                          Europe, Belgium
+                          {place.address}
                         </div>
                         <div className="font-light text-neutral-500">Beach</div>
                         <div className="flex flex-row items-center gap-1">
-                          <div className="font-semibold">4000 ₹</div>
+                          <div className="font-semibold">{place.price} ₹</div>
                           <div className="font-light">night</div>
                         </div>
                       </div>

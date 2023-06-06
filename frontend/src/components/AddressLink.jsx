@@ -2,11 +2,11 @@ export default function AddressLink({ children, className = null }) {
   if (!className) {
     className = "my-3 block";
   }
-  className += " flex gap-1 font-semibold underline";
+  className += " flex gap-1 font-medium underline";
   return (
     <a
       className={className}
-      //   target="_blank"
+      target="_blank"
       href={"https://maps.google.com/?q=" + children}>
       <svg
         xmlns="http://www.w3.org/2000/svg"

@@ -44,7 +44,7 @@ const Header = () => {
           </Link>
         </div>
       </header>
-      <hr className="mt-4 drop-shadow-sm " />
+      <hr className="mt-4" />
     </>
   );
 };

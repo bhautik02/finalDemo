@@ -5,8 +5,8 @@ export default function PhotoGallery({ place }) {
 
   if (showAllPhotos) {
     return (
-      <div className="absolute inset-0 min-h-screen">
-        <div className="bg-gray-950 p-8 grid gap-4">
+      <div className="absolute bg-gray-950 inset-0 min-h-screen">
+        <div className="bg-gray-950 p-8 grid gap-4 ">
           <div>
             {/* <h2 className="text-3xl mr-48">Photos of {place.title}</h2> */}
             <button
@@ -26,7 +26,7 @@ export default function PhotoGallery({ place }) {
               Close photos
             </button>
           </div>
-          <div className="container grid grid-cols-3 gap-2 mx-auto overflow-hidden">
+          <div className="container grid grid-cols-3 gap-2 mx-auto overflow-hidden ">
             {place?.photo?.length > 0 &&
               place.photo.map((photo) => (
                 <div>

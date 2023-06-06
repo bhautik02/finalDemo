@@ -1,20 +1,25 @@
 // const
 
 const Place = require("../models/placeModel");
+const User = require("../models/userModel");
 
 const getPlace = async (req, res) => {
   try {
     const placeId = req.params.id;
-    console.log(placeId);
     const place = await Place.findById(placeId).select("-__v");
 
+    const host = await User.findById(place.owner)
+      .select("-__v")
+      .select("-updatedAt");
+
     if (!place) {
-      throw new Error("no place found...");
+      throw new Error("No data found with this id!");
     }
 
     res.status(200).json({
       status: "success",
       place,
+      host,
     });
   } catch (error) {
     res.status(401).json({

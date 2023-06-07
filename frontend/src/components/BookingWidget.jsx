@@ -3,6 +3,7 @@ import { differenceInCalendarDays } from "date-fns";
 import axios from "axios";
 import { Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import MyDatePicker from "./DatePIcker";
 
 export default function BookingWidget({ place }) {
   const [checkIn, setCheckIn] = useState("");
@@ -29,6 +30,15 @@ export default function BookingWidget({ place }) {
     );
   }
 
+  console.log("fsdfsdf", new Date(checkOut));
+  const setCheckInDate = (value) => {
+    setCheckIn(value);
+  };
+
+  const setCheckOutDate = (value) => {
+    setCheckOut(value);
+  };
+
   async function bookThisPlace() {
     const formData = {
       checkIn,
@@ -48,7 +58,7 @@ export default function BookingWidget({ place }) {
       .catch((err) => {
         alert(err.response.data.message);
       });
-    setRedirect(`/account/bookings/${booking._id}`);
+    // setRedirect(`/account/bookings/${booking._id}`);
   }
 
   if (redirect) {
@@ -57,6 +67,7 @@ export default function BookingWidget({ place }) {
 
   return (
     <div className="bg-white shadow p-4 rounded-2xl">
+      {console.log(checkIn, checkOut)}
       {console.log(numberOfNights)}
       <div className="text-2xl text-center">
         Price: ₹{place.price} / per night
@@ -65,19 +76,11 @@ export default function BookingWidget({ place }) {
         <div className="flex">
           <div className="py-3 px-4">
             <label>Check in:</label>
-            <input
-              type="date"
-              value={checkIn}
-              onChange={(ev) => setCheckIn(ev.target.value)}
-            />
+            <MyDatePicker setDate={setCheckInDate} />
           </div>
           <div className="py-3 px-4 border-l">
             <label>Check out:</label>
-            <input
-              type="date"
-              value={checkOut}
-              onChange={(ev) => setCheckOut(ev.target.value)}
-            />
+            <MyDatePicker setDate={setCheckOutDate} />
           </div>
         </div>
         <div className="py-3 px-4 border-t">

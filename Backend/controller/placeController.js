@@ -2,7 +2,6 @@
 
 const Place = require("../models/placeModel");
 const User = require("../models/userModel");
-
 const getPlace = async (req, res) => {
   try {
     const placeId = req.params.id;

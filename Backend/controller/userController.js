@@ -79,7 +79,7 @@ const loginUser = async (req, res) => {
 
     sendCookie(user, 201, res);
   } catch (error) {
-    res.status(420).json({
+    res.status(401).json({
       status: "failed",
       message: error.message,
     });
@@ -106,7 +106,8 @@ const logoutUser = (req, res) => {
 const profile = async (req, res) => {
   try {
     const { token } = req.cookies;
-    if (token === "null") {
+
+    if (!token || token === "null") {
       throw new Error("Please Login to Access");
     }
 

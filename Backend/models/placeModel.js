@@ -46,6 +46,9 @@ const placeSchema = mongoose.Schema({
     type: Number,
     required: true,
   },
+  // selectedDate: {
+  //   type: [String],
+  // },
 });
 
 const Place = mongoose.model("Place", placeSchema);

@@ -18,7 +18,8 @@ export default function MyAccount(props) {
     axios
       .get(`users/logout`)
       .then((res) => {
-        document.cookie = `token=null; expires=${new Date().getTime() - 1000}`;
+        // removeCookie("token");
+        document.cookie = `token=''; expires=${new Date().getTime() - 1000}`;
         dispatch(userActions.userData(null));
         // dispatch(userActions.logout());
         navigate("/");

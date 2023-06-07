@@ -35,7 +35,7 @@ const LoginPage = () => {
       })
       .catch((err) => {
         console.log(err);
-        alert(err);
+        alert(err.data.message);
       });
 
     setEmail("");

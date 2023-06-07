@@ -65,15 +65,15 @@ const PlacePage = () => {
                     <br />
                     <p>
                       {placeData.maxGuest} Guests &#183;{" "}
-                      {placeData.noOfBedrooms}
-                      bedroom &#183; {placeData.noOfBathrooms} beds &#183;{" "}
+                      {placeData.noOfBedrooms} bedroom &#183;{" "}
+                      {placeData.noOfBathrooms} beds &#183;{" "}
                       {placeData.noOfBathrooms} bathroom
                     </p>
                   </div>
                   <img
                     src="https://img.freepik.com/free-icon/user_318-804790.jpg"
                     alt=""
-                    className="w-14 h-14 absolute  top-3 end-0 rounded-full bg-gray-200"
+                    className="w-14 h-14 absolute  top-3 end-0 border-grey-800 rounded-full bg-gray-200"
                   />
                 </div>
                 <hr className="mt-5 " />
@@ -84,7 +84,7 @@ const PlacePage = () => {
                     What this place offers
                   </p>
 
-                  <div className="flex gap-48">
+                  <div className="flex gap-36">
                     <div className="mt-5">
                       <div className="flex gap-4 m-2 ml-0">
                         {placeData.perks.includes("wifi")}

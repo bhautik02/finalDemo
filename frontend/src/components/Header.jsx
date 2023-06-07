@@ -28,8 +28,8 @@ const Header = () => {
           <button className="bg-primary rounded-full p-1">
             <SearchSvg />
           </button>
-          {/* </div> */}
         </div>
+        {/* </div> */}
         {/* </div> */}
 
         <div className="flex  gap-1 ">

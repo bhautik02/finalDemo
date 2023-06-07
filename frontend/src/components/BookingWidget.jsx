@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-// import { differenceInCalendarDays } from "date-fns";
+import { differenceInCalendarDays } from "date-fns";
 import axios from "axios";
 import { Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -11,6 +11,7 @@ export default function BookingWidget({ place }) {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [redirect, setRedirect] = useState("");
+  const [booking, setBooking] = useState(null);
   //   const { user } = useContext(UserContext);
   const user = useSelector((state) => state.user.user);
 
@@ -22,14 +23,14 @@ export default function BookingWidget({ place }) {
 
   let numberOfNights = 0;
   if (checkIn && checkOut) {
-    // numberOfNights = differenceInCalendarDays(
-    //   new Date(checkOut),
-    //   new Date(checkIn)
-    // );
+    numberOfNights = differenceInCalendarDays(
+      new Date(checkOut),
+      new Date(checkIn)
+    );
   }
 
   async function bookThisPlace() {
-    const response = await axios.post("/bookings", {
+    const formData = {
       checkIn,
       checkOut,
       numberOfGuests,
@@ -37,9 +38,17 @@ export default function BookingWidget({ place }) {
       phone,
       place: place._id,
       price: numberOfNights * place.price,
-    });
-    const bookingId = response.data._id;
-    setRedirect(`/account/bookings/${bookingId}`);
+    };
+    axios
+      .post(`book/bookings`, formData)
+      .then((res) => {
+        setBooking(res.data.booking);
+        setRedirect(true);
+      })
+      .catch((err) => {
+        alert(err.response.data.message);
+      });
+    setRedirect(`/account/bookings/${booking._id}`);
   }
 
   if (redirect) {
@@ -48,8 +57,9 @@ export default function BookingWidget({ place }) {
 
   return (
     <div className="bg-white shadow p-4 rounded-2xl">
+      {console.log(numberOfNights)}
       <div className="text-2xl text-center">
-        Price: ${place.price} / per night
+        Price: ₹{place.price} / per night
       </div>
       <div className="border rounded-2xl mt-4">
         <div className="flex">
@@ -97,7 +107,7 @@ export default function BookingWidget({ place }) {
       </div>
       <button onClick={bookThisPlace} className="primary mt-4">
         Book this place
-        {numberOfNights > 0 && <span> ${numberOfNights * place.price}</span>}
+        {numberOfNights > 0 && <span> ₹{numberOfNights * place.price}</span>}
       </button>
     </div>
   );

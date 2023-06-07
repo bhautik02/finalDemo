@@ -5,7 +5,7 @@ export default function PhotoGallery({ place }) {
 
   if (showAllPhotos) {
     return (
-      <div className="absolute bg-gray-950 inset-0 min-h-screen">
+      <div className="z-10 absolute bg-gray-950 inset-0 min-h-screen">
         <div className="bg-gray-950 p-8 grid gap-4 ">
           <div>
             {/* <h2 className="text-3xl mr-48">Photos of {place.title}</h2> */}
@@ -44,12 +44,12 @@ export default function PhotoGallery({ place }) {
   }
 
   return (
-    <div className="relative">
-      <div class="grid grid-cols-2 gap-2">
+    <div className="relative ">
+      <div class="grid grid-cols-2 gap-2 ">
         {place.photo?.[0] && (
           <img
             onClick={() => setShowAllPhotos(true)}
-            className="aspect-square  cursor-pointer object-cover"
+            className="aspect-square  cursor-pointer object-cover rounded-2xl"
             src={place.photo[0]}
             alt=""
           />
@@ -59,7 +59,7 @@ export default function PhotoGallery({ place }) {
           {place.photo?.[1] && (
             <img
               onClick={() => setShowAllPhotos(true)}
-              className="aspect-square cursor-pointer object-cover"
+              className="aspect-square cursor-pointer object-cover rounded-lg"
               src={place.photo[1]}
               alt=""
             />
@@ -68,7 +68,7 @@ export default function PhotoGallery({ place }) {
           {place.photo?.[2] && (
             <img
               onClick={() => setShowAllPhotos(true)}
-              className="aspect-square  cursor-pointer object-cover"
+              className="aspect-square  cursor-pointer object-cover rounded-lg"
               src={place.photo[2]}
               alt=""
             />
@@ -77,7 +77,7 @@ export default function PhotoGallery({ place }) {
           {place.photo?.[3] && (
             <img
               onClick={() => setShowAllPhotos(true)}
-              className="aspect-square cursor-pointer object-cover"
+              className="aspect-square cursor-pointer object-cover rounded-lg"
               src={place.photo[3]}
               alt=""
             />
@@ -86,7 +86,7 @@ export default function PhotoGallery({ place }) {
           {place.photo?.[4] && (
             <img
               onClick={() => setShowAllPhotos(true)}
-              className="aspect-square cursor-pointer object-cover"
+              className="aspect-square cursor-pointer object-cover rounded-lg"
               src={place.photo[4]}
               alt=""
             />

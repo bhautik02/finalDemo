@@ -10,10 +10,13 @@ import TvSvg from "../utils/svg/TvSvg";
 import RadioSvg from "../utils/svg/RadioSvg";
 import PetsSvg from "../utils/svg/PetsSvg";
 import PrivateEntrance from "../utils/svg/PrivateEntransSvg";
+import { useDispatch } from "react-redux";
+import { bookingActions } from "../store/booking";
 
 // import { getPlace } from "./../api";
 
 const PlacePage = () => {
+  const dispatch = useDispatch();
   const [placeData, setPlaceData] = useState(null);
   const [hostData, setHostData] = useState(null);
   const [ready, setReady] = useState(false);
@@ -35,6 +38,7 @@ const PlacePage = () => {
       .then((res) => {
         setHostData(res.data.host);
         setPlaceData(res.data.place);
+        dispatch(bookingActions.bookedDate(res.data.place.bookedDates));
         setReady(true);
       })
       .catch((err) => {
@@ -45,11 +49,12 @@ const PlacePage = () => {
 
   if (!placeData) return "";
 
-  console.log(placeData);
+  // console.log(placeData);
   return (
     <div>
       {ready && (
         <>
+          {console.log(placeData)}
           <div className="mx-80 mt-4">
             <h1 className="text-3xl">{placeData.title}</h1>
             <AddressLink>{placeData.address}</AddressLink>

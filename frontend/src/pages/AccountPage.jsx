@@ -31,7 +31,12 @@ const AccountPage = () => {
 
           <NavLink className={activeClassName} to={"/account/reservation"}>
             <ReservationSvg />
-            My Reservastion
+            My Reservations
+          </NavLink>
+
+          <NavLink className={activeClassName} to={"/account/bookings"}>
+            <ReservationSvg />
+            My Bookings
           </NavLink>
 
           <NavLink className={activeClassName} to={"/account/liked"}>

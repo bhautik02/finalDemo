@@ -3,8 +3,15 @@ import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import dayjs from "dayjs";
+import { useSelector } from "react-redux";
+
+const daysss = dayjs().add(60, "day");
 
 export default function MyDatePicker({ setDate }) {
+  const selectedDates = useSelector((state) => state.booking.bookedDate);
+  // console.log(selectedDates);
+
   const getFormattedDate = (date) => {
     const today = date.$d;
     const yyyy = today.getFullYear();
@@ -16,17 +23,13 @@ export default function MyDatePicker({ setDate }) {
 
   const shouldDisable = (date) => {
     const formattedDate = getFormattedDate(date);
-    let blackoutDates = ["9/6/2023", "12/6/2023"];
+    // let blackoutDates = ["9/6/2023", "12/6/2023", "20/6/2023", "21/6/2023"];
 
-    return blackoutDates.includes(formattedDate);
+    return selectedDates.includes(formattedDate);
   };
 
   const dateChangeHandler = (date) => {
-    console.log("DATE------------->", date);
-    // setDatePicked(getFormattedDate(date));
     const formattedDate = getFormattedDate(date);
-    // setDatePicked(formattedDate);
-
     setDate(formattedDate);
   };
 
@@ -36,6 +39,7 @@ export default function MyDatePicker({ setDate }) {
         <DatePicker
           label="Basic date picker"
           disablePast
+          maxDate={dayjs(daysss.$d)}
           shouldDisableDate={shouldDisable}
           onChange={dateChangeHandler}
         />

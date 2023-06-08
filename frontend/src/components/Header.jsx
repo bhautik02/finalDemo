@@ -8,10 +8,10 @@ const Header = () => {
   const user = useSelector((state) => state.user.user);
   return (
     <>
-      <header className="flex justify-around px-10">
-        <a href="/home" className="flex item-center gap-1">
+      <header className="flex justify-around">
+        <a href="/" className="flex items-center gap-1 ">
           <Logosvg />
-          <p className="font-bold text-2xl">bhautik</p>
+          <p className="font-bold text-2xl">title</p>
         </a>
         {/*     position: absolute;
     width: 100%;

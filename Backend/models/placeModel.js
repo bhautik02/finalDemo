@@ -46,9 +46,10 @@ const placeSchema = mongoose.Schema({
     type: Number,
     required: true,
   },
-  // selectedDate: {
-  //   type: [String],
-  // },
+  bookedDates: {
+    type: [String],
+    default: [],
+  },
 });
 
 const Place = mongoose.model("Place", placeSchema);

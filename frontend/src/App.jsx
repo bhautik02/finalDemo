@@ -41,7 +41,8 @@ function App() {
       <Routes>
         {/* <Route path="/" element={<Layout />}> */}
         <Route path="/" element={<Layout />}>
-          <Route index path="/home" element={<HomePage />}></Route>
+          <Route index path="/" element={<HomePage />} />
+          {/* <Route index path="/home" element={<HomePage />}></Route> */}
           <Route path="/login" element={<LoginPage />}></Route>
           <Route path="/register" element={<RegisterPage />}></Route>
           <Route
@@ -54,7 +55,9 @@ function App() {
               )
             }></Route>
           <Route path="/account/:param" element={<AccountPage />}></Route>
+          <Route path="/account/bookings/:id" element={<AccountPage />}></Route>
           <Route path="/places/:id" element={<PlacePage />}></Route>
+          {/* /account/bookings/${bookingData._id} */}
           {/* <Route path="/account/:param/:action" element={<AccountPage />}></Route> */}
           {/* <Route
           path="/account/:param"

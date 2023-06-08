@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+// @import url('https://fonts.cdnfonts.com/css/c-cereal');
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {

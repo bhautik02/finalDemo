@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 
 const Booking = require("../models/bookingModel");
 const Place = require("../models/placeModel");
-const User = require("../models/userModel");
 
 const bookPlace = async (req, res) => {
   try {
@@ -15,35 +14,38 @@ const bookPlace = async (req, res) => {
       phone,
       placeID,
       price,
+      bookedDates,
     } = req.body;
+    console.log(placeID);
 
-    // const booking = new Booking({
-    //   checkIn,
-    //   checkOut,
-    //   numberOfGuests,
-    //   bookBy,
-    //   name,
-    //   phone,
-    //   placeID,
-    //   price,
-    // });
-
-    // const session = await mongoose.startSession();
-    // session.startTransaction();
-
-    // await booking.save({ session });
-    // session.commitTransaction();
-
-    const booking = await Booking.create({
+    const booking = new Booking({
       checkIn,
       checkOut,
       numberOfGuests,
       bookBy,
       name,
       phone,
-      placeID,
+      place: placeID,
       price,
     });
+
+    const place = await Place.findById(placeID);
+
+    if (!place) {
+      throw new Error("you don't have place with that id");
+    }
+
+    const session = await mongoose.startSession();
+    session.startTransaction();
+
+    place.bookedDates.push(...bookedDates);
+    await Place.findByIdAndUpdate(place._id, place, {
+      new: true,
+      runValidators: true,
+    });
+
+    await booking.save({ session });
+    session.commitTransaction();
 
     res.status(201).json({
       status: "success",
@@ -53,7 +55,7 @@ const bookPlace = async (req, res) => {
     console.log(error);
     res.status(404).json({
       status: "failed",
-      mesaage: error.mesaage,
+      message: error.message,
     });
   }
 };
@@ -120,3 +122,14 @@ const bookPlace = async (req, res) => {
 module.exports = {
   bookPlace,
 };
+
+// const booking = await Booking.create({
+//   checkIn,
+//   checkOut,
+//   numberOfGuests,
+//   bookBy,
+//   name,
+//   phone,
+//   placeID,
+//   price,
+// });

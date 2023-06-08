@@ -29,7 +29,7 @@ export default function PhotoGallery({ place }) {
           <div className="container grid grid-cols-3 gap-2 mx-auto overflow-hidden ">
             {place?.photo?.length > 0 &&
               place.photo.map((photo) => (
-                <div>
+                <div key={Math.random()}>
                   <img
                     src={photo}
                     alt="place"
@@ -45,7 +45,7 @@ export default function PhotoGallery({ place }) {
 
   return (
     <div className="relative ">
-      <div class="grid grid-cols-2 gap-2 ">
+      <div className="grid grid-cols-2 gap-2 ">
         {place.photo?.[0] && (
           <img
             onClick={() => setShowAllPhotos(true)}
@@ -55,7 +55,7 @@ export default function PhotoGallery({ place }) {
           />
         )}
 
-        <div class="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-2 gap-2">
           {place.photo?.[1] && (
             <img
               onClick={() => setShowAllPhotos(true)}

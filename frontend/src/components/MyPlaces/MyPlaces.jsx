@@ -115,39 +115,38 @@ const MyPlaces = () => {
           </Card>
         </div>
       ) : (
-        <div className="">
+        <div className="pt-10">
           <div className="mx-auto md:px-10 sm:px-2 px-4 xsm:ml-20px ">
             <div className=" grid  grid-cols-1  sm:grid-cols-2  md:grid-cols-3  lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-5 gap-8 ">
-              {hostedData &&
-                // hostedData.length > 0 &&
-                hostedData.map((place) => {
-                  return (
-                    <Link
-                      className="col-span-1 cursor-pointer group"
-                      onClick={editHandleOpen}
-                      key={place._id}>
-                      {/* {console.log("HOSTED------------->", place)} */}
-                      <div className="flex flex-col gap-2 w-full">
-                        <div className="aspect-square w-full relative overflow-hidden rounded-xl ">
-                          <img
-                            className=" object-cover h-full w-full group-hover:scale-110 transition "
-                            src={place?.photo[0]}
-                            alt="Listing"
-                          />
-                          <div className="absolute top-3 right-3"></div>
-                        </div>
+              {hostedData.map((place) => {
+                return (
+                  <Link
+                    className="col-span-1 cursor-pointer group"
+                    onClick={editHandleOpen}
+                    key={place._id}>
+                    <div className="flex flex-col gap-2 w-full">
+                      <div className="aspect-square w-full relative overflow-hidden rounded-xl ">
+                        <img
+                          className=" object-cover h-full w-full group-hover:scale-110 transition "
+                          src={place.photo[0]}
+                          alt="Listing"
+                        />
+                        <div className="absolute top-3 right-3"></div>
+                      </div>
+                      <div className="mt-1">
                         <div className="font-semibold text-lg">
-                          Europe, Belgium
+                          {place.address}
                         </div>
                         <div className="font-light text-neutral-500">Beach</div>
                         <div className="flex flex-row items-center gap-1">
-                          <div className="font-semibold">4000 ₹</div>
+                          <div className="font-semibold">{place.price} ₹</div>
                           <div className="font-light">night</div>
                         </div>
                       </div>
-                    </Link>
-                  );
-                })}
+                    </div>
+                  </Link>
+                );
+              })}
             </div>
           </div>
         </div>

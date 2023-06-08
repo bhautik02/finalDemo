@@ -7,6 +7,7 @@ import LikeSvg from "../utils/svg/LikeSvg";
 import PlaceSvg from "../utils/svg/PlaceSvg";
 import MyPlaces from "../components/MyPlaces/MyPlaces";
 import { useSelector } from "react-redux";
+import BookingsPage from "./BookingsPage";
 
 const AccountPage = () => {
   const param = useParams();
@@ -52,6 +53,7 @@ const AccountPage = () => {
 
         {param.param === "myAccount" && <MyAccount user={user} />}
         {param.param === "places" && <MyPlaces />}
+        {param.param === "bookings" && <BookingsPage />}
       </>
     )
   );

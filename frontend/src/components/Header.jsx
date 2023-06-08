@@ -8,7 +8,7 @@ const Header = () => {
   const user = useSelector((state) => state.user.user);
   return (
     <>
-      <header className="flex justify-around">
+      <header className="flex justify-between pl-10 pr-10">
         <a href="/" className="flex items-center gap-1 ">
           <Logosvg />
           <p className="font-bold text-2xl">title</p>

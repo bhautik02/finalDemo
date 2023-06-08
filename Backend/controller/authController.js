@@ -1,26 +1,13 @@
 const jwt = require("jsonwebtoken");
+const getUserFromToken = async (req) => {
+  const { token } = req.cookies;
 
-const authentication = async (req, res, next) => {
-  try {
-    const { token } = req.cookies;
-    console.log("frontend:", token);
-
-    if (token) {
-      let user = jwt.verify(token, process.env.JWT_SECRET);
-      req.userId = user.id;
-    } else {
-      return res.status(401).json({
-        status: "failed",
-        message: "Please log in...",
-      });
-    }
-  } catch (error) {
-    res.status(401).json({
-      status: "failed",
-      message: "You are not authenticated, try again later.",
+  return new Promise((resolve, reject) => {
+    jwt.verify(token, process.env.JWT_SECRET, {}, async (err, user) => {
+      if (err) throw err;
+      resolve(user);
     });
-  }
-  next();
+  });
 };
 
-module.exports = authentication;
+module.exports = { getUserFromToken };

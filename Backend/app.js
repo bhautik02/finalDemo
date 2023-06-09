@@ -8,6 +8,8 @@ const app = express();
 const user = require("./routes/userRoutes");
 const place = require("./routes/placeRoute");
 const booking = require("./routes/bookingRoute");
+const reservation = require("./routes/reservationRoute");
+const review = require("./routes/reviewRoute");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -25,5 +27,7 @@ app.use(
 app.use("/api/v1/users", user);
 app.use("/api/v1/place", place);
 app.use("/api/v1/book", booking);
+app.use("/api/v1", reservation);
+app.use("/api/v1/review", review);
 
 module.exports = app;

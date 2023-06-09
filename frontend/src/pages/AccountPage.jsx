@@ -8,6 +8,7 @@ import PlaceSvg from "../utils/svg/PlaceSvg";
 import MyPlaces from "../components/MyPlaces/MyPlaces";
 import { useSelector } from "react-redux";
 import BookingsPage from "./BookingsPage";
+import ReservationPage from "./ReservationPage";
 
 const AccountPage = () => {
   const param = useParams();
@@ -24,13 +25,13 @@ const AccountPage = () => {
   ) : (
     ready && user && (
       <div className="bg-gray-100">
-        <nav className="w-full justify-center flex mt-8 gap-2">
+        <nav className="w-full justify-center flex my-8 gap-2">
           <NavLink className={activeClassName} to={"/account/myAccount"}>
             <UserSvg />
             My Account
           </NavLink>
 
-          <NavLink className={activeClassName} to={"/account/reservation"}>
+          <NavLink className={activeClassName} to={"/account/reservations"}>
             <ReservationSvg />
             My Reservations
           </NavLink>
@@ -54,6 +55,7 @@ const AccountPage = () => {
         {param.param === "myAccount" && <MyAccount user={user} />}
         {param.param === "places" && <MyPlaces />}
         {param.param === "bookings" && <BookingsPage />}
+        {param.param === "reservations" && <ReservationPage />}
       </div>
     )
   );

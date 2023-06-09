@@ -75,7 +75,7 @@ export default function BookingWidget({ place }) {
 
   async function bookThisPlace() {
     const bookedDates = bookedDateArray(checkIn, checkOut);
-    console.log("place", place._id);
+    console.log("place", place);
     const formData = {
       checkIn,
       checkOut,
@@ -85,9 +85,11 @@ export default function BookingWidget({ place }) {
       placeID: place._id,
       price: numberOfNights * place.price,
       bookedDates,
-      placeName: place.name,
+      placeName: place.title,
       placeAddress: place.address,
       placePhoto: place.photo[0],
+      checkInTime: place.checkIn,
+      checkOutTime: place.checkOut,
     };
 
     axios

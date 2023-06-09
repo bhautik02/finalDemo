@@ -118,10 +118,10 @@ const profile = async (req, res) => {
       } else {
         // try {
         // console.log(user);
-        const userDoc = await User.findById(user.id)
-          .select("-createdAt")
-          .select("-updatedAt")
-          .select("-__v");
+        const userDoc = await User.findById(user.id).select(
+          "-createdAt -updatedAt -__v"
+        );
+
         if (!userDoc) {
           throw new Error("User not Found!");
         }

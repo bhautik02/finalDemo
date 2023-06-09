@@ -19,6 +19,8 @@ const bookPlace = async (req, res) => {
       placeName,
       placeAddress,
       placePhoto,
+      checkInTime,
+      checkOutTime,
     } = req.body;
     console.log(placeID);
 
@@ -34,6 +36,8 @@ const bookPlace = async (req, res) => {
       placeName,
       placeAddress,
       placePhoto,
+      checkInTime,
+      checkOutTime,
     });
 
     const place = await Place.findById(placeID);
@@ -71,6 +75,10 @@ const getBookings = async (req, res) => {
   try {
     const userId = req.params.id;
     const bookings = await Booking.find({ bookBy: userId });
+
+    if (!bookings) {
+      throw new Error("You not have any Bookings.");
+    }
 
     res.status(201).json({
       status: "success",

@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import BasicModal from "../components/Modal";
 
 const BookingsPage = () => {
   const { user } = useSelector((state) => state.user);
@@ -19,44 +21,67 @@ const BookingsPage = () => {
   }, []);
 
   return (
-    <>
-      <div className="mx-80 mt-10 ">
+    <div className="flex gap-10 justify-center">
+      <div className="mt-14 ">
+        <div className="shadow-2xl shadow-black-300 h-64 w-64 rounded-2xl flex-row justify-center">
+          <div className="pt-8 pl-14">
+            <img
+              className="h-36 w-36 object-cover rounded-full"
+              src="https://w7.pngwing.com/pngs/49/613/png-transparent-computer-icons-avatar-user-profile-avatar-heroes-dark-black.png"
+              alt="place"
+            />
+          </div>
+          <h2 className="font-bold text-3xl mt-3 flex justify-center">
+            {user.name}
+          </h2>
+        </div>
+      </div>
+      <div className="mt-10 w-5/12">
         {bookings &&
           bookings.map((booking) => (
             <div className="shadow-2xl shadow-black-300 h-60 m-4">
-              <div className="grid grid-cols-3 gap-4">
-                <div className="col-span-2 bg-lightblue p-8">
+              <div className="grid grid-cols-2 gap-4">
+                <div className="col-span-1 bg-lightblue p-8 pt-6">
                   <div>
                     <h2 className="inline font-medium text-2xl">
-                      {booking.placeName}fg
+                      {booking.placeName}
                     </h2>
                     <p>
-                      {booking.address} &#183; {booking.numberOfGuests} guests
+                      {booking.placeAddress} &#183; {booking.numberOfGuests}{" "}
+                      guests
                     </p>
                   </div>
 
                   <div className="flex gap-6 mt-4">
                     <div>
                       <p>{booking.checkIn.slice(0, 10)}</p>
-                      <p>{booking.checkInTime}cit</p>
+                      <p>{booking.checkInTime}</p>
                     </div>
-                    <div>{">"}</div>
+                    <div className="mt-3">{">"}</div>
                     <div>
                       <p>{booking.checkOut.slice(0, 10)}</p>
-                      <p>{booking.checkOutTime}cot</p>
+                      <p>{booking.checkOutTime}</p>
                     </div>
                   </div>
-                  <hr className="mt-6" />
-                  <div className="flex gap-10 mt-4">
-                    <button>a</button>
-                    <button>b</button>
-                    <button>c</button>
+                  <hr className="mt-5 border-black" />
+                  <div className="flex gap-10 justify mt-4">
+                    <Link
+                      className="px-4 py-2 bg-gray-200 rounded-md outline-black text-base"
+                      to="/contact/chat">
+                      Contact Host
+                    </Link>
+                    {/* <button
+                      className="px-4 py-2 bg-gray-200 rounded-md outline-black text-base"
+                      onClick={onClickHandler}>
+                      Review it
+                    </button> */}
+                    <BasicModal />
                   </div>
                 </div>
                 <div className="col-span-1 bg-lightblue">
                   <img
                     className="h-60 w-full object-cover"
-                    src="https://img.staticmb.com/mbcontent/images/uploads/2022/12/Most-Beautiful-House-in-the-World.jpg"
+                    src={booking.placePhoto}
                     alt="place"
                   />
                 </div>
@@ -64,7 +89,7 @@ const BookingsPage = () => {
             </div>
           ))}
       </div>
-    </>
+    </div>
   );
 };
 export default BookingsPage;

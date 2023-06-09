@@ -85,12 +85,16 @@ export default function BookingWidget({ place }) {
       placeID: place._id,
       price: numberOfNights * place.price,
       bookedDates,
+      placeName: place.name,
+      placeAddress: place.address,
+      placePhoto: place.photo[0],
     };
 
     axios
       .post(`book/bookings`, formData)
       .then((res) => {
         dispatch(bookingActions.bookingData(res.data.booking));
+        console.log("book", res.data.booking);
       })
       .catch((err) => {
         // console.log(err.response.data);

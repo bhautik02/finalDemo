@@ -16,6 +16,9 @@ const bookPlace = async (req, res) => {
       placeID,
       price,
       bookedDates,
+      placeName,
+      placeAddress,
+      placePhoto,
     } = req.body;
     console.log(placeID);
 
@@ -28,6 +31,9 @@ const bookPlace = async (req, res) => {
       phone,
       place: placeID,
       price,
+      placeName,
+      placeAddress,
+      placePhoto,
     });
 
     const place = await Place.findById(placeID);

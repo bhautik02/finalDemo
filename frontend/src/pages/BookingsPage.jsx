@@ -20,36 +20,50 @@ const BookingsPage = () => {
 
   return (
     <>
-      {bookings &&
-        bookings.map((booking) => (
-          <div className="mx-96 mt-24">
-            <div className="shadow-lg shadow-black-300 h-60 p-4">
+      <div className="mx-80 mt-10 ">
+        {bookings &&
+          bookings.map((booking) => (
+            <div className="shadow-2xl shadow-black-300 h-60 m-4">
               <div className="grid grid-cols-3 gap-4">
-                <div className="col-span-2 bg-lightblue p-4">
+                <div className="col-span-2 bg-lightblue p-8">
                   <div>
-                    <h2 className="inline font-medium text-2xl">Hosted By</h2>
+                    <h2 className="inline font-medium text-2xl">
+                      {booking.placeName}fg
+                    </h2>
                     <p>
                       {booking.address} &#183; {booking.numberOfGuests} guests
                     </p>
                   </div>
 
-                  <div className="flex">
+                  <div className="flex gap-6 mt-4">
                     <div>
-                      <p>{booking.checkIn}</p>
+                      <p>{booking.checkIn.slice(0, 10)}</p>
                       <p>{booking.checkInTime}cit</p>
                     </div>
                     <div>></div>
                     <div>
-                      <p>{booking.checkOut}</p>
+                      <p>{booking.checkOut.slice(0, 10)}</p>
                       <p>{booking.checkOutTime}cot</p>
                     </div>
                   </div>
+                  <hr className="mt-6" />
+                  <div className="flex gap-10 mt-4">
+                    <button>a</button>
+                    <button>b</button>
+                    <button>c</button>
+                  </div>
                 </div>
-                <div className="col-span-1 bg-lightblue p-4">gsdasggwd</div>
+                <div className="col-span-1 bg-lightblue">
+                  <img
+                    className="h-60 w-full object-cover"
+                    src="https://img.staticmb.com/mbcontent/images/uploads/2022/12/Most-Beautiful-House-in-the-World.jpg"
+                    alt="place"
+                  />
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+      </div>
     </>
   );
 };

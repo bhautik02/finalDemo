@@ -23,7 +23,7 @@ const AccountPage = () => {
     <LoadingSpinner />
   ) : (
     ready && user && (
-      <>
+      <div className="bg-gray-100">
         <nav className="w-full justify-center flex mt-8 gap-2">
           <NavLink className={activeClassName} to={"/account/myAccount"}>
             <UserSvg />
@@ -54,7 +54,7 @@ const AccountPage = () => {
         {param.param === "myAccount" && <MyAccount user={user} />}
         {param.param === "places" && <MyPlaces />}
         {param.param === "bookings" && <BookingsPage />}
-      </>
+      </div>
     )
   );
 };

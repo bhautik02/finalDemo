@@ -38,7 +38,7 @@ const BookingsPage = () => {
                       <p>{booking.checkIn}</p>
                       <p>{booking.checkInTime}cit</p>
                     </div>
-                    <div>></div>
+                    <div>{">"}</div>
                     <div>
                       <p>{booking.checkOut}</p>
                       <p>{booking.checkOutTime}cot</p>

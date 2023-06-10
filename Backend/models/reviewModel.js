@@ -12,6 +12,15 @@ const reviewSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
+    bookingId: {
+      type: mongoose.Schema.ObjectId,
+      ref: "Booking",
+      required: true,
+    },
+    name: {
+      type: String,
+      required: true,
+    },
     rating: {
       type: Number,
       required: true,
@@ -23,6 +32,8 @@ const reviewSchema = new mongoose.Schema(
     },
   },
   {
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
     timestamps: true,
   }
 );

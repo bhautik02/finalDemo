@@ -3,10 +3,10 @@ const Review = require("../models/reviewModel");
 
 const createReview = async (req, res) => {
   try {
-    const bokingId = req.params.id;
-    const { place, user, rating, review } = req.body;
+    const bookingId = req.params.id;
+    const { place, user, name, rating, review } = req.body;
 
-    const booking = await Booking.findById(bokingId);
+    const booking = await Booking.findById(bookingId);
 
     if (!booking) {
       throw new Error("you don't have booking with this id!");
@@ -20,15 +20,22 @@ const createReview = async (req, res) => {
     //  }
 
     const findReview = await Review.find({
-      place,
-      user,
+      bookingId,
     });
 
-    if (findReview) {
+    if (findReview.length > 0) {
+      console.log(findReview);
       throw new Error("This place already have been reviewed by you.");
     }
 
-    const reviews = await Review.create({ place, user, rating, review });
+    const reviews = await Review.create({
+      bookingId,
+      place,
+      user,
+      name,
+      rating,
+      review,
+    });
 
     res.status(201).json({
       status: "success",

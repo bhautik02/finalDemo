@@ -101,9 +101,9 @@ export default function MyAccount(props) {
                   <hr className="my-4" />
                 </div>
                 <div>
-                  <p className=" text-2xl font-semibold">4.72</p>
-                  <div className="inline">
-                    <StarSvg />
+                  <p className="flex text-2xl font-semibold">4.72</p>
+                  <div className="">
+                    <StarSvg size={4} />
                   </div>
                   <p className="text-xs">Rating</p>
                 </div>

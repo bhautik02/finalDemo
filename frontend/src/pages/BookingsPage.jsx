@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import BasicModal from "../components/Modal";
+import ReviewDialogBox from "../components/ReviewDialogBox";
 
 const BookingsPage = () => {
   const { user } = useSelector((state) => state.user);
@@ -19,6 +19,13 @@ const BookingsPage = () => {
         alert(err.response.data.message);
       });
   }, []);
+
+  const canReview = (date) => {
+    if (new Date(date).getTime() < new Date().getTime()) {
+      return true;
+    }
+    return false;
+  };
 
   return (
     <div className="flex gap-10 justify-center">
@@ -39,7 +46,9 @@ const BookingsPage = () => {
       <div className="mt-10 w-5/12">
         {bookings &&
           bookings.map((booking) => (
-            <div className="shadow-2xl shadow-black-300 h-60 m-4">
+            <div
+              className="shadow-2xl shadow-black-300 h-60 m-10"
+              key={booking._id}>
               <div className="grid grid-cols-2 gap-4">
                 <div className="col-span-1 bg-lightblue p-8 pt-6">
                   <div>
@@ -70,12 +79,9 @@ const BookingsPage = () => {
                       to="/contact/chat">
                       Contact Host
                     </Link>
-                    {/* <button
-                      className="px-4 py-2 bg-gray-200 rounded-md outline-black text-base"
-                      onClick={onClickHandler}>
-                      Review it
-                    </button> */}
-                    <BasicModal />
+                    {canReview(booking.checkOut) && (
+                      <ReviewDialogBox bookingData={booking} />
+                    )}
                   </div>
                 </div>
                 <div className="col-span-1 bg-lightblue">

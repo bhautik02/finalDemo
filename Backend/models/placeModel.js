@@ -53,8 +53,22 @@ const placeSchema = mongoose.Schema(
     },
   },
   {
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
     timestamps: true,
   }
 );
+
+placeSchema.virtual("host", {
+  ref: "User",
+  foreignField: "_id",
+  localField: "owner",
+});
+
+placeSchema.virtual("reviews", {
+  ref: "Review",
+  foreignField: "place",
+  localField: "_id",
+});
 
 module.exports = mongoose.model("Place", placeSchema);

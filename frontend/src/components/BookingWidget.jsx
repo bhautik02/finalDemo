@@ -82,6 +82,7 @@ export default function BookingWidget({ place }) {
       numberOfGuests,
       name,
       phone,
+      bookBy: user._id,
       placeID: place._id,
       price: numberOfNights * place.price,
       bookedDates,
@@ -105,7 +106,7 @@ export default function BookingWidget({ place }) {
   }
 
   if (bookingData) {
-    return <Navigate to={`/account/bookings/${bookingData._id}`} />;
+    return <Navigate to={`/account/bookings`} />;
   }
 
   return (

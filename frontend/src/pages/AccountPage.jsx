@@ -56,6 +56,7 @@ const AccountPage = () => {
         {param.param === "places" && <MyPlaces />}
         {param.param === "bookings" && <BookingsPage />}
         {param.param === "reservations" && <ReservationPage />}
+        {/* {param.param === "reservations/:id" && <ReservationPage />} */}
       </div>
     )
   );

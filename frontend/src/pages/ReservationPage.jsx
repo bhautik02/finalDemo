@@ -39,39 +39,35 @@ const MyPlaces = () => {
           </div>
         </div>
       ) : (
-        <div className="pt-10">
-          <div className="mx-auto md:px-10 sm:px-2 px-4 xsm:ml-20px ">
-            <div className=" grid  grid-cols-1  sm:grid-cols-2  md:grid-cols-3  lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-5 gap-8 ">
-              {hostedData.map((place) => {
-                return (
-                  <Link
-                    className="col-span-1 cursor-pointer group"
-                    key={place._id}
-                    to={`/reservation/${place._id}`}>
-                    <div className="flex flex-col gap-2 w-full">
-                      <div className="aspect-square w-full relative overflow-hidden rounded-xl ">
-                        <img
-                          className=" object-cover h-full w-full group-hover:scale-110 transition "
-                          src={place.photo[0]}
-                          alt="Listing"
-                        />
-                        <div className="absolute top-3 right-3"></div>
-                      </div>
-                      <div className="mt-1">
-                        <div className="font-semibold text-lg">
-                          {place.address}
-                        </div>
-                        <div className="font-light text-neutral-500">Beach</div>
-                        <div className="flex flex-row items-center gap-1">
+        <div className="mx-auto md:px-10 sm:px-2 px-4 xsm:ml-20px ">
+          <div className=" grid  grid-cols-1  sm:grid-cols-2  md:grid-cols-3  lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-5 gap-8 ">
+            {hostedData.map((place) => {
+              return (
+                <Link
+                  className="col-span-1 cursor-pointer group"
+                  key={place._id}
+                  to={`/reservation/${place._id}`}>
+                  <div className="flex flex-col gap-2 w-full">
+                    <div className="aspect-square w-full relative overflow-hidden rounded-xl ">
+                      <img
+                        className=" object-cover h-full w-full group-hover:scale-110 transition "
+                        src={place.photo[0]}
+                        alt="Listing"
+                      />
+                      <div className="absolute top-3 right-3"></div>
+                    </div>
+                    <div className="mt-1">
+                      <div className="font-semibold text-lg">{place.title}</div>
+                      <div className="font-light">{place.address}</div>
+                      {/* <div className="flex flex-row items-center gap-1">
                           <div className="font-semibold">{place.price} ₹</div>
                           <div className="font-light">night</div>
-                        </div>
-                      </div>
+                        </div>*/}
                     </div>
-                  </Link>
-                );
-              })}
-            </div>
+                  </div>
+                </Link>
+              );
+            })}
           </div>
         </div>
       )}

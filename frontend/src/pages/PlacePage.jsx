@@ -123,27 +123,85 @@ const PlacePage = () => {
             <div className="mt-5 flex items-center">
               <div className="">
                 {reviews ? (
-                  <div>
+                  <>
                     <p className=" text-gray-800 font-medium text-2xl">
                       <StarSvg size={4} margin={2} /> {placeData.rating} 4.52
                       &#183; {reviews.length} Reviews
                     </p>
-                    <div className="my-4">
-                      <div>
-                        <img
-                          src="https://img.freepik.com/free-icon/user_318-804790.jpg"
-                          alt="profile"
-                          className="w-10 h-10 border-grey-800 rounded-full bg-gray-200"
-                        />
-                      </div>
-                      <div>{reviews[0].review}</div>
+                    <div className=" ">
+                      {reviews.map((review, index) => {
+                        return (
+                          <div className="">
+                            <div className="flex mt-10 gap-4">
+                              <img
+                                src="https://img.freepik.com/free-icon/user_318-804790.jpg"
+                                alt=""
+                                className="w-12 h-12  top-0 left-0 rounded-full bg-red-500"
+                              />
+                              <div>
+                                <h1 className="text-lg font-medium">
+                                  {review.name}
+                                </h1>
+                                <p className="text-slate-500 text-sm">
+                                  {review.createdAt.slice(0, 10)}
+                                </p>
+                              </div>
+                            </div>
+                            <div className="flex mt-4 gap-2">
+                              <p className="text-gray-600 text-base">
+                                {review.review}
+                              </p>
+                            </div>
+                          </div>
+                        );
+                      })}
                     </div>
-                  </div>
+                  </>
                 ) : (
                   "No Reviews"
                 )}
               </div>
             </div>
+            {/* chatgpt review */}
+            {/* <div className="mt-5 flex items-center">
+              <div className="">
+                {reviews ? (
+                  <>
+                    <p className="text-gray-800 font-medium text-2xl">
+                      <StarSvg size={4} margin={2} /> {placeData.rating} 4.52
+                      &#183; {reviews.length} Reviews
+                    </p>
+                    <div className="grid grid-cols-2 gap-6 mt-4">
+                      {reviews.map((review, index) => {
+                        return (
+                          <div className="flex gap-4" key={index}>
+                            <img
+                              src="https://img.freepik.com/free-icon/user_318-804790.jpg"
+                              alt=""
+                              className="w-12 h-12 rounded-full bg-red-500"
+                            />
+                            <div>
+                              <h1 className="text-lg font-medium">
+                                {review.name}
+                              </h1>
+                              <p className="text-slate-500 text-sm">
+                                {review.createdAt.slice(0, 10)}
+                              </p>
+                              <p className="text-gray-600 text-base">
+                                {review.review}
+                              </p>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </>
+                ) : (
+                  "No Reviews"
+                )}
+              </div>
+            </div> */}
+
             <hr className="mt-4"></hr>
             <div className="mt-5">
               <div className="">
@@ -166,7 +224,6 @@ const PlacePage = () => {
                   <BatchSvg />
                   <p className="text-gray-800 text-base">Identity verified</p>
                 </div>
-
                 <div className="mt-8 text-gray-800">
                   <p className="my-3">Policy number: {hostData._id}</p>
                   <p className="my-3">Languages: English, हिन्दी</p>
@@ -191,3 +248,22 @@ const PlacePage = () => {
 };
 
 export default PlacePage;
+// <div className="flex-row my-4">
+//   <div className="">
+//     <img
+//       src="https://img.freepik.com/free-icon/user_318-804790.jpg"
+//       alt="profile"
+//       className="w-12 h-12 border-grey-800 rounded-full bg-gray-200"
+//     />
+//     <div>
+//       <span className="inline ml-4 5text-lg font-medium">
+//         {review.name}
+//       </span>
+//       <p className="text-slate-500 ml-4 text-sm">
+//         {review.createdAt.slice(0, 10)}
+//       </p>
+//     </div>
+//   </div>
+
+//   <div className="inline-block">{review.review}</div>
+// </div> <div className="mt-5">

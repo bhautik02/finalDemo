@@ -130,6 +130,7 @@ export default function BookingWidget({ place }) {
           <input
             type="number"
             value={numberOfGuests}
+            min={1}
             onChange={(ev) => setNumberOfGuests(ev.target.value)}
           />
         </div>

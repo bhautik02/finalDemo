@@ -62,63 +62,70 @@ export default function ReservationDetailPage() {
 
   console.log(reservations);
   return (
-    <Box
-      style={{ marginLeft: "350px", marginRight: "350px", marginTop: "50px" }}>
-      <TableContainer component={Paper} style={{ marginBottom: "5%" }}>
-        <Table aria-label="customized table">
-          <TableHead>
-            <TableRow>
-              <StyledTableCell>Name</StyledTableCell>
-              <StyledTableCell align="left">Place</StyledTableCell>
-              <StyledTableCell align="left">Phone</StyledTableCell>
-              <StyledTableCell align="left">Number of Guests</StyledTableCell>
-              <StyledTableCell align="left">CheckIn Date</StyledTableCell>
-              <StyledTableCell align="left">CheckOut Date</StyledTableCell>
-              <StyledTableCell align="right">Total Price</StyledTableCell>
-              <StyledTableCell align="right">contact</StyledTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {reservations.map((reservation) => (
-              <StyledTableRow key={reservation._id}>
-                <StyledTableCell component="th" scope="row">
-                  {reservation.name}
-                </StyledTableCell>
-                <StyledTableCell align="left">
-                  {reservation.placeName}
-                </StyledTableCell>
-                <StyledTableCell align="left">
-                  {reservation.phone}
-                </StyledTableCell>
-                <StyledTableCell align="left">
-                  {reservation.numberOfGuests}
-                </StyledTableCell>
-                <StyledTableCell align="left">
-                  {reservation.checkOut.split("T")[0]}
-                </StyledTableCell>
-                <StyledTableCell align="left">
-                  {reservation.checkIn.split("T")[0]}
-                </StyledTableCell>
-                <StyledTableCell align="right">
-                  {reservation.price}
-                </StyledTableCell>
-                <StyledTableCell align="right">
-                  <button>b</button>
-                </StyledTableCell>
-              </StyledTableRow>
-            ))}
-          </TableBody>
-        </Table>
-        <TablePagination
-          rowsPerPageOptions={[2, 4, 6]}
-          component="paper"
-          count={reservations.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
-      </TableContainer>
-    </Box>
+    <>
+      <div>Reservations of {reservations[0].placeName}</div>
+      <Box
+        style={{
+          marginLeft: "350px",
+          marginRight: "350px",
+          marginTop: "50px",
+        }}>
+        <TableContainer component={Paper} style={{ marginBottom: "5%" }}>
+          <Table aria-label="customized table">
+            <TableHead>
+              <TableRow>
+                <StyledTableCell>Name</StyledTableCell>
+                <StyledTableCell align="left">Place</StyledTableCell>
+                <StyledTableCell align="left">Phone</StyledTableCell>
+                <StyledTableCell align="left">Number of Guests</StyledTableCell>
+                <StyledTableCell align="left">CheckIn Date</StyledTableCell>
+                <StyledTableCell align="left">CheckOut Date</StyledTableCell>
+                <StyledTableCell align="right">Total Price</StyledTableCell>
+                <StyledTableCell align="right">contact</StyledTableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {reservations.map((reservation) => (
+                <StyledTableRow key={reservation._id}>
+                  <StyledTableCell component="th" scope="row">
+                    {reservation.name}
+                  </StyledTableCell>
+                  <StyledTableCell align="left">
+                    {reservation.placeName}
+                  </StyledTableCell>
+                  <StyledTableCell align="left">
+                    {reservation.phone}
+                  </StyledTableCell>
+                  <StyledTableCell align="left">
+                    {reservation.numberOfGuests}
+                  </StyledTableCell>
+                  <StyledTableCell align="left">
+                    {reservation.checkOut.split("T")[0]}
+                  </StyledTableCell>
+                  <StyledTableCell align="left">
+                    {reservation.checkIn.split("T")[0]}
+                  </StyledTableCell>
+                  <StyledTableCell align="right">
+                    {reservation.price}
+                  </StyledTableCell>
+                  <StyledTableCell align="right">
+                    <button>b</button>
+                  </StyledTableCell>
+                </StyledTableRow>
+              ))}
+            </TableBody>
+          </Table>
+          <TablePagination
+            rowsPerPageOptions={[2, 4, 6]}
+            component="paper"
+            count={reservations.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
+        </TableContainer>
+      </Box>
+    </>
   );
 }

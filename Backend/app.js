@@ -10,6 +10,7 @@ const place = require("./routes/placeRoute");
 const booking = require("./routes/bookingRoute");
 const reservation = require("./routes/reservationRoute");
 const review = require("./routes/reviewRoute");
+const payment = require("./routes/paymentRoute");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -29,5 +30,6 @@ app.use("/api/v1/place", place);
 app.use("/api/v1/book", booking);
 app.use("/api/v1", reservation);
 app.use("/api/v1/review", review);
+app.use("/api/v1", payment);
 
 module.exports = app;

@@ -86,15 +86,32 @@ const loginUser = async (req, res) => {
   }
 };
 
+// const logoutUser = (req, res) => {
+//   try {
+//     const options = {
+//       maxAge: 0,
+//     };
+
+//     res.status(200).cookie("token", "", options).json({
+//       status: "success",
+//     });
+//   } catch (error) {
+//     res.status(401).json({
+//       status: "failed",
+//       message: error.message,
+//     });
+//   }
+// };
+
 const logoutUser = (req, res) => {
   try {
-    const options = {
-      maxAge: 0,
-    };
-
-    res.status(200).cookie("token", "", options).json({
-      status: "success",
-    });
+    res
+      .clearCookie("token", {
+        sameSite: "none",
+        secure: true,
+      })
+      .status(200)
+      .send("logOut.");
   } catch (error) {
     res.status(401).json({
       status: "failed",

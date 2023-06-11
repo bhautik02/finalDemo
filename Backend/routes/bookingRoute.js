@@ -1,9 +1,11 @@
 const express = require("express");
-const boookingController = require("../controller/bookingController");
+const bookingController = require("../controller/bookingController");
 
 const router = express.Router();
 
-router.route("/bookings").post(boookingController.bookPlace);
-router.route("/bookings/:id").get(boookingController.getBookings);
-
+router.route("/bookings").post(bookingController.bookPlace);
+router.route("/bookings/:id").get(bookingController.getBookings);
+router
+  .route("/create-payment-intent/:id")
+  .post(bookingController.createPaymentIntent);
 module.exports = router;

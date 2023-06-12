@@ -7,15 +7,6 @@ const Stripe = require("stripe");
 
 const bookPlace = async (req, res) => {
   try {
-    const stripe = new Stripe(process.env.STRIPE);
-
-    const paymentIntent = await stripe.paymentIntents.create({
-      amount: Math.round(service.price * 100),
-      currency: "inr",
-      automatic_payment_methods: {
-        enabled: true,
-      },
-    });
     const {
       checkIn,
       checkOut,
@@ -33,6 +24,15 @@ const bookPlace = async (req, res) => {
       checkOutTime,
     } = req.body;
     console.log(placeID);
+    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: Math.round(price * 100),
+      currency: "inr",
+      automatic_payment_methods: {
+        enabled: true,
+      },
+    });
 
     const booking = new Booking({
       checkIn,
@@ -85,24 +85,25 @@ const bookPlace = async (req, res) => {
   }
 };
 
-const confirm = async (req, res, next) => {
-  console.log("req", req.body);
-  const orders = await Booking.findOneAndUpdate(
-    {
-      payment: req.body.payment_intent,
-    },
-    {
-      $set: {
-        isCompleted: true,
-      },
-    },
-    {
-      new: true,
-    }
-  );
-  console.log(orders);
-  res.status(200).json("Order has been confirmed.");
-};
+// const confirm = async (req, res, next) => {
+//   console.log("req", req.body);
+//   const orders = await Booking.findOneAndUpdate(
+//     {
+//       payment: req.body.payment_intent,
+//     },
+//     {
+//       $set: {
+//         isCompleted: true,
+//       },
+//     },
+//     {
+//       new: true,
+//     }
+//   );
+//   console.log(orders);
+//   res.status(200).json("Order has been confirmed.");
+// };
+
 const getBookings = async (req, res) => {
   try {
     const userId = req.params.id;
@@ -126,42 +127,43 @@ const getBookings = async (req, res) => {
   }
 };
 
-const createPaymentIntent = async (req, res, next) => {
-  const stripe = new Stripe(process.env.STRIPE);
-  // const service = await ServiceModel.findById(req.params.id);
+// const createPaymentIntent = async (req, res, next) => {
+//   const stripe = new Stripe(process.env.STRIPE);
+//   // const service = await ServiceModel.findById(req.params.id);
 
-  const paymentIntent = await stripe.paymentIntents.create({
-    amount: Math.round(service.price * 100),
-    currency: "inr",
-    automatic_payment_methods: {
-      enabled: true,
-    },
-  });
+//   const paymentIntent = await stripe.paymentIntents.create({
+//     amount: Math.round(500 * 100),
+//     currency: "inr",
+//     automatic_payment_methods: {
+//       enabled: true,
+//     },
+//   });
 
-  // const newBooking = new BookingModel({
-  //   serviceId: service._id,
-  //   img: service.img,
-  //   title: service.title,
-  //    iserviceProviderId: service.userId,
-  //   buyerId: req.user._id,
-  //   price: service.price,
-  //   payment: paymentIntent.id,
-  // });
+// const newBooking = new BookingModel({
+//   serviceId: service._id,
+//   img: service.img,
+//   title: service.title,
+//    iserviceProviderId: service.userId,
+//   buyerId: req.user._id,
+//   price: service.price,
+//   payment: paymentIntent.id,
+// });
 
-  // const id = req.params.id
-  //   // await newBooking.save();
-  //   const newBooking = await BookingModel.findOneAndUpdate(
-  //     { _id:id},
-  //     { new: true }
-  //   );
+// const id = req.params.id
+//   // await newBooking.save();
+//   const newBooking = await BookingModel.findOneAndUpdate(
+//     { _id:id},
+//     { new: true }
+//   );
 
-  res.status(200).send({
-    clientSecret: paymentIntent.client_secret,
-  });
-};
+//   res.status(200).send({
+//     clientSecret: paymentIntent.client_secret,
+//   });
+// };
 
 module.exports = {
   bookPlace,
   getBookings,
-  confirm,
+  // confirm,
+  // createPaymentIntent,
 };

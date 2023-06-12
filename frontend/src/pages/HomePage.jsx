@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { hostedPlaceActions } from "../store/place";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import Filters from "../components/Filters";
 
 const HomePage = () => {
   const allHostedPlaces = useSelector(
@@ -28,6 +29,7 @@ const HomePage = () => {
 
   return (
     <>
+      <Filters />
       {allHostedPlaces && (
         <div className="pt-10">
           <div className="mx-auto md:px-10 sm:px-2 px-4 xsm:ml-20px ">

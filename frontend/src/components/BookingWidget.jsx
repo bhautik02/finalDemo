@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import { differenceInCalendarDays } from "date-fns";
-import axios from "axios";
 import { Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import MyDatePicker from "./DatePicker";
-import { bookingActions } from "../store/booking";
+import { bookPlaceAsync } from "../store/booking";
 import datesBetween from "dates-between";
 
 export default function BookingWidget({ place }) {
@@ -93,16 +92,7 @@ export default function BookingWidget({ place }) {
       checkOutTime: place.checkOut,
     };
 
-    axios
-      .post(`book/bookings`, formData)
-      .then((res) => {
-        dispatch(bookingActions.bookingData(res.data.booking));
-        console.log("book", res.data.booking);
-      })
-      .catch((err) => {
-        // console.log(err.response.data);
-        alert(err.response.data.message);
-      });
+    dispatch(bookPlaceAsync(formData));
   }
 
   if (bookingData) {

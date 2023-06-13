@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { hostedPlaceActions } from "../store/place";
+import { hostedPlaceActions, placeActions } from "../store/place";
 
 const MyPlaces = () => {
   const dispatch = useDispatch();
@@ -15,7 +15,7 @@ const MyPlaces = () => {
     axios
       .get(`place/hostPlace/${userId}`)
       .then((res) => {
-        dispatch(hostedPlaceActions.hostingData(res.data.hostedPlace));
+        dispatch(placeActions.hostingData(res.data.hostedPlace));
       })
       .catch((err) => {
         alert(err.response.data.message);

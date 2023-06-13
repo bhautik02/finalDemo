@@ -19,20 +19,20 @@
 //   checkout,
 // };
 
-const Booking = require("./models/bookingModel");
+// const Booking = require("./models/bookingModel");
 
-const createPaymentIntent = async (req, res, next) => {
-  const stripe = new Stripe(process.env.STRIPE);
+// const createPaymentIntent = async (req, res, next) => {
+//   const stripe = new Stripe(process.env.STRIPE);
 
-  const booking = await Booking.findById(req.params.id);
+//   const booking = await Booking.findById(req.params.id);
 
-  const paymentIntent = await stripe.paymentIntents.create({
-    amount: booking.price * 100,
-    currency: "inr",
-    automatic_payment_methods: {
-      enabled: true,
-    },
-  });
-};
+//   const paymentIntent = await stripe.paymentIntents.create({
+//     amount: booking.price * 100,
+//     currency: "inr",
+//     automatic_payment_methods: {
+//       enabled: true,
+//     },
+//   });
+// };
 
-module.exports = createPaymentIntent;
+// module.exports = createPaymentIntent;

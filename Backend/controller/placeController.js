@@ -2,134 +2,96 @@
 
 const Place = require("../models/placeModel");
 const User = require("../models/userModel");
-const getPlace = async (req, res) => {
-  try {
-    const placeId = req.params.id;
-    const place = await Place.findById(placeId)
-      .populate({
-        path: "reviews",
-        select: "rating review name createdAt",
-      })
-      .populate("host");
-    // .select("-__v -updatedAt")
+const CatchAsync = require("../utils/CatchAsync");
+const AppError = require("../utils/appError");
 
-    // const host = await User.findById(place.owner).select("-__v -updatedAt");
+const getPlace = CatchAsync(async (req, res, next) => {
+  const placeId = req.params.id;
+  const place = await Place.findById(placeId)
+    .populate({
+      path: "reviews",
+      select: "rating review name createdAt",
+    })
+    .populate("host");
 
-    if (!place) {
-      throw new Error("No data found with this id!");
-    }
-
-    res.status(200).json({
-      status: "success",
-      place,
-    });
-  } catch (error) {
-    res.status(401).json({
-      status: "failed",
-      message: error.message,
-    });
+  if (!place) {
+    return next(new AppError("Place not found!", 404));
   }
-};
 
-const getYourHostedPlace = async (req, res) => {
-  try {
-    const ownerId = req.params.id;
-    console.log(ownerId);
-    const hostedPlace = await Place.find({ owner: ownerId }).select("-__v");
+  res.status(200).json({
+    status: "success",
+    place,
+  });
+});
 
-    if (!hostedPlace) {
-      throw new Error("no place found...");
-    }
+const getYourHostedPlace = CatchAsync(async (req, res, next) => {
+  const ownerId = req.params.id;
+  const hostedPlace = await Place.find({ owner: ownerId }).select("-__v");
 
-    res.status(200).json({
-      status: "success",
-      length: hostedPlace.length,
-      hostedPlace,
-    });
-  } catch (error) {
-    res.status(401).json({
-      status: "failed",
-      message: error.message,
-    });
+  if (!hostedPlace) {
+    return next(new AppError("Place not found!", 404));
   }
-};
 
-const getAllHostedplaces = async (req, res) => {
-  try {
-    const hostedPlace = await Place.find().select("-__v");
+  res.status(200).json({
+    status: "success",
+    length: hostedPlace.length,
+    hostedPlace,
+  });
+});
 
-    if (!hostedPlace) {
-      throw new Error("no place found...");
-    }
+const getAllHostedplaces = CatchAsync(async (req, res, next) => {
+  const hostedPlace = await Place.find().select("-__v");
 
-    res.status(200).json({
-      status: "success",
-      length: hostedPlace.length,
-      hostedPlace,
-    });
-  } catch (error) {
-    res.status(401).json({
-      status: "failed",
-      message: error.message,
-    });
+  if (!hostedPlace) {
+    return next(new AppError("Places not found!", 404));
   }
-};
 
-const hostPlace = async (req, res) => {
-  try {
-    const {
-      title,
-      address,
-      photo,
-      description,
-      perks,
-      checkIn,
-      price,
-      checkOut,
-      maxGuest,
-      noOfBedrooms,
-      noOfBathrooms,
-    } = req.body;
-    const ownerId = req.params.id;
-    const newHostedPlace = await Place.create({
-      title,
-      address,
-      photo,
-      description,
-      perks,
-      checkIn,
-      price,
-      checkOut,
-      maxGuest,
-      noOfBedrooms,
-      noOfBathrooms,
-      owner: ownerId,
-    });
+  res.status(200).json({
+    status: "success",
+    length: hostedPlace.length,
+    hostedPlace,
+  });
+});
 
-    if (!newHostedPlace) {
-      throw new Error("getting trouble in creating host data...");
-    }
-    res.status(200).json({
-      status: "success",
-      message: "New Place Hosted!",
-    });
-  } catch (error) {
-    if (error.code === 11000) {
-      message = "Place already exist.";
-    }
-    if (error.name === "ValidationError") {
-      const errors = Object.values(error.errors).map((el) => el.message);
-      message = `${errors.join(".\n")}`;
-    }
-    if (error.name === "CastError") {
-      message = `Invalid ${err.path}: ${err.value}.`;
-    }
-    res.status(401).json({
-      status: "failed",
-      message,
-    });
+const hostPlace = CatchAsync(async (req, res, next) => {
+  const {
+    title,
+    address,
+    photo,
+    description,
+    perks,
+    checkIn,
+    price,
+    checkOut,
+    maxGuest,
+    noOfBedrooms,
+    noOfBathrooms,
+  } = req.body;
+  const ownerId = req.params.id;
+  const newHostedPlace = await Place.create({
+    title,
+    address,
+    photo,
+    description,
+    perks,
+    checkIn,
+    price,
+    checkOut,
+    maxGuest,
+    noOfBedrooms,
+    noOfBathrooms,
+    owner: ownerId,
+  });
+
+  if (!newHostedPlace) {
+    return next(new AppError("Place not hosted!", 400));
   }
-};
+
+  res.status(200).json({
+    status: "success",
+    message: "New Place Hosted!",
+  });
+});
 
 module.exports = {
   getPlace,

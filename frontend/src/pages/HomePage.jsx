@@ -1,41 +1,25 @@
-import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { hostedPlaceActions } from "../store/place";
+import { getAllPlacesAsync } from "../store/place";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import Filters from "../components/Filters";
 
 const HomePage = () => {
-  const allHostedPlaces = useSelector(
-    (state) => state.hostedPlace.allHostedPlaces
-  );
+  const allplaces = useSelector((state) => state.place.allPlaces);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const getAllHostedData = () => {
-      axios
-        .get(`place/hostPlaces`)
-        .then((res) => {
-          dispatch(hostedPlaceActions.allHostingData(res.data.hostedPlace));
-        })
-        .catch((err) => {
-          alert(err.response.data.message);
-        });
-    };
-    getAllHostedData();
-
-    // window.scroll(0, 0);
-  }, [dispatch]);
+    dispatch(getAllPlacesAsync());
+  }, []);
 
   return (
-    // <div className="bg-black text-white ">
+    // <div className="bg-gray-950 text-white ">
     <div>
       {/* <Filters /> */}
-      {allHostedPlaces && (
+      {allplaces && (
         <div className="py-10 ">
           <div className="mx-auto md:px-10 sm:px-2 px-4 xsm:ml-20px ">
             <div className=" grid  grid-cols-1  sm:grid-cols-2  md:grid-cols-3  lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-5 gap-8 ">
-              {allHostedPlaces.map((place) => {
+              {allplaces.map((place) => {
                 return (
                   <Link
                     className="col-span-1 cursor-pointer group"
@@ -69,6 +53,7 @@ const HomePage = () => {
         </div>
       )}
     </div>
+    // </div>
   );
 };
 

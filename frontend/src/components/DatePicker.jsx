@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 const daysss = dayjs().add(60, "day");
 
 export default function MyDatePicker({ setDate }) {
-  const selectedDates = useSelector((state) => state.booking.bookedDate);
+  const { bookedDatesOfPlace } = useSelector((state) => state.place);
   // console.log(selectedDates);
 
   const getFormattedDate = (date) => {
@@ -25,7 +25,7 @@ export default function MyDatePicker({ setDate }) {
     const formattedDate = getFormattedDate(date);
     // let blackoutDates = ["9/6/2023", "12/6/2023", "20/6/2023", "21/6/2023"];
 
-    return selectedDates.includes(formattedDate);
+    return bookedDatesOfPlace.includes(formattedDate);
   };
 
   const dateChangeHandler = (date) => {

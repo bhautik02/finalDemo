@@ -3,9 +3,12 @@ import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import { useDispatch } from "react-redux";
+import { createReviewAsync } from "../store/review";
 import axios from "axios";
 
 export default function ReviewDialogBox({ bookingData }) {
+  const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
   const [rating, setRating] = React.useState(0);
   const [review, setReview] = React.useState(null);
@@ -18,31 +21,46 @@ export default function ReviewDialogBox({ bookingData }) {
     setOpen(false);
   };
 
+  // let formData;
+  // let bookingID;
+
   const submitHandler = (event) => {
     event.preventDefault();
     setOpen(false);
     const reviewBy = bookingData.name;
-    console.log("name:", reviewBy);
     const bookingID = bookingData._id;
     const place = bookingData.place;
     const user = bookingData.bookBy;
 
-    console.log(bookingID);
-    axios
-      .post(`review/reviews/${bookingID}`, {
+    const formData = { name: reviewBy, place, user, rating, review };
+    dispatch(
+      createReviewAsync(bookingID, {
         name: reviewBy,
         place,
         user,
         rating,
         review,
       })
-      .then((res) => {
-        console.log("review Post succesfully");
-      })
-      .catch((err) => {
-        alert(err.response.data.message);
-      });
+    );
+    // axios
+    //   .post(`review/reviews/${bookingID}`, {
+    //     name: reviewBy,
+    //     place,
+    //     user,
+    //     rating,
+    //     review,
+    //   })
+    //   .then((res) => {
+    //     console.log("review Post succesfully");
+    //   })
+    //   .catch((err) => {
+    //     alert(err.response.data.message);
+    //   });
   };
+
+  // React.useEffect(() => {
+  //   dispatch(createReviewAsync(bookingID, formData));
+  // }, []);
 
   return (
     <div>

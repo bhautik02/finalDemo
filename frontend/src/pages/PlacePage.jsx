@@ -4,51 +4,44 @@ import axios from "axios";
 import PhotoGallery from "../components/PhotoGallery";
 import AddressLink from "../components/AddressLink";
 import BookingWidget from "../components/BookingWidget";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { bookingActions } from "../store/booking";
 import ShowAmenities from "../components/ShowAmenities";
 import CheckInSvg from "../utils/svg/CheckInSvg";
 import CheckOutSvg from "../utils/svg/CheckOutSvg";
 import BatchSvg from "../utils/svg/BatchSvg";
 import StarSvg from "../utils/svg/StarSvg";
+import { getPlaceAsync, placeActions } from "../store/place";
 
 // import { getPlace } from "./../api";
 
 const PlacePage = () => {
   const dispatch = useDispatch();
-  const [placeData, setPlaceData] = useState(null);
+  const { placeData } = useSelector((state) => state.place);
   const [hostData, setHostData] = useState(null);
   const [ready, setReady] = useState(false);
   const [reviews, setReviews] = useState([]);
 
-  // if (placeData) {
-  //    { perks } = placeData;
-  // }
-
   const { id: placeId } = useParams();
-
-  // console.log(placeId);
 
   useEffect(() => {
     if (!placeId) {
       return;
     }
-    axios
-      .get(`place/${placeId}`)
-      .then((res) => {
-        setHostData(res.data.place.host[0]);
-        setPlaceData(res.data.place);
-        setReviews(res.data.place.reviews);
-        dispatch(bookingActions.bookedDate(res.data.place.bookedDates));
-        setReady(true);
-      })
-      .catch((err) => {
-        alert(err.response.data.message);
-      });
+    dispatch(getPlaceAsync(placeId));
+
     // eslint-disable-next-line
   }, []);
 
-  if (!placeData) return "";
+  useEffect(() => {
+    if (placeData) {
+      // console.log(placeData.bookedDates);
+      dispatch(placeActions.getBookedDatesOfPlace(placeData.bookedDates));
+      setHostData(...placeData.host);
+      setReviews(placeData.reviews);
+      setReady(true);
+    }
+  }, [placeData]);
 
   // console.log(reviews);
   return (
@@ -56,7 +49,6 @@ const PlacePage = () => {
     <div>
       {ready && (
         <>
-          {console.log(placeData)}
           <div className="mx-80 pt-4">
             <h1 className="text-3xl">{placeData.title}</h1>
             <AddressLink>{placeData.address}</AddressLink>

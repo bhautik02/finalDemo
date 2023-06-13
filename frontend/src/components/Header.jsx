@@ -7,8 +7,9 @@ import { useSelector } from "react-redux";
 const Header = () => {
   const user = useSelector((state) => state.user.user);
   return (
-    <div className="text-white bg-gray-950">
-      <header className="flex justify-between mt-4 pl-10 pr-10">
+    // <div>
+    <div className="text-white bg-gray-950 sticky top-0 z-10">
+      <header className=" flex justify-between mt-4 pl-10 pr-10">
         <a href="/" className="flex items-center gap-1 ">
           <Logosvg />
           <p className="font-bold text-2xl">title</p>

@@ -2,15 +2,17 @@ import { configureStore } from "@reduxjs/toolkit";
 
 import userReducer from "./user";
 import addPlaceReducer from "./addPlace";
-import hostedPlaceReducer from "./place";
+import placeSlice from "./place";
 import bookingReducer from "./booking";
+import reviewReducer from "./review";
 
 const store = configureStore({
   reducer: {
     user: userReducer,
     addPlace: addPlaceReducer,
-    hostedPlace: hostedPlaceReducer,
+    place: placeSlice,
     booking: bookingReducer,
+    review: reviewReducer,
   },
 });
 

@@ -1,23 +1,18 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import ReviewDialogBox from "../components/ReviewDialogBox";
+import { getAllbookingAsync } from "../store/booking";
 
 const BookingsPage = () => {
+  const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
-  const [bookings, setBookings] = useState(null);
+  const { allBookings } = useSelector((state) => state.booking);
+  const userId = user._id;
 
   useEffect(() => {
-    axios
-      .get(`book/bookings/${user._id}`)
-      .then((res) => {
-        console.log("jsknd", res.data.bookings);
-        setBookings(res.data.bookings);
-      })
-      .catch((err) => {
-        alert(err.response.data.message);
-      }); // eslint-disable-next-line
+    dispatch(getAllbookingAsync(userId));
+    // eslint-disable-next-line
   }, []);
 
   const canReview = (date) => {
@@ -48,8 +43,8 @@ const BookingsPage = () => {
           </div>
         </div>
         <div className="w-5/12">
-          {bookings &&
-            bookings.map((booking) => (
+          {allBookings &&
+            allBookings.map((booking) => (
               <div
                 className="shadow-2xl shadow-black-300 h-60 m-10"
                 key={booking._id}>

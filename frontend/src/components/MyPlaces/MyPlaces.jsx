@@ -1,13 +1,11 @@
 //mui imports
 import Card from "@mui/material/Card";
 import { Box, Modal } from "@mui/material";
-
 import PlusSvg from "../../utils/svg/PlusSvg";
 import { useEffect, useState } from "react";
 import HostingSlider from "../HostingSlider";
 import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
-import { hostedPlaceActions } from "../../store/place";
+import { getAllHostedPlacesByUserAsync } from "../../store/place";
 import { Link } from "react-router-dom";
 
 const style = {
@@ -24,7 +22,7 @@ const style = {
 
 const MyPlaces = () => {
   const user = useSelector((state) => state.user.user);
-  const hostedData = useSelector((state) => state.hostedPlace.yourHostedPlace);
+  const hostedData = useSelector((state) => state.hostedPlace.yourHostedPlaces);
   const dispatch = useDispatch();
 
   const userId = user._id;
@@ -37,25 +35,14 @@ const MyPlaces = () => {
   };
   const editHandleOpen = () => {
     setOpen(true);
-    console.log("jani");
     setEditingPlaceInfo(true);
   };
   const handleClose = () => setOpen(false);
 
   useEffect(() => {
-    axios
-      .get(`place/hostPlace/${userId}`)
-      .then((res) => {
-        // if (res.data.length === 0) {
-        //   return;
-        // }
-        dispatch(hostedPlaceActions.hostingData(res.data.hostedPlace));
-      })
-      .catch((err) => {
-        alert(err.response.data.message);
-      });
+    dispatch(getAllHostedPlacesByUserAsync(userId));
     // eslint-disable-next-line
-  }, []);
+  }, [getAllHostedPlacesByUserAsync]);
 
   return (
     <>
@@ -91,7 +78,7 @@ const MyPlaces = () => {
           </Box>
         </Modal>
       </div>
-      {hostedData.length === 0 ? (
+      {!hostedData ? (
         <div className="flex  justify-center m-3 ">
           <Card
             sx={{

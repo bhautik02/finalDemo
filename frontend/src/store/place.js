@@ -1,90 +1,101 @@
-import { createSlice } from "@reduxjs/toolkit";
-
-const InitialState = { yourHostedPlace: [], allHostedPlaces: null };
-
-const hostedPlaceSlice = createSlice({
-  name: "HostedPlace",
-  initialState: InitialState,
-  reducers: {
-    hostingData(state, action) {
-      // state.yourHostedPlace = [...state.yourHostedPlace, action.payload];
-      console.log("yourHostedPlace ---------->", state.yourHostedPlace);
-      console.log("yourHostedPnjihiuh8lace ---------->", action.payload);
-      state.yourHostedPlace = action.payload;
-
-      // if (state.yourHostedPlace.length === 0) {
-      // } else {
-      //   state.yourHostedPlace = [state.yourHostedPlace, action.payload];
-      // }
-
-      console.log(state.yourHostedPlace);
-    },
-    allHostingData(state, action) {
-      state.allHostedPlaces = action.payload;
-      // console.log("state.yourHostedPlace", state.yourHostedPlace);
-    },
-  },
-});
-
-export const hostedPlaceActions = hostedPlaceSlice.actions;
-export default hostedPlaceSlice.reducer;
-
-/*
-
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 export const getAllPlacesAsync = createAsyncThunk(
   "place/getAllPlaces",
   async () => {
-    // Make an API request to log in the user and obtain the token
-    // console.log(email, password);
-    const response = await axios.post(`place/hostPlaces`);
-    console.log(response);
-    console.log(
-      "----------------------------------------->"
-      // response.data.user
-    );
-    return;
-    // return response.data.user;
-    // if (!response.ok) {
-    //   throw new Error("Login failed");
-    // }
+    try {
+      const response = await axios.get(`place/hostPlaces`);
+      const allPlaces = response.data.hostedPlace;
+      return allPlaces;
+    } catch (error) {
+      return error.response.data.message;
+    }
   }
 );
 
-const initialState = { data: null };
+export const getAllHostedPlacesByUserAsync = createAsyncThunk(
+  "place/getAllHostedPlacesByUser",
+  async (userId) => {
+    try {
+      const response = await axios.get(`place/hostPlace/${userId}`);
+      const getAllHostedPlacesByUser = response.data.hostedPlace;
+      return getAllHostedPlacesByUser;
+    } catch (error) {
+      return error.response.data.message;
+    }
+  }
+);
 
-// const InitialState = { yourHostedPlace: [], allHostedPlaces: null };
+export const getPlaceAsync = createAsyncThunk(
+  "place/getPlace",
+  async (placeId) => {
+    try {
+      const response = await axios.get(`place/${placeId}`);
+      const placeData = response.data.place;
+      return placeData;
+    } catch (error) {
+      return error.response.data.message;
+    }
+  }
+);
 
-const hostedPlaceSlice = createSlice({
+const InitialState = {
+  allPlaces: null,
+  yourHostedPlaces: null,
+  placeData: null,
+  bookedDatesOfPlace: null,
+};
+
+const placeSlice = createSlice({
   name: "place",
-  initialState: initialState,
+  initialState: InitialState,
   reducers: {
-    
+    getBookedDatesOfPlace(state, action) {
+      state.bookedDatesOfPlace = action.payload;
+      console.log("bookedDates", action.payload);
+    },
   },
   extraReducers: (builder) => {
     builder
       .addCase(getAllPlacesAsync.pending, (state) => {
-        // Update the state to indicate that login is in progress
         state.loading = false;
         state.error = null;
       })
       .addCase(getAllPlacesAsync.fulfilled, (state, action) => {
-        // Update the state with the user data received from the API
         state.loading = true;
-        state.data = { ...state.payload };
+        state.allPlaces = action.payload;
       })
       .addCase(getAllPlacesAsync.rejected, (state, action) => {
-        // Update the state to handle the login failure
+        state.loading = false;
+        state.error = action.error.message;
+      })
+      .addCase(getAllHostedPlacesByUserAsync.pending, (state) => {
+        state.loading = false;
+        state.error = null;
+      })
+      .addCase(getAllHostedPlacesByUserAsync.fulfilled, (state, action) => {
+        state.loading = true;
+        state.yourHostedPlaces = action.payload;
+      })
+      .addCase(getAllHostedPlacesByUserAsync.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
+      .addCase(getPlaceAsync.pending, (state) => {
+        state.loading = false;
+        state.error = null;
+      })
+      .addCase(getPlaceAsync.fulfilled, (state, action) => {
+        state.loading = true;
+        state.placeData = action.payload;
+      })
+      .addCase(getPlaceAsync.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       });
   },
 });
 
-export const hostedPlaceActions = hostedPlaceSlice.actions;
-export default hostedPlaceSlice.reducer;
-
-
-*/
+export const placeActions = placeSlice.actions;
+export default placeSlice.reducer;

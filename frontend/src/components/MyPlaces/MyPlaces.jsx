@@ -69,6 +69,9 @@ const MyPlaces = () => {
         </button>
       </div>
       <div>
+        <p className="flex text-3xl font-semibold  -mb-4 justify-center ">
+          My Hosted Places
+        </p>
         <Modal
           open={open}
           onClose={handleClose}
@@ -88,7 +91,6 @@ const MyPlaces = () => {
           </Box>
         </Modal>
       </div>
-
       {hostedData.length === 0 ? (
         <div className="flex  justify-center m-3 ">
           <Card

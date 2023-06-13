@@ -25,6 +25,9 @@ const MyPlaces = () => {
 
   return (
     <>
+      <p className="flex text-3xl justify-center font-semibold ml-10 mb-4">
+        My Reservations
+      </p>
       {hostedData.length === 0 ? (
         <div className="flex  justify-center m-3 ">
           <div className="flex w-1/2 h-3/4 justify-center items-center">

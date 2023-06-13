@@ -7,8 +7,8 @@ import { useSelector } from "react-redux";
 const Header = () => {
   const user = useSelector((state) => state.user.user);
   return (
-    <>
-      <header className="flex justify-between pl-10 pr-10">
+    <div className="text-white bg-gray-950">
+      <header className="flex justify-between mt-4 pl-10 pr-10">
         <a href="/" className="flex items-center gap-1 ">
           <Logosvg />
           <p className="font-bold text-2xl">title</p>
@@ -19,7 +19,7 @@ const Header = () => {
     display: flex; */}
         {/* <div className="relative"> */}
         {/* <div className="absolute w-full justify-center flex"> */}
-        {/* <div className="flex border border-grey-500 rounded-full gap-2 p-2 shadow-lg shadow-grey-100">
+        <div className="flex  border border-grey-500 rounded-full gap-2 p-2 shadow-lg shadow-grey-100">
           <div>Any where</div>
           <div className="border-l border-grey-500" />
           <div>Any week</div>
@@ -28,7 +28,7 @@ const Header = () => {
           <button className="bg-primary rounded-full p-1">
             <SearchSvg />
           </button>
-        </div> */}
+        </div>
         {/* </div> */}
         {/* </div> */}
 
@@ -48,7 +48,7 @@ const Header = () => {
         </div>
       </header>
       <hr className="mt-4" />
-    </>
+    </div>
   );
 };
 

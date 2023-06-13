@@ -52,11 +52,12 @@ const PlacePage = () => {
 
   // console.log(reviews);
   return (
+    // <div className="text-white bg-black">
     <div>
       {ready && (
         <>
           {console.log(placeData)}
-          <div className="mx-80 mt-4">
+          <div className="mx-80 pt-4">
             <h1 className="text-3xl">{placeData.title}</h1>
             <AddressLink>{placeData.address}</AddressLink>
             <PhotoGallery place={placeData} />

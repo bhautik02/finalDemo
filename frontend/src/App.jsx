@@ -15,7 +15,10 @@ import PlacePage from "./pages/PlacePage";
 import PagenotFound from "./pages/PagenotFound";
 import BookingsPage from "./pages/BookingsPage";
 import BookingPage from "./pages/ReservationDetailPage";
+import ReservationPage from "./pages/ReservationPage";
+import MyAccount from "./components/MyAccount";
 import ReservationDetailPage from "./pages/ReservationDetailPage";
+import MyPlaces from "./pages/ReservationPage";
 
 axios.defaults.baseURL = "http://localhost:5000/api/v1/";
 const URL = "http://localhost:5000/api/v1/users/profile";
@@ -57,6 +60,11 @@ function App() {
                 <Navigate replace to="/login" />
               )
             }></Route>
+          {/* <Route path="/account/myAccount" element={<MyAccount />} />
+          <Route path="/account/reservations" element={<ReservationPage />} />
+          <Route path="/account/bookings" element={<BookingsPage />} />
+          <Route path="/account/liked" element={<MyAccount />} />
+          <Route path="/account/places" element={<MyPlaces />} /> */}
           <Route path="/account/:param" element={<AccountPage />}></Route>
           <Route path="/account/bookings/:id" element={<BookingPage />}></Route>
           <Route path="/places/:id" element={<PlacePage />}></Route>

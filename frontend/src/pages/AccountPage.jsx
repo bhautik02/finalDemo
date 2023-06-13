@@ -1,5 +1,5 @@
 import LoadingSpinner from "../utils/LoadingSpinner";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink, useLocation, useParams } from "react-router-dom";
 import MyAccount from "../components/MyAccount";
 import UserSvg from "../utils/svg/UserSvg";
 import ReservationSvg from "../utils/svg/ReservationSvg";
@@ -25,7 +25,7 @@ const AccountPage = () => {
   ) : (
     ready && user && (
       <div className="bg-gray-100">
-        <nav className="w-full justify-center flex my-8 gap-2">
+        <nav className="w-full justify-center flex py-4 gap-2">
           <NavLink className={activeClassName} to={"/account/myAccount"}>
             <UserSvg />
             My Account
@@ -51,7 +51,6 @@ const AccountPage = () => {
             My Places
           </NavLink>
         </nav>
-
         {param.param === "myAccount" && <MyAccount user={user} />}
         {param.param === "places" && <MyPlaces />}
         {param.param === "bookings" && <BookingsPage />}

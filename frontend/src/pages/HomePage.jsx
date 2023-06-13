@@ -28,10 +28,11 @@ const HomePage = () => {
   }, [dispatch]);
 
   return (
-    <>
-      <Filters />
+    // <div className="bg-black text-white ">
+    <div>
+      {/* <Filters /> */}
       {allHostedPlaces && (
-        <div className="pt-10">
+        <div className="py-10 ">
           <div className="mx-auto md:px-10 sm:px-2 px-4 xsm:ml-20px ">
             <div className=" grid  grid-cols-1  sm:grid-cols-2  md:grid-cols-3  lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-5 gap-8 ">
               {allHostedPlaces.map((place) => {
@@ -67,7 +68,7 @@ const HomePage = () => {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 };
 

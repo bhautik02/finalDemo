@@ -5,7 +5,9 @@ import UserSvg from "../utils/svg/UserLoginSvg";
 import { useSelector } from "react-redux";
 
 const Header = () => {
+  const isUserLoggedIn = useSelector((state) => state.user.isUserLoggedIn);
   const user = useSelector((state) => state.user.user);
+  console.log("isfugs", user);
   return (
     // <div>
     <div className="text-white bg-gray-950 sticky top-0 z-10">
@@ -44,7 +46,7 @@ const Header = () => {
             to={user ? "/account/myAccount" : "/login"}
             className="flex border items-center border-grey-500 rounded-full gap-2 p-2">
             <UserSvg />
-            {!!user ? <div>{user.name}</div> : <div>Login</div>}
+            {user ? <div>{user.name}</div> : <div>Login</div>}
           </Link>
         </div>
       </header>

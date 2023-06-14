@@ -1,15 +1,12 @@
 import { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
-
-import axios from "axios";
 import { useDispatch } from "react-redux";
-import { userActions } from "../store/user";
+import { userLoginAsync } from "../store/user";
 
 const LoginPage = () => {
   //to take input from user while login
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // const { setUser } = useContext(userContext);
   const dispatch = useDispatch();
 
   //to redirect user after login
@@ -18,26 +15,9 @@ const LoginPage = () => {
   //submit handler for userlogin
   const onUserLogin = (event) => {
     event.preventDefault();
-    const formdata = {
-      email,
-      password,
-    };
 
-    axios
-      .post(`users/login`, formdata, { withCredentials: true })
-      .then((res) => {
-        dispatch(userActions.userData(res.data.user));
-        dispatch(userActions.login());
-        // dispatch(userActions.ready());
-        // setUser(res.data.user);
-
-        setRedirect(true);
-      })
-      .catch((err) => {
-        console.log(err);
-        alert(err.data.message);
-      });
-
+    dispatch(userLoginAsync({ email, password }));
+    setRedirect(true);
     setEmail("");
     setPassword("");
   };

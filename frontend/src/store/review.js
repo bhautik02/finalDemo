@@ -3,15 +3,19 @@ import axios from "axios";
 
 export const createReviewAsync = createAsyncThunk(
   "review/createReview",
-  async (bookingID, reviewFormData) => {
+  async (reviewFormData) => {
     try {
       console.log("formData-------->", reviewFormData);
-      const response = await axios.post(
-        `review/reviews/${bookingID}`,
-        ...reviewFormData
-      );
-      const review = response.data.review;
-      console.log("review", review);
+      const { name, place, user, rating, review, bookingID } = reviewFormData;
+      const response = await axios.post(`review/reviews/${bookingID}`, {
+        name,
+        place,
+        user,
+        rating,
+        review,
+      });
+      const reviewRes = response.data.review;
+      console.log("reviewRes", reviewRes);
       alert("review added");
       return review;
     } catch (error) {

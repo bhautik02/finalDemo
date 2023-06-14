@@ -6,7 +6,8 @@ const Footer = () => {
       {/* <div className="mt-16 mb-16"> */}
       <hr className=" " />
       <div className="flex mx-80 py-8 text-base ">
-        <div className="container mx-auto flex flex-wrap justify-between">
+        all rights reserved by me
+        {/*   <div className="container mx-auto flex flex-wrap justify-between">
           <div className="w-full sm:w-1/2 md:w-1/4 lg:w-1/6 px-4">
             <h3 className="font-bold mb-4">About</h3>
             <ul className="list-none">
@@ -45,7 +46,7 @@ const Footer = () => {
               <li className="mb-2">Trust & Safety Center</li>
             </ul>
           </div>
-        </div>
+        </div> */}
         {/* </div> */}
       </div>
     </footer>

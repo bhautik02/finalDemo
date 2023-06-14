@@ -7,7 +7,7 @@ import { Button, CardActionArea } from "@mui/material";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { userActions } from "../store/user";
+import { userActions, userLogoutAsync } from "../store/user";
 import StarSvg from "../utils/svg/StarSvg";
 
 export default function MyAccount(props) {
@@ -16,18 +16,21 @@ export default function MyAccount(props) {
   const navigate = useNavigate();
 
   const logoutHandler = () => {
-    axios
-      .get(`users/logout`)
-      .then((res) => {
-        // removeCookie("token");
-        document.cookie = `token=''; expires=${new Date().getTime() - 1000}`;
-        dispatch(userActions.userData(null));
-        // dispatch(userActions.logout());
-        navigate("/");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    // axios
+    //   .get(`users/logout`)
+    //   .then((res) => {
+    //     // removeCookie("token");
+    //     document.cookie = `token=${""}; expires=${new Date().getTime() - 1000}`;
+    //     dispatch(userActions.userData(null));
+    //     // dispatch(userActions.logout());
+    //     navigate("/");
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    // //   });
+    // document.cookie = `token=${""}; expires=${new Date().getTime() - 1000}`;
+    dispatch(userLogoutAsync());
+    navigate("/");
   };
 
   return (

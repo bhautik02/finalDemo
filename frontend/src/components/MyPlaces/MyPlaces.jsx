@@ -5,8 +5,8 @@ import PlusSvg from "../../utils/svg/PlusSvg";
 import { useEffect, useState } from "react";
 import HostingSlider from "../HostingSlider";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllHostedPlacesByUserAsync } from "../../store/place";
 import { Link } from "react-router-dom";
+import { getAllHostedPlacesByUserAsync } from "../../store/addPlace";
 
 const style = {
   position: "absolute",
@@ -22,7 +22,7 @@ const style = {
 
 const MyPlaces = () => {
   const user = useSelector((state) => state.user.user);
-  const hostedData = useSelector((state) => state.hostedPlace.yourHostedPlaces);
+  const hostedData = useSelector((state) => state.addPlace.yourHostedPlaces);
   const dispatch = useDispatch();
 
   const userId = user._id;

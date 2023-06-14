@@ -1,6 +1,6 @@
 import { forwardRef, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addPlaceActions } from "../../store/addPlace";
+import { addPlaceActions, hostPlaceAsync } from "../../store/addPlace";
 import axios from "axios";
 // import { hostedPlaceActions } from "../../store/place";
 
@@ -41,26 +41,12 @@ const ThirdStep = forwardRef((props, ref) => {
     setReady(true);
   };
 
-  const sendHostedData = () => {
-    const userId = user._id;
-    axios
-      .post(`place/hostPlace/${userId}`, addPlace)
-      .then((res) => {
-        console.log(
-          "------------------res.data.newHostedPlace --->",
-          res.data.newHostedPlace
-        );
-        // dispatch(hostedPlaceActions.hostingData(res.data.newHostedPlace));
-      })
-      .catch((err) => {
-        alert(err);
-      });
-    setReady(false);
-  };
-
   useEffect(() => {
+    const userId = user._id;
+    const formdata = { ...addPlace, userId };
     if (ready) {
-      sendHostedData();
+      dispatch(hostPlaceAsync(formdata));
+      dispatch(addPlaceActions.clearPlaceData());
     }
     // eslint-disable-next-line
   }, [ready]);

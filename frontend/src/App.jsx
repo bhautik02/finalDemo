@@ -7,9 +7,10 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import axios from "axios";
 import AccountPage from "./pages/AccountPage";
-
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useEffect } from "react";
-import { userActions } from "./store/user";
+import { fetchUserAsync, userActions } from "./store/user";
 import { useDispatch, useSelector } from "react-redux";
 import PlacePage from "./pages/PlacePage";
 import PagenotFound from "./pages/PagenotFound";
@@ -30,13 +31,14 @@ function App() {
   useEffect(() => {
     try {
       if (!user) {
-        fetch(URL, { credentials: "include" })
-          .then((res) => res.json())
-          .then((res) => {
-            dispatch(userActions.userData(res.user));
-            dispatch(userActions.ready());
-          })
-          .catch((err) => {});
+        // fetch(URL, { credentials: "include" })
+        //   .then((res) => res.json())
+        //   .then((res) => {
+        //     dispatch(userActions.userData(res.user));
+        //     dispatch(userActions.ready());
+        //   })
+        //   .catch((err) => {});
+        dispatch(fetchUserAsync());
       }
     } catch (error) {}
     // eslint-disable-next-line
@@ -44,6 +46,7 @@ function App() {
 
   return (
     <CookiesProvider>
+      <ToastContainer theme="dark" />
       <Routes>
         {/* <Route path="/" element={<Layout />}> */}
         <Route path="/" element={<Layout />}>

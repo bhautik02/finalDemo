@@ -14,19 +14,6 @@ export const getAllPlacesAsync = createAsyncThunk(
   }
 );
 
-export const getAllHostedPlacesByUserAsync = createAsyncThunk(
-  "place/getAllHostedPlacesByUser",
-  async (userId) => {
-    try {
-      const response = await axios.get(`place/hostPlace/${userId}`);
-      const getAllHostedPlacesByUser = response.data.hostedPlace;
-      return getAllHostedPlacesByUser;
-    } catch (error) {
-      return error.response.data.message;
-    }
-  }
-);
-
 export const getPlaceAsync = createAsyncThunk(
   "place/getPlace",
   async (placeId) => {
@@ -42,7 +29,7 @@ export const getPlaceAsync = createAsyncThunk(
 
 const InitialState = {
   allPlaces: null,
-  yourHostedPlaces: null,
+
   placeData: null,
   bookedDatesOfPlace: null,
 };
@@ -70,18 +57,7 @@ const placeSlice = createSlice({
         state.loading = false;
         state.error = action.error.message;
       })
-      .addCase(getAllHostedPlacesByUserAsync.pending, (state) => {
-        state.loading = false;
-        state.error = null;
-      })
-      .addCase(getAllHostedPlacesByUserAsync.fulfilled, (state, action) => {
-        state.loading = true;
-        state.yourHostedPlaces = action.payload;
-      })
-      .addCase(getAllHostedPlacesByUserAsync.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.error.message;
-      })
+
       .addCase(getPlaceAsync.pending, (state) => {
         state.loading = false;
         state.error = null;

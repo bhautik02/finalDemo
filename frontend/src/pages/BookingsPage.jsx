@@ -28,7 +28,7 @@ const BookingsPage = () => {
         My Bookings
       </p>
       <div className="flex gap-10 justify-center">
-        <div className="mt-10 ">
+        {/* <div className="mt-10 ">
           <div className="shadow-2xl shadow-black-300 h-64 w-64 rounded-2xl flex-row justify-center">
             <div className="pt-8 pl-14">
               <img
@@ -41,7 +41,7 @@ const BookingsPage = () => {
               {user.name}
             </h2>
           </div>
-        </div>
+        </div> */}
         <div className="w-5/12">
           {allBookings &&
             allBookings.map((booking) => (

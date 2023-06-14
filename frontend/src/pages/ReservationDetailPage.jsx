@@ -9,8 +9,9 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Box } from "@mui/material";
 import TablePagination from "@mui/material/TablePagination";
-import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
+import { getAllReservationsAsync } from "../store/reservation";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -33,9 +34,10 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 export default function ReservationDetailPage() {
+  const dispatch = useDispatch();
+  const { allReservations } = useSelector((state) => state.reservation);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [reservations, setReservations] = React.useState([]);
 
   const { id: placeId } = useParams();
 
@@ -49,26 +51,19 @@ export default function ReservationDetailPage() {
   };
 
   React.useEffect(() => {
-    axios
-      .get(`/reservation/${placeId}`)
-      .then((res) => {
-        setReservations(res.data.reservations);
-      })
-      .catch((err) => {
-        console.log(err);
-        alert(err.data.message);
-      }); // eslint-disable-next-line
-  }, []);
+    dispatch(getAllReservationsAsync(placeId));
+    // eslint-disable-next-line
+  }, [getAllReservationsAsync]);
 
-  console.log(reservations);
   return (
     <>
-      {reservations.length > 0 ? (
+      {console.log("============", allReservations)}
+      {allReservations.length !== 0 ? (
         <>
           <div className="flex justify-center  mt-10">
             <p className="text-3xl ">Reservations of &#160;</p>
             <p className="text-3xl  font-semibold">
-              {reservations[0].placeName}
+              {allReservations[0].placeName}
             </p>
           </div>
           <Box
@@ -96,7 +91,7 @@ export default function ReservationDetailPage() {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {reservations.map((reservation) => (
+                  {allReservations.map((reservation) => (
                     <StyledTableRow key={reservation._id}>
                       <StyledTableCell component="th" scope="row">
                         {reservation.name}
@@ -126,7 +121,7 @@ export default function ReservationDetailPage() {
               <TablePagination
                 rowsPerPageOptions={[2, 4, 6]}
                 component="paper"
-                count={reservations.length}
+                count={allReservations.length}
                 rowsPerPage={rowsPerPage}
                 page={page}
                 onPageChange={handleChangePage}

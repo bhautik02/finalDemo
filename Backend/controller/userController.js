@@ -31,7 +31,7 @@ const signupUser = CatchAsync(async (req, res, next) => {
 
   res.status(200).json({
     status: "success",
-    message: "User Registerd!",
+    newUser,
   });
 });
 
@@ -52,11 +52,7 @@ const loginUser = CatchAsync(async (req, res, next) => {
 });
 
 const logoutUser = CatchAsync(async (req, res, next) => {
-  const options = {
-    maxAge: 0,
-  };
-
-  res.status(200).cookie("token", "", options).json({
+  res.status(200).clearCookie("token").json({
     status: "success",
   });
 });

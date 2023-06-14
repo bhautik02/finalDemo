@@ -5,6 +5,7 @@ import addPlaceReducer from "./addPlace";
 import placeSlice from "./place";
 import bookingReducer from "./booking";
 import reviewReducer from "./review";
+import reservationReducer from "./reservation";
 
 const store = configureStore({
   reducer: {
@@ -13,6 +14,7 @@ const store = configureStore({
     place: placeSlice,
     booking: bookingReducer,
     review: reviewReducer,
+    reservation: reservationReducer,
   },
 });
 

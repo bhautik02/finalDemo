@@ -5,7 +5,6 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { useDispatch } from "react-redux";
 import { createReviewAsync } from "../store/review";
-import axios from "axios";
 
 export default function ReviewDialogBox({ bookingData }) {
   const dispatch = useDispatch();
@@ -32,9 +31,10 @@ export default function ReviewDialogBox({ bookingData }) {
     const place = bookingData.place;
     const user = bookingData.bookBy;
 
-    const formData = { name: reviewBy, place, user, rating, review };
+    // const formData = { name: reviewBy, place, user, rating, review };
     dispatch(
-      createReviewAsync(bookingID, {
+      createReviewAsync({
+        bookingID,
         name: reviewBy,
         place,
         user,
@@ -42,25 +42,7 @@ export default function ReviewDialogBox({ bookingData }) {
         review,
       })
     );
-    // axios
-    //   .post(`review/reviews/${bookingID}`, {
-    //     name: reviewBy,
-    //     place,
-    //     user,
-    //     rating,
-    //     review,
-    //   })
-    //   .then((res) => {
-    //     console.log("review Post succesfully");
-    //   })
-    //   .catch((err) => {
-    //     alert(err.response.data.message);
-    //   });
   };
-
-  // React.useEffect(() => {
-  //   dispatch(createReviewAsync(bookingID, formData));
-  // }, []);
 
   return (
     <div>

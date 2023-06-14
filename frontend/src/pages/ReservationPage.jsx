@@ -1,47 +1,26 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
 import { Link } from "react-router-dom";
-import { hostedPlaceActions, placeActions } from "../store/place";
+import { getAllHostedPlacesByUserAsync } from "../store/review";
 
 const MyPlaces = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
-  const hostedData = useSelector((state) => state.hostedPlace.yourHostedPlace);
+  const hostedData = useSelector((state) => state.place.yourHostedPlaces);
 
   const userId = user._id;
 
   useEffect(() => {
-    axios
-      .get(`place/hostPlace/${userId}`)
-      .then((res) => {
-        dispatch(placeActions.hostingData(res.data.hostedPlace));
-      })
-      .catch((err) => {
-        alert(err.response.data.message);
-      });
+    dispatch(getAllHostedPlacesByUserAsync(userId));
     // eslint-disable-next-line
-  }, []);
+  }, [getAllHostedPlacesByUserAsync]);
 
   return (
     <>
       <p className="flex text-3xl justify-center font-semibold ml-10 mb-4">
         My Reservations
       </p>
-      {hostedData.length === 0 ? (
-        <div className="flex  justify-center m-3 ">
-          <div className="flex w-1/2 h-3/4 justify-center items-center">
-            <h1 className="absolute -mt-96">
-              You not Hosted any Place, Start Hosting...
-            </h1>
-            <img
-              src="https://img.freepik.com/free-vector/no-data-concept-illustration_114360-536.jpg?w=2000"
-              alt="No Data Found."
-              height={"500px"}
-            />
-          </div>
-        </div>
-      ) : (
+      {hostedData ? (
         <div className="mx-auto md:px-10 sm:px-2 px-4 xsm:ml-20px ">
           <div className=" grid  grid-cols-1  sm:grid-cols-2  md:grid-cols-3  lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-5 gap-8 ">
             {hostedData.map((place) => {
@@ -71,6 +50,19 @@ const MyPlaces = () => {
                 </Link>
               );
             })}
+          </div>
+        </div>
+      ) : (
+        <div className="flex  justify-center m-3 ">
+          <div className="flex w-1/2 h-3/4 justify-center items-center">
+            <h1 className="absolute -mt-96">
+              You not Hosted any Place, Start Hosting...
+            </h1>
+            <img
+              src="https://img.freepik.com/free-vector/no-data-concept-illustration_114360-536.jpg?w=2000"
+              alt="No Data Found."
+              height={"500px"}
+            />
           </div>
         </div>
       )}

@@ -13,6 +13,20 @@ function preInput(label) {
 }
 
 const ThirdStep = forwardRef((props, ref, editingPlaceInfo) => {
+  const hostedPlaceInfo = props.editingPlaceInfo;
+
+  useEffect(() => {
+    if (hostedPlaceInfo) {
+      console.log("bed", hostedPlaceInfo.noOfBedrooms);
+      setNumberOfBedrooms(hostedPlaceInfo.noOfBedrooms);
+      setNumberOfBathrooms(hostedPlaceInfo.noOfBathrooms);
+      setNumberOfGuest(hostedPlaceInfo.maxGuest);
+      setPrice(hostedPlaceInfo.price);
+      setCheckInTime(hostedPlaceInfo.checkIn);
+      setCheckOutTime(hostedPlaceInfo.checkOut);
+    }
+  }, []);
+
   const addPlace = useSelector((state) => state.addPlace.addPlace);
   const user = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
@@ -44,8 +58,11 @@ const ThirdStep = forwardRef((props, ref, editingPlaceInfo) => {
   useEffect(() => {
     const userId = user._id;
     const formdata = { ...addPlace, userId };
-    if (ready) {
+    if (ready && !hostedPlaceInfo) {
       dispatch(hostPlaceAsync(formdata));
+      dispatch(addPlaceActions.clearPlaceData());
+    }
+    if (ready && hostedPlaceInfo) {
       dispatch(addPlaceActions.clearPlaceData());
     }
     // eslint-disable-next-line
@@ -59,6 +76,7 @@ const ThirdStep = forwardRef((props, ref, editingPlaceInfo) => {
           type="number"
           className="w-full border my-1 py-2 px-3 rounded-2xl"
           required
+          value={price}
           onChange={(event) => setPrice(event.target.value)}
         />
 
@@ -69,6 +87,7 @@ const ThirdStep = forwardRef((props, ref, editingPlaceInfo) => {
           placeholder="2"
           required
           onChange={(event) => setNumberOfBedrooms(event.target.value)}
+          value={numberOFBedrooms}
           min="1"
           max="10"
         />
@@ -79,6 +98,7 @@ const ThirdStep = forwardRef((props, ref, editingPlaceInfo) => {
           className="w-full border my-1 py-2 px-3 rounded-2xl"
           placeholder="2"
           required
+          value={numberOFBathrooms}
           min="1"
           max="5"
           onChange={(event) => setNumberOfBathrooms(event.target.value)}
@@ -90,6 +110,7 @@ const ThirdStep = forwardRef((props, ref, editingPlaceInfo) => {
           className="w-full border my-1 py-2 px-3 rounded-2xl"
           placeholder="2"
           required
+          value={numberOFGuest}
           min="1"
           max="10"
           onChange={(event) => setNumberOfGuest(event.target.value)}
@@ -101,6 +122,7 @@ const ThirdStep = forwardRef((props, ref, editingPlaceInfo) => {
           id="cit"
           required
           name="cit"
+          value={checkInTime}
           placeholder="12:00"
           className="w-full border my-1 py-2 px-3 rounded-2xl"
           onChange={(event) => setCheckInTime(event.target.value)}
@@ -112,6 +134,7 @@ const ThirdStep = forwardRef((props, ref, editingPlaceInfo) => {
           id="cot"
           name="cot"
           required
+          value={CheckOutTime}
           placeholder="12:00"
           className="w-full border my-1 py-2 px-3 rounded-2xl"
           onChange={(event) => setCheckOutTime(event.target.value)}

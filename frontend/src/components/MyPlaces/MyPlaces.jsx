@@ -28,15 +28,15 @@ const MyPlaces = (props) => {
   const userId = user._id;
 
   const [open, setOpen] = useState(false);
-  const [editingPlaceInfo, setEditingPlaceInfo] = useState(false);
+  const [editingPlaceInfo, setEditingPlaceInfo] = useState();
 
   const handleOpen = () => {
-    setEditingPlaceInfo(false);
+    setEditingPlaceInfo(null);
     setOpen(true);
   };
-  const editHandleOpen = () => {
+  const editHandleOpen = (place) => {
     setOpen(true);
-    setEditingPlaceInfo(true);
+    setEditingPlaceInfo(place);
   };
   const handleClose = () => setOpen(false);
 
@@ -114,8 +114,9 @@ const MyPlaces = (props) => {
                 return (
                   <Link
                     className="col-span-1 cursor-pointer group"
-                    onClick={editHandleOpen}
+                    onClick={editHandleOpen.bind(null, place)}
                     key={place._id}>
+                    {console.log("sajfajk", place)}
                     <div className="flex flex-col gap-2 w-full">
                       <div className="aspect-square w-full relative overflow-hidden rounded-xl ">
                         <img

@@ -140,9 +140,30 @@ export default function HostingSlider(props) {
           </React.Fragment>
         ) : (
           <React.Fragment>
-            <Box>{activeStep === 0 && <FirstStep ref={ref} />}</Box>
-            <Box>{activeStep === 1 && <SecondStep ref={ref} />}</Box>
-            <Box>{activeStep === 2 && <ThirdStep ref={ref} />}</Box>
+            <Box>
+              {activeStep === 0 && (
+                <FirstStep
+                  ref={ref}
+                  editingPlaceInfo={props.editingPlaceInfo}
+                />
+              )}
+            </Box>
+            <Box>
+              {activeStep === 1 && (
+                <SecondStep
+                  ref={ref}
+                  editingPlaceInfo={props.editingPlaceInfo}
+                />
+              )}
+            </Box>
+            <Box>
+              {activeStep === 2 && (
+                <ThirdStep
+                  ref={ref}
+                  editingPlaceInfo={props.editingPlaceInfo}
+                />
+              )}
+            </Box>
 
             <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
               <Button

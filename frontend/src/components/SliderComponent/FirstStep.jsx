@@ -1,4 +1,4 @@
-import { forwardRef, useState } from "react";
+import { forwardRef, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { addPlaceActions } from "../../store/addPlace";
 
@@ -20,7 +20,15 @@ function errorinInput(errorMessage) {
 
 const FirstStep = forwardRef((props, ref) => {
   const dispatch = useDispatch();
-  console.log("dsfhllsfghfdgh", props.editingPlaceInfo);
+  const hostedPlaceInfo = props.editingPlaceInfo;
+
+  useEffect(() => {
+    if (hostedPlaceInfo) {
+      setTitle(hostedPlaceInfo.title);
+      setAddress(hostedPlaceInfo.address);
+      setDescription(hostedPlaceInfo.description);
+    }
+  }, []);
 
   const [title, setTitle] = useState("");
   const [titleIsTouched, setTitleIsTouched] = useState(false);

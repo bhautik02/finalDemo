@@ -35,6 +35,17 @@ function preInput(header, description) {
 
 const SecondStep = forwardRef((props, ref, editingPlaceInfo) => {
   const dispatch = useDispatch();
+
+  // const hostedPlaceInfo = props.editingPlaceInfo;
+
+  // useEffect(() => {
+  //   if (hostedPlaceInfo) {
+  //     // setTitle(hostedPlaceInfo.title);
+  //     // setAddress(hostedPlaceInfo.address);
+  //     // setDescription(hostedPlaceInfo.description);
+  //   }
+  // }, []);
+
   const [loading, setLoading] = useState(false);
   const [images, setImages] = useState([]);
   const [checkData, setCheckData] = useState({});

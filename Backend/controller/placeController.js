@@ -93,9 +93,50 @@ const hostPlace = CatchAsync(async (req, res, next) => {
   });
 });
 
+const updateHostedData = CatchAsync(async (req, res, next) => {
+  const {
+    title,
+    address,
+    photo,
+    description,
+    perks,
+    checkIn,
+    price,
+    checkOut,
+    maxGuest,
+    noOfBedrooms,
+    noOfBathrooms,
+  } = req.body;
+  const placeId = req.params.id;
+  const newHostedPlace = await Place.findByIdAndUpdate(placeId, {
+    title,
+    address,
+    photo,
+    description,
+    perks,
+    checkIn,
+    price,
+    checkOut,
+    maxGuest,
+    noOfBedrooms,
+    noOfBathrooms,
+    owner: ownerId,
+  });
+
+  if (!newHostedPlace) {
+    return next(new AppError("Place not hosted!", 400));
+  }
+
+  res.status(200).json({
+    status: "success",
+    newHostedPlace,
+  });
+});
+
 module.exports = {
   getPlace,
   getYourHostedPlace,
   getAllHostedplaces,
   hostPlace,
+  updateHostedData,
 };

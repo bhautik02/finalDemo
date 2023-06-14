@@ -1,23 +1,50 @@
 const Razorpay = require("razorpay");
+const crypto = require("crypto");
+const CatchAsync = require("../utils/CatchAsync");
 
 var instance = new Razorpay({
-  key_id: "rzp_test_t85s42ghyD8DIN",
-  key_secret: "R98JyrFO4wx5Jh04pMGhFr9v",
+  key_id: process.env.RAZORPAY_API_KEY,
+  key_secret: process.env.RAZORPAY_APT_SECRET,
 });
 
-const checkout = async (req, res) => {
+const checkout = CatchAsync(async (req, res, next) => {
   const options = {
     amount: 50000,
     currency: "INR",
+    receipt: crypto.randomBytes(10).toString("hex"),
   };
   const order = await instance.orders.create(options);
+
+  if (!order) {
+    return next(new AppError("something went wrong", 500));
+  }
 
   res.status(200).json({
     success: true,
     order,
   });
-};
+});
+
+const verify = CatchAsync(async (req, res, next) => {
+  const { razorpay_order_id, razorpay_payment_id, razorpay_signature } =
+    req.body;
+  const sign = razorpay_order_id + "|" + razorpay_payment_id;
+  const expectedSign = crypto
+    .createHmac("sha256", process.env.KEY_SECRET)
+    .update(sign.toString())
+    .digest("hex");
+
+  if (razorpay_signature !== expectedSign) {
+    return next(new AppError("Invalid signature sent!", 400));
+  }
+
+  res.status(200).json({
+    success: true,
+    message: "Payment verified successfully",
+  });
+});
 
 module.exports = {
   checkout,
+  verify,
 };

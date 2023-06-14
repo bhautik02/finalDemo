@@ -1,4 +1,5 @@
 const Booking = require("../models/bookingModel");
+const Place = require("../models/placeModel");
 const Review = require("../models/reviewModel");
 const CatchAsync = require("../utils/CatchAsync");
 const AppError = require("../utils/appError");
@@ -30,6 +31,10 @@ const createReview = CatchAsync(async (req, res, next) => {
     name,
     rating,
     review,
+  });
+
+  await Place.findByIdAndUpdate(place, {
+    $inc: { totalRatings: req.body.rating, numberOfReview: 1 },
   });
 
   res.status(201).json({

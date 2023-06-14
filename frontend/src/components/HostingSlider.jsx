@@ -12,12 +12,14 @@ import { useSelector } from "react-redux";
 
 const steps = ["Add basic Details", "Add Perks & Photos", "Add extra info"];
 
-export default function HostingSlider() {
+export default function HostingSlider(props) {
   const addPlace = useSelector((state) => state.addPlace.addPlace);
 
   const ref = React.useRef();
   const [activeStep, setActiveStep] = React.useState(0);
   const [completed, setCompleted] = React.useState({});
+
+  // const [close, setClose] = React.useState(false);
 
   // const [disabled, setDisabled] = React.useState(data ? false : true);
 
@@ -58,6 +60,10 @@ export default function HostingSlider() {
 
   const handleComplete = () => {
     ref.current.click();
+  };
+
+  const modalClose = () => {
+    props.setClose();
   };
 
   React.useEffect(
@@ -108,6 +114,20 @@ export default function HostingSlider() {
               <div className="justify-center flex text-3xl m-8">
                 Place Hosted
               </div>
+              <div className="flex justify-center">
+                <Button
+                  onClick={modalClose}
+                  sx={{
+                    mr: 1,
+                    color: "#F5385D",
+                    ":hover": {
+                      bgcolor: "#F5385D",
+                      color: "white",
+                    },
+                  }}>
+                  Close
+                </Button>
+              </div>
             </Typography>
             <Box
               sx={{
@@ -126,7 +146,6 @@ export default function HostingSlider() {
 
             <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
               <Button
-                color="inherit"
                 disabled={activeStep === 0}
                 onClick={handleBack}
                 sx={{

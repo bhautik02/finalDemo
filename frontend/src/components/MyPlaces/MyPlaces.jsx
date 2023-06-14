@@ -20,7 +20,7 @@ const style = {
   p: 4,
 };
 
-const MyPlaces = () => {
+const MyPlaces = (props) => {
   const user = useSelector((state) => state.user.user);
   const hostedData = useSelector((state) => state.addPlace.yourHostedPlaces);
   const dispatch = useDispatch();
@@ -29,6 +29,7 @@ const MyPlaces = () => {
 
   const [open, setOpen] = useState(false);
   const [editingPlaceInfo, setEditingPlaceInfo] = useState(false);
+
   const handleOpen = () => {
     setEditingPlaceInfo(false);
     setOpen(true);
@@ -43,6 +44,10 @@ const MyPlaces = () => {
     dispatch(getAllHostedPlacesByUserAsync(userId));
     // eslint-disable-next-line
   }, [getAllHostedPlacesByUserAsync]);
+
+  const setClose = () => {
+    setOpen(false);
+  };
 
   return (
     <>
@@ -73,7 +78,10 @@ const MyPlaces = () => {
               )}
             </div>
             <div className="p-8">
-              <HostingSlider />
+              <HostingSlider
+                setClose={setClose}
+                editingPlaceInfo={editingPlaceInfo}
+              />
             </div>
           </Box>
         </Modal>

@@ -20,6 +20,7 @@ function errorinInput(errorMessage) {
 
 const FirstStep = forwardRef((props, ref) => {
   const dispatch = useDispatch();
+  console.log("dsfhllsfghfdgh", props.editingPlaceInfo);
 
   const [title, setTitle] = useState("");
   const [titleIsTouched, setTitleIsTouched] = useState(false);

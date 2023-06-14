@@ -1,38 +1,23 @@
-// const instance = require("./../server");
-// // const crypto = require("crypto");
-// // const { Payment } = require("../models/paymentModel.js");
+const Razorpay = require("razorpay");
 
-// const checkout = async (req, res) => {
-//   const options = {
-//     amount: 50000,
-//     currency: "INR",
-//   };
-//   const order = await instance.orders.create(options);
+var instance = new Razorpay({
+  key_id: "rzp_test_t85s42ghyD8DIN",
+  key_secret: "R98JyrFO4wx5Jh04pMGhFr9v",
+});
 
-//   res.status(200).json({
-//     success: true,
-//     order,
-//   });
-// };
+const checkout = async (req, res) => {
+  const options = {
+    amount: 50000,
+    currency: "INR",
+  };
+  const order = await instance.orders.create(options);
 
-// module.exports = {
-//   checkout,
-// };
+  res.status(200).json({
+    success: true,
+    order,
+  });
+};
 
-// const Booking = require("./models/bookingModel");
-
-// const createPaymentIntent = async (req, res, next) => {
-//   const stripe = new Stripe(process.env.STRIPE);
-
-//   const booking = await Booking.findById(req.params.id);
-
-//   const paymentIntent = await stripe.paymentIntents.create({
-//     amount: booking.price * 100,
-//     currency: "inr",
-//     automatic_payment_methods: {
-//       enabled: true,
-//     },
-//   });
-// };
-
-// module.exports = createPaymentIntent;
+module.exports = {
+  checkout,
+};

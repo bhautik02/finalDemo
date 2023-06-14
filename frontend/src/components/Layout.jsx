@@ -9,7 +9,7 @@ const Layout = () => {
       <main>
         <Outlet />
       </main>
-      <Footer />
+      <Footer className="absolute inset-x-0 bottom-0" />
     </div>
   );
 };

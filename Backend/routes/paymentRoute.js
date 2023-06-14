@@ -1,9 +1,9 @@
-// const express = require("express");
-// const paymentController = require("./../controller/paymentController");
+const express = require("express");
+const paymentController = require("./../controller/paymentController");
 
-// const router = express.Router();
+const router = express.Router();
 
-// router.route("/checkout").post(paymentController.checkout);
-// // router.route("/paymentverification").post(paymentVerification);
+router.route("/checkout").post(paymentController.checkout);
+// router.route("/paymentverification").post(paymentVerification);
 
-// module.exports = router;
+module.exports = router;

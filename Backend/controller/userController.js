@@ -29,10 +29,7 @@ const signupUser = CatchAsync(async (req, res, next) => {
     subject: "Thank you for Signing Up",
   });
 
-  res.status(200).json({
-    status: "success",
-    newUser,
-  });
+  sendCookie(newUser, 201, res);
 });
 
 const loginUser = CatchAsync(async (req, res, next) => {

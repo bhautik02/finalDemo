@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 export const hostPlaceAsync = createAsyncThunk(
   "addPlace/hostPlaceAsync",
@@ -35,8 +36,10 @@ export const hostPlaceAsync = createAsyncThunk(
       });
       console.log("res", response);
       const hostedPlace = response.data.newHostedPlace;
+      toast.success("Place Hosted Successfully.");
       return hostedPlace;
     } catch (error) {
+      toast.error(error.response.data.message);
       return error.response.data.message;
     }
   }
@@ -50,6 +53,7 @@ export const getAllHostedPlacesByUserAsync = createAsyncThunk(
       const getAllHostedPlacesByUser = response.data.hostedPlace;
       return getAllHostedPlacesByUser;
     } catch (error) {
+      toast.error(error.response.data.message);
       return error.response.data.message;
     }
   }

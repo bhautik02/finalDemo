@@ -9,8 +9,8 @@ const Header = () => {
   const user = useSelector((state) => state.user.user);
   console.log("isfugs", user);
   return (
-    // <div>
-    <div className="text-white bg-gray-950 sticky top-0 z-10">
+    <div>
+      {/* <div className="text-white bg-gray-950 sticky top-0 z-10"> */}
       <header className=" flex justify-between mt-4 pl-10 pr-10">
         <a href="/" className="flex items-center gap-1 ">
           <Logosvg />

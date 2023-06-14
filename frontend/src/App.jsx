@@ -46,7 +46,7 @@ function App() {
 
   return (
     <CookiesProvider>
-      <ToastContainer theme="dark" />
+      <ToastContainer theme="dark" autoClose={2000} />
       <Routes>
         {/* <Route path="/" element={<Layout />}> */}
         <Route path="/" element={<Layout />}>

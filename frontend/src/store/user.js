@@ -6,16 +6,20 @@ export const userRegisterAsync = createAsyncThunk(
   "user/userRegister",
   async ({ name, email, password }) => {
     try {
-      const response = await axios.post(`users/signup`, {
-        name,
-        email,
-        password,
-      });
+      const response = await axios.post(
+        `users/signup`,
+        {
+          name,
+          email,
+          password,
+        },
+        { withCredentials: true }
+      );
       toast.success("user created");
-      const user = response.data.newUser;
+      const user = response.data.user;
       return user;
     } catch (error) {
-      return alert(error.response.data.message);
+      return toast.error(error.response.data.message);
     }
   }
 );
@@ -33,8 +37,8 @@ export const fetchUserAsync = createAsyncThunk("user/fetchUser", async () => {
     // alert("dfsdgsgsdgsdgg", user);
     return user;
   } catch (error) {
-    console.log("error.response --->", error.response);
-    return console.log(error.response.data.message);
+    toast.error(error.response.data.message);
+    return;
   }
 });
 
@@ -48,9 +52,11 @@ export const userLoginAsync = createAsyncThunk(
         { withCredentials: true }
       );
       const user = response.data.user;
+      toast.success("user logged.");
       return user;
     } catch (error) {
-      return console.log(error.response.data.message);
+      toast.error(error.response.data.message);
+      return;
     }
   }
 );
@@ -59,10 +65,11 @@ export const userLogoutAsync = createAsyncThunk("user/userLogout", async () => {
   try {
     await axios.get(`users/logout`);
     document.cookie = `token=${""}; expires=${new Date().getTime() - 1000}`;
-
+    toast.success("use logged out.");
     return null;
   } catch (error) {
-    return console.log(error.response.data.message);
+    toast.error(error.response.data.message);
+    return;
   }
 });
 

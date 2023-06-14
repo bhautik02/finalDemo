@@ -27,7 +27,7 @@ const LoginPage = () => {
   }
 
   return (
-    <div className="mt-4 grow flex items-center justify-around">
+    <div className="mt-36 grow flex items-center justify-around">
       <div className="mb-64">
         <h1 className="text-4xl text-center mb-4">Login</h1>
         <form className="mx-auto max-w-md" onSubmit={onUserLogin}>

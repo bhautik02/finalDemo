@@ -33,7 +33,7 @@ function preInput(header, description) {
   );
 }
 
-const SecondStep = forwardRef((props, ref) => {
+const SecondStep = forwardRef((props, ref, editingPlaceInfo) => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [images, setImages] = useState([]);

@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 export const bookPlaceAsync = createAsyncThunk(
   "book/bookPlace",
@@ -7,8 +8,10 @@ export const bookPlaceAsync = createAsyncThunk(
     try {
       const response = await axios.post(`book/bookings`, formData);
       const newBooking = response.data.hostedPlace;
+      toast.success("Place booked.");
       return alert("new booking");
     } catch (error) {
+      toast.error(error.response.data.message);
       return error.response.data.message;
     }
   }
@@ -23,6 +26,7 @@ export const getAllbookingAsync = createAsyncThunk(
       const allBookings = response.data.bookings;
       return allBookings;
     } catch (error) {
+      toast.error(error.response.data.message);
       return error.response.data.message;
     }
   }
@@ -44,9 +48,6 @@ const bookingSlice = createSlice({
       })
       .addCase(bookPlaceAsync.fulfilled, (state, action) => {
         state.loading = true;
-        // console.log("state", state.allBookings);
-        // state.allBookings = action.payload;
-        // console.log("state", action.payload);
       })
       .addCase(bookPlaceAsync.rejected, (state, action) => {
         state.loading = false;

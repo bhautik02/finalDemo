@@ -51,6 +51,14 @@ const placeSchema = mongoose.Schema(
       type: [String],
       default: [],
     },
+    numberOfReview: {
+      type: Number,
+      dafult: 0,
+    },
+    totalRatings: {
+      type: Number,
+      dafult: 0,
+    },
   },
   {
     toJSON: { virtuals: true },

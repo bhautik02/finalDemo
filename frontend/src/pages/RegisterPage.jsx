@@ -29,13 +29,15 @@ const RegisterPage = () => {
   }
 
   return (
-    <div className="mt-4 grow flex items-center justify-around">
+    <div className="mt-36 grow flex items-center justify-around">
       <div className="mb-64">
         <h1 className="text-4xl text-center mb-4">Register</h1>
 
         {isLoading && (
-          <div className=" top-10 bottom-0 left-0 right-0 fixed backdrop-brightness-75">
-            <LoadingSpinner />
+          <div className=" top-20 bottom-20 left-0 right-0 fixed backdrop-brightness-75">
+            <div className="mt-24">
+              <LoadingSpinner />
+            </div>
           </div>
         )}
         <form className="mx-auto max-w-md" onSubmit={onRegisterUser}>

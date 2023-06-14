@@ -12,7 +12,7 @@ function preInput(label) {
   );
 }
 
-const ThirdStep = forwardRef((props, ref) => {
+const ThirdStep = forwardRef((props, ref, editingPlaceInfo) => {
   const addPlace = useSelector((state) => state.addPlace.addPlace);
   const user = useSelector((state) => state.user.user);
   const dispatch = useDispatch();

@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 export const createReviewAsync = createAsyncThunk(
   "review/createReview",
@@ -15,10 +16,10 @@ export const createReviewAsync = createAsyncThunk(
         review,
       });
       const reviewRes = response.data.review;
-      console.log("reviewRes", reviewRes);
-      alert("review added");
+      toast.success("review added");
       return review;
     } catch (error) {
+      toast.error(error.response.data.message);
       return alert(error.response.data.message);
     }
   }
@@ -32,6 +33,7 @@ export const getAllHostedPlacesByUserAsync = createAsyncThunk(
       const getAllHostedPlacesByUser = response.data.hostedPlace;
       return getAllHostedPlacesByUser;
     } catch (error) {
+      toast.error(error.response.data.message);
       return error.response.data.message;
     }
   }

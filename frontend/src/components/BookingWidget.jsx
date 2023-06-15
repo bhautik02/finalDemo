@@ -173,8 +173,8 @@ export default function BookingWidget({ place }) {
             <input
               type="tel"
               minLength={10}
-              maxLength={10}
               value={phone}
+              required
               onChange={(ev) => setPhone(ev.target.value)}
             />
           </div>

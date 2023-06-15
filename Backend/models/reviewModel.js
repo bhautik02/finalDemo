@@ -30,6 +30,10 @@ const reviewSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    isDeleted: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     toJSON: { virtuals: true },

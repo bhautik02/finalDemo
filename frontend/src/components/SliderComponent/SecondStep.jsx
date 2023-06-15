@@ -127,7 +127,8 @@ const SecondStep = forwardRef((props, ref) => {
   };
 
   return (
-    <form className="p-4 h-96 overflow-scroll" onSubmit={submitHandler}>
+    // <form className="p-4 h-96 overflow-scroll" onSubmit={submitHandler}>
+    <form className="p-4" onSubmit={submitHandler}>
       {preInput("Perks", "select all the perks of your place")}
       <div className="grid mt-2 gap-2 lg:grid-cols-2  md:grid-cols-2 sm:grid-cols-1">
         <label className="border p-4 flex rounded-2xl gap-2 items-center cursor-pointer">
@@ -193,7 +194,7 @@ const SecondStep = forwardRef((props, ref) => {
       </div>
       <div>
         {preInput("Photos", "add one or more photos of your place")}
-        <label className="h-32 cursor-pointer flex items-center gap-1 justify-center border bg-transparent rounded-2xl p-2 text-2xl text-gray-600 mt-2">
+        <label className="h-16 cursor-pointer flex items-center gap-1 justify-center border bg-transparent rounded-2xl p-2 text-2xl text-gray-600 mt-2">
           {loading ? (
             <>
               UpLoading
@@ -204,6 +205,7 @@ const SecondStep = forwardRef((props, ref) => {
               <input
                 type="file"
                 multiple
+                minLength={5}
                 className="hidden"
                 accept="image/*"
                 onChange={uploadPhoto}
@@ -219,7 +221,7 @@ const SecondStep = forwardRef((props, ref) => {
             // console.log("images", hostedPlaceInfo.photo);
             return (
               <div
-                className="inline-flex gap-2 mt-5 max-w-max max-h-max justify-center items-center"
+                className="inline-flex gap-2 -ml-5 max-w-max max-h-max justify-center items-center"
                 key={image}
                 onMouseEnter={() => {
                   setRemove(true);

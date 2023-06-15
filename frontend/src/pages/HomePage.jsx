@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllPlacesAsync } from "../store/place";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import Filters from "../components/Filters";
 
 const HomePage = () => {
   const allplaces = useSelector((state) => state.place.allPlaces);
@@ -14,9 +15,9 @@ const HomePage = () => {
   return (
     // <div className="bg-gray-950 text-white ">
     <div>
-      {/* <Filters /> */}
+      <Filters />
       {allplaces && (
-        <div className="py-10 ">
+        <div className="py-8 ">
           <div className="mx-auto md:px-10 sm:px-2 px-4 xsm:ml-20px ">
             <div className=" grid  grid-cols-1  sm:grid-cols-2  md:grid-cols-3  lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-5 gap-8 ">
               {allplaces.map((place) => {

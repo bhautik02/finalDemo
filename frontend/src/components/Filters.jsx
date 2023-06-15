@@ -1,185 +1,98 @@
-// import { NavLink } from "react-router-dom";
-// import { TbBeach } from "react-icons/tb";
+import { NavLink } from "react-router-dom";
+import { TbBeach } from "react-icons/tb";
+import { GiCampingTent, GiFamilyHouse } from "react-icons/gi";
+import { FaChessRook, FaTree } from "react-icons/fa";
+import { MdOutlineApartment, MdOutlineCabin, MdPool } from "react-icons/md";
 
-// const Filters = () => {
-//   return (
-//     <div className="m-4 ml-10 flex gap-20    ">
-//       <NavLink>
-//         <div className="">
-//           <TbBeach className="w-8 h-8" />
-//         </div>
-//         Beach
-//       </NavLink>
-//       <NavLink>
-//         <svg
-//           xmlns="http://www.w3.org/2000/svg"
-//           viewBox="0 0 24 24"
-//           fill="none"
-//           className="w-10 h-10"
-//           stroke="currentColor"
-//           strokeWidth="2"
-//           strokeLinecap="round"
-//           strokeLinejoin="round">
-//           <path d="M12 2c-.97 0-1.938.15-2.88.45l-.62-1.92L12 2zm-5.79.57l-1.93.62L11.55 12l1.92-.62L6.21 2.57zM2.57 6.21l.62-1.92L12 11.55l-.62 1.92-9.81-6.26zM6.21 21.43l-1.92-.62L11.45 12l1.92.62-6.26 9.81zM12 14.45l-1.92 6.26H13.9L12 14.45zm3.79-13.88l1.93.62L12.45 12l-1.92-.62L17.79 2.57zM21.43 6.21l-.62 1.92L12 12.45l.62-1.92 9.81 6.26zM17.79 21.43l.62-1.92L12.45 12l-1.92.62L17.79 21.43z" />
-//         </svg>
-//         Beach
-//       </NavLink>
-//       <NavLink>
-//         <svg
-//           xmlns="http://www.w3.org/2000/svg"
-//           viewBox="0 0 24 24"
-//           className="w-10 h-10"
-//           fill="none"
-//           stroke="currentColor"
-//           strokeWidth="2"
-//           strokeLinecap="round"
-//           strokeLinejoin="round">
-//           <path d="M4 19h16M7 10l5 5 5-5M7 5l1.5 1.5M12 15v3" />
-//         </svg>
-//         Beach
-//       </NavLink>
-//       <NavLink>
-//         <svg
-//           xmlns="http://www.w3.org/2000/svg"
-//           viewBox="0 0 24 24"
-//           className="w-10 h-10"
-//           fill="none"
-//           stroke="currentColor"
-//           strokeWidth="2"
-//           strokeLinecap="round"
-//           strokeLinejoin="round">
-//           <path d="M4 19h16M7 10l5 5 5-5M7 5l1.5 1.5M12 15v3" />
-//         </svg>
-//         Beach
-//       </NavLink>
-//       <NavLink>
-//         <svg
-//           xmlns="http://www.w3.org/2000/svg"
-//           viewBox="0 0 24 24"
-//           className="w-10 h-10"
-//           fill="none"
-//           stroke="currentColor"
-//           strokeWidth="2"
-//           strokeLinecap="round"
-//           strokeLinejoin="round">
-//           <path d="M4 19h16M7 10l5 5 5-5M7 5l1.5 1.5M12 15v3" />
-//         </svg>
-//         Beach
-//       </NavLink>
-//       <NavLink>
-//         <svg
-//           xmlns="http://www.w3.org/2000/svg"
-//           viewBox="0 0 24 24"
-//           className="w-10 h-10"
-//           fill="none"
-//           stroke="currentColor"
-//           strokeWidth="2"
-//           strokeLinecap="round"
-//           strokeLinejoin="round">
-//           <path d="M4 19h16M7 10l5 5 5-5M7 5l1.5 1.5M12 15v3" />
-//         </svg>
-//         Beach
-//       </NavLink>
-//       <NavLink>
-//         <svg
-//           xmlns="http://www.w3.org/2000/svg"
-//           viewBox="0 0 24 24"
-//           className="w-10 h-10"
-//           fill="none"
-//           stroke="currentColor"
-//           strokeWidth="2"
-//           strokeLinecap="round"
-//           strokeLinejoin="round">
-//           <path d="M4 19h16M7 10l5 5 5-5M7 5l1.5 1.5M12 15v3" />
-//         </svg>
-//         Beach
-//       </NavLink>
-//       <NavLink>
-//         <svg
-//           xmlns="http://www.w3.org/2000/svg"
-//           viewBox="0 0 24 24"
-//           className="w-10 h-10"
-//           fill="none"
-//           stroke="currentColor"
-//           strokeWidth="2"
-//           strokeLinecap="round"
-//           strokeLinejoin="round">
-//           <path d="M4 19h16M7 10l5 5 5-5M7 5l1.5 1.5M12 15v3" />
-//         </svg>
-//         Beach
-//       </NavLink>
-//       <NavLink>
-//         <svg
-//           xmlns="http://www.w3.org/2000/svg"
-//           viewBox="0 0 24 24"
-//           className="w-10 h-10"
-//           fill="none"
-//           stroke="currentColor"
-//           strokeWidth="2"
-//           strokeLinecap="round"
-//           strokeLinejoin="round">
-//           <path d="M4 19h16M7 10l5 5 5-5M7 5l1.5 1.5M12 15v3" />
-//         </svg>
-//         Beach
-//       </NavLink>
-//       <NavLink>
-//         <svg
-//           xmlns="http://www.w3.org/2000/svg"
-//           viewBox="0 0 24 24"
-//           className="w-10 h-10"
-//           fill="none"
-//           stroke="currentColor"
-//           strokeWidth="2"
-//           strokeLinecap="round"
-//           strokeLinejoin="round">
-//           <path d="M4 19h16M7 10l5 5 5-5M7 5l1.5 1.5M12 15v3" />
-//         </svg>
-//         Beach
-//       </NavLink>
-//       <NavLink>
-//         <svg
-//           xmlns="http://www.w3.org/2000/svg"
-//           viewBox="0 0 24 24"
-//           className="w-10 h-10"
-//           fill="none"
-//           stroke="currentColor"
-//           strokeWidth="2"
-//           strokeLinecap="round"
-//           strokeLinejoin="round">
-//           <path d="M4 19h16M7 10l5 5 5-5M7 5l1.5 1.5M12 15v3" />
-//         </svg>
-//         Beach
-//       </NavLink>
-//       <NavLink>
-//         <svg
-//           xmlns="http://www.w3.org/2000/svg"
-//           viewBox="0 0 24 24"
-//           className="w-10 h-10"
-//           fill="none"
-//           stroke="currentColor"
-//           strokeWidth="2"
-//           strokeLinecap="round"
-//           strokeLinejoin="round">
-//           <path d="M4 19h16M7 10l5 5 5-5M7 5l1.5 1.5M12 15v3" />
-//         </svg>
-//         Beach
-//       </NavLink>
-//       <NavLink>
-//         <svg
-//           xmlns="http://www.w3.org/2000/svg"
-//           viewBox="0 0 24 24"
-//           className="w-10 h-10"
-//           fill="none"
-//           stroke="currentColor"
-//           strokeWidth="2"
-//           strokeLinecap="round"
-//           strokeLinejoin="round">
-//           <path d="M4 19h16M7 10l5 5 5-5M7 5l1.5 1.5M12 15v3" />
-//         </svg>
-//         Beach
-//       </NavLink>
-//     </div>
-//   );
-// };
+const Filters = () => {
+  return (
+    <div className="flex mt-8 mx-10  gap-14 justify-between">
+      <NavLink>
+        <div className="flex justify-center">
+          <TbBeach className="w-8 h-8" />
+        </div>
+        Beach View
+      </NavLink>
+      <NavLink>
+        <div className="flex justify-center">
+          <MdPool className="w-8 h-8" />
+        </div>
+        Amazing Pool
+      </NavLink>
+      <NavLink>
+        <div className="flex justify-center">
+          <MdOutlineApartment className="w-8 h-8" />
+        </div>
+        Apartment
+      </NavLink>
+      <NavLink>
+        <div className="flex justify-center">
+          <GiCampingTent className="w-8 h-8" />
+        </div>
+        Camping Site
+      </NavLink>
+      <NavLink>
+        <div className="flex justify-center">
+          <MdOutlineCabin className="w-8 h-8" />
+        </div>
+        Cabin
+      </NavLink>
+      <NavLink>
+        <div className="flex justify-center">
+          <FaChessRook className="w-8 h-8" />
+        </div>
+        Historical Homes
+      </NavLink>
+      <NavLink>
+        <div className="flex justify-center">
+          <FaTree className="w-8 h-8" />
+        </div>
+        Tree House
+      </NavLink>
+      <NavLink>
+        <div className="flex justify-center">
+          <GiFamilyHouse className="w-8 h-8" />
+        </div>
+        Mansions
+      </NavLink>
+      <NavLink>
+        <div className="flex justify-center">
+          <TbBeach className="w-8 h-8" />
+        </div>
+        Beach
+      </NavLink>
+      <NavLink>
+        <div className="flex justify-center">
+          <TbBeach className="w-8 h-8" />
+        </div>
+        Beach
+      </NavLink>
+      <NavLink>
+        <div className="flex justify-center">
+          <TbBeach className="w-8 h-8" />
+        </div>
+        Beach
+      </NavLink>
+      <NavLink>
+        <div className="flex justify-center">
+          <TbBeach className="w-8 h-8" />
+        </div>
+        Beach
+      </NavLink>
+      <NavLink>
+        <div className="flex justify-center">
+          <TbBeach className="w-8 h-8" />
+        </div>
+        Beach
+      </NavLink>
+      <NavLink>
+        <div className="flex justify-center">
+          <TbBeach className="w-8 h-8" />
+        </div>
+        Beach
+      </NavLink>
+    </div>
+  );
+};
 
-// export default Filters;
+export default Filters;

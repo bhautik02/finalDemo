@@ -5,7 +5,7 @@ import PhotoGallery from "../components/PhotoGallery";
 import AddressLink from "../components/AddressLink";
 import BookingWidget from "../components/BookingWidget";
 import { useDispatch, useSelector } from "react-redux";
-import { bookingActions } from "../store/booking";
+import { FaRegStar } from "react-icons/fa";
 import ShowAmenities from "../components/ShowAmenities";
 import CheckInSvg from "../utils/svg/CheckInSvg";
 import CheckOutSvg from "../utils/svg/CheckOutSvg";
@@ -118,8 +118,13 @@ const PlacePage = () => {
                 {reviews ? (
                   <>
                     <p className=" text-gray-800 font-medium text-2xl">
-                      <StarSvg size={4} margin={2} /> {placeData.rating} 4.52
-                      &#183; {reviews.length} Reviews
+                      {placeData.totalRatings > 1 && (
+                        <>
+                          {placeData.totalRatings / placeData.numberOfReview}{" "}
+                          <FaRegStar className="inline h-5 w-5 -mt-1" /> &#183;{" "}
+                        </>
+                      )}
+                      {reviews.length} Reviews
                     </p>
                     <div className=" ">
                       {reviews.map((review, index) => {

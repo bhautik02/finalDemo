@@ -8,7 +8,6 @@ import WifiSvg from "../utils/svg/WifiSvg";
 const ShowAmenities = ({ perks }) => {
   return (
     <div className="mt-5">
-      {console.log(perks)}
       <div className="flex gap-4 m-2 ml-0">
         {perks.includes("wifi") && (
           <>

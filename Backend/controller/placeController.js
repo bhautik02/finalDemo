@@ -1,7 +1,4 @@
-// const
-
 const Place = require("../models/placeModel");
-const User = require("../models/userModel");
 const CatchAsync = require("../utils/CatchAsync");
 const AppError = require("../utils/appError");
 
@@ -26,7 +23,10 @@ const getPlace = CatchAsync(async (req, res, next) => {
 
 const getYourHostedPlace = CatchAsync(async (req, res, next) => {
   const ownerId = req.params.id;
-  const hostedPlace = await Place.find({ owner: ownerId }).select("-__v");
+  const hostedPlace = await Place.find({
+    owner: ownerId,
+    isDeleted: false,
+  }).select("-__v");
 
   if (!hostedPlace) {
     return next(new AppError("Place not found!", 404));
@@ -40,7 +40,7 @@ const getYourHostedPlace = CatchAsync(async (req, res, next) => {
 });
 
 const getAllHostedplaces = CatchAsync(async (req, res, next) => {
-  const hostedPlace = await Place.find().select("-__v");
+  const hostedPlace = await Place.find({ isDeleted: false }).select("-__v");
 
   if (!hostedPlace) {
     return next(new AppError("Places not found!", 404));
@@ -81,6 +81,9 @@ const hostPlace = CatchAsync(async (req, res, next) => {
     noOfBedrooms,
     noOfBathrooms,
     owner: ownerId,
+    numberOfReview: 0,
+    totalRatings: 0,
+    isDeleted: false,
   });
 
   if (!newHostedPlace) {
@@ -141,10 +144,34 @@ const updateHostedData = CatchAsync(async (req, res, next) => {
   });
 });
 
+const deleteHostedData = CatchAsync(async (req, res, next) => {
+  const placeId = req.params.id;
+  console.log(placeId);
+  const deletedHostedPlace = await Place.findByIdAndUpdate(
+    placeId,
+    { isDeleted: true },
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
+
+  console.log(deletedHostedPlace);
+  if (!deletedHostedPlace) {
+    return next(new AppError("Place not deleted!", 404));
+  }
+
+  res.status(200).json({
+    status: "success",
+    deletedHostedPlace,
+  });
+});
+
 module.exports = {
   getPlace,
   getYourHostedPlace,
   getAllHostedplaces,
   hostPlace,
   updateHostedData,
+  deleteHostedData,
 };

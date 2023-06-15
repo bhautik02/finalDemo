@@ -59,6 +59,10 @@ const placeSchema = mongoose.Schema(
       type: Number,
       dafult: 0,
     },
+    isDeleted: {
+      type: Boolean,
+      dafult: false,
+    },
   },
   {
     toJSON: { virtuals: true },

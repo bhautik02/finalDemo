@@ -20,7 +20,7 @@ export const createReviewAsync = createAsyncThunk(
       return review;
     } catch (error) {
       toast.error(error.response.data.message);
-      return alert(error.response.data.message);
+      return;
     }
   }
 );

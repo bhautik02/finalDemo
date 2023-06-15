@@ -31,10 +31,11 @@ const createReview = CatchAsync(async (req, res, next) => {
     name,
     rating,
     review,
+    isDeleted: false,
   });
 
   await Place.findByIdAndUpdate(place, {
-    $inc: { totalRatings: req.body.rating, numberOfReview: 1 },
+    $inc: { totalRatings: rating, numberOfReview: 1 },
   });
 
   res.status(201).json({
@@ -46,7 +47,7 @@ const createReview = CatchAsync(async (req, res, next) => {
 
 const getReviews = CatchAsync(async (req, res, next) => {
   const placeId = req.params.id;
-  const reviews = await Review.find({ place: placeId });
+  const reviews = await Review.find({ place: placeId, isDeleted: false });
 
   if (!reviews) {
     return next(new AppError("Review not found!", 400));

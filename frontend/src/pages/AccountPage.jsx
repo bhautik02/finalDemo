@@ -24,7 +24,7 @@ const AccountPage = () => {
     <LoadingSpinner />
   ) : (
     ready && user && (
-      <div className="bg-gray-100">
+      <div className="bg-gray-100 pb-16">
         <nav className="w-full justify-center flex py-4 gap-2">
           <NavLink className={activeClassName} to={"/account/myAccount"}>
             <UserSvg />

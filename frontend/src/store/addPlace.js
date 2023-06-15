@@ -77,6 +77,22 @@ export const updateHostedPlaceAsync = createAsyncThunk(
   }
 );
 
+export const deletePlaceAsync = createAsyncThunk(
+  "addPlace/deletePlace",
+  async (placeId) => {
+    try {
+      const response = await axios.patch(`place/deletePlace/${placeId}`, {
+        isdeleted: true,
+      });
+      const deletedHostedPlace = response.data.deletedHostedPlace;
+      toast.success("Hosted Place deleted Successfully.");
+      return deletedHostedPlace;
+    } catch (error) {
+      return error.response.data.message;
+    }
+  }
+);
+
 const InitialState = {
   addPlace: {},
   allHostedData: null,
@@ -102,10 +118,7 @@ const addPlaceSlice = createSlice({
       })
       .addCase(hostPlaceAsync.fulfilled, (state, action) => {
         state.loading = false;
-        // console.log("hALL==>", allHostedData);
         state.yourHostedPlaces = [...state.yourHostedPlaces, action.payload];
-        console.log("old data", state.yourHostedPlaces);
-        console.log("new data", action.payload);
       })
       .addCase(hostPlaceAsync.rejected, (state, action) => {
         state.loading = false;
@@ -137,6 +150,21 @@ const addPlaceSlice = createSlice({
         // state.yourHostedPlaces = [...state.yourHostedPlaces, action.payload];
       })
       .addCase(updateHostedPlaceAsync.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
+      .addCase(deletePlaceAsync.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(deletePlaceAsync.fulfilled, (state, action) => {
+        state.loading = false;
+
+        state.yourHostedPlaces = state.yourHostedPlaces.map((place) => {
+          if (place._id !== action.payload._id) return place;
+        });
+      })
+      .addCase(deletePlaceAsync.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       });

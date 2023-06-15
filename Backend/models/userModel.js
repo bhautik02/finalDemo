@@ -30,6 +30,10 @@ const userSchema = new mongoose.Schema(
     // },
     resetPasswordToken: String,
     resetPasswordExpiry: Date,
+    isDeleted: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     toJSON: { virtuals: true },

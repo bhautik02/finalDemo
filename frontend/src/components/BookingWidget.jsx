@@ -15,7 +15,7 @@ export default function BookingWidget({ place }) {
   const [phone, setPhone] = useState("");
 
   const user = useSelector((state) => state.user.user);
-  const bookingData = useSelector((state) => state.booking.bookingData);
+  const bookingData = useSelector((state) => state.booking.newBooking);
 
   const dispatch = useDispatch();
 
@@ -84,8 +84,7 @@ export default function BookingWidget({ place }) {
       order_id: order.id,
       handler: async (response) => {
         try {
-          const verifyUrl = "/verify";
-          const { data } = await axios.post(verifyUrl, response);
+          const { data } = await axios.post("/verify", response);
 
           if (data) {
             const bookedDates = bookedDateArray(checkIn, checkOut);
@@ -133,9 +132,9 @@ export default function BookingWidget({ place }) {
     }
   }
 
-  if (bookingData) {
-    return <Navigate to={`/account/bookings`} />;
-  }
+  // useEffect(() => {
+  //   <Navigate to={"/payment"} />;
+  // }, [bookingData]);
 
   return (
     <div className="bg-white shadow p-4 rounded-2xl">

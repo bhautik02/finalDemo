@@ -5,9 +5,7 @@ import UserSvg from "../utils/svg/UserLoginSvg";
 import { useSelector } from "react-redux";
 
 const Header = () => {
-  const isUserLoggedIn = useSelector((state) => state.user.isUserLoggedIn);
   const user = useSelector((state) => state.user.user);
-  console.log("isfugs", user);
   return (
     <div>
       {/* <div className="text-white bg-gray-950 sticky top-0 z-10"> */}

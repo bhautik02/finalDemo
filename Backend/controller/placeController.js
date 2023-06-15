@@ -108,28 +108,36 @@ const updateHostedData = CatchAsync(async (req, res, next) => {
     noOfBathrooms,
   } = req.body;
   const placeId = req.params.id;
-  const newHostedPlace = await Place.findByIdAndUpdate(placeId, {
-    title,
-    address,
-    photo,
-    description,
-    perks,
-    checkIn,
-    price,
-    checkOut,
-    maxGuest,
-    noOfBedrooms,
-    noOfBathrooms,
-    owner: ownerId,
-  });
+  console.log(placeId);
+  const editedHostedPlace = await Place.findByIdAndUpdate(
+    placeId,
+    {
+      title,
+      address,
+      photo,
+      description,
+      perks,
+      checkIn,
+      price,
+      checkOut,
+      maxGuest,
+      noOfBedrooms,
+      noOfBathrooms,
+    },
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
 
-  if (!newHostedPlace) {
-    return next(new AppError("Place not hosted!", 400));
+  console.log(editedHostedPlace);
+  if (!editedHostedPlace) {
+    return next(new AppError("Place not hosted!", 404));
   }
 
   res.status(200).json({
     status: "success",
-    newHostedPlace,
+    editedHostedPlace,
   });
 });
 

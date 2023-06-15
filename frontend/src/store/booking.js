@@ -9,7 +9,7 @@ export const bookPlaceAsync = createAsyncThunk(
       const response = await axios.post(`book/bookings`, formData);
       const newBooking = response.data.hostedPlace;
       toast.success("Place booked.");
-      return alert("new booking");
+      return newBooking;
     } catch (error) {
       toast.error(error.response.data.message);
       return error.response.data.message;
@@ -34,6 +34,7 @@ export const getAllbookingAsync = createAsyncThunk(
 
 const InitialBookingState = {
   allBookings: null,
+  newBooking: null,
 };
 
 const bookingSlice = createSlice({
@@ -48,6 +49,7 @@ const bookingSlice = createSlice({
       })
       .addCase(bookPlaceAsync.fulfilled, (state, action) => {
         state.loading = true;
+        state.newBooking = action.payload;
       })
       .addCase(bookPlaceAsync.rejected, (state, action) => {
         state.loading = false;

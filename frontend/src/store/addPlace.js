@@ -59,6 +59,24 @@ export const getAllHostedPlacesByUserAsync = createAsyncThunk(
   }
 );
 
+export const updateHostedPlaceAsync = createAsyncThunk(
+  "addPlace/updateHostedPlace",
+  async (formData) => {
+    const { placeId } = formData;
+    try {
+      const response = await axios.patch(
+        `place/hostPlace/${placeId}`,
+        formData
+      );
+      const editedHostedPlace = response.data.editedHostedPlace;
+      return editedHostedPlace;
+    } catch (error) {
+      toast.error(error.response.data.message);
+      return error.response.data.message;
+    }
+  }
+);
+
 const InitialState = {
   addPlace: {},
   allHostedData: null,
@@ -79,11 +97,11 @@ const addPlaceSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(hostPlaceAsync.pending, (state) => {
-        state.loading = false;
+        state.loading = true;
         state.error = null;
       })
       .addCase(hostPlaceAsync.fulfilled, (state, action) => {
-        state.loading = true;
+        state.loading = false;
         // console.log("hALL==>", allHostedData);
         state.yourHostedPlaces = [...state.yourHostedPlaces, action.payload];
         console.log("old data", state.yourHostedPlaces);
@@ -94,14 +112,31 @@ const addPlaceSlice = createSlice({
         state.error = action.error.message;
       })
       .addCase(getAllHostedPlacesByUserAsync.pending, (state) => {
-        state.loading = false;
+        state.loading = true;
         state.error = null;
       })
       .addCase(getAllHostedPlacesByUserAsync.fulfilled, (state, action) => {
-        state.loading = true;
+        state.loading = false;
         state.yourHostedPlaces = action.payload;
       })
       .addCase(getAllHostedPlacesByUserAsync.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
+      .addCase(updateHostedPlaceAsync.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(updateHostedPlaceAsync.fulfilled, (state, action) => {
+        state.loading = false;
+
+        state.yourHostedPlaces = state.yourHostedPlaces.map((place) =>
+          place._id === action.payload._id ? action.payload : place
+        );
+
+        // state.yourHostedPlaces = [...state.yourHostedPlaces, action.payload];
+      })
+      .addCase(updateHostedPlaceAsync.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       });

@@ -1,7 +1,10 @@
 import { forwardRef, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addPlaceActions, hostPlaceAsync } from "../../store/addPlace";
-import axios from "axios";
+import {
+  addPlaceActions,
+  hostPlaceAsync,
+  updateHostedPlaceAsync,
+} from "../../store/addPlace";
 // import { hostedPlaceActions } from "../../store/place";
 
 function preInput(label) {
@@ -56,13 +59,16 @@ const ThirdStep = forwardRef((props, ref, editingPlaceInfo) => {
   };
 
   useEffect(() => {
-    const userId = user._id;
+    const userId = user?._id;
     const formdata = { ...addPlace, userId };
     if (ready && !hostedPlaceInfo) {
       dispatch(hostPlaceAsync(formdata));
       dispatch(addPlaceActions.clearPlaceData());
     }
+    const placeId = hostedPlaceInfo?._id;
+    const updatedFormData = { ...addPlace, placeId };
     if (ready && hostedPlaceInfo) {
+      dispatch(updateHostedPlaceAsync(updatedFormData));
       dispatch(addPlaceActions.clearPlaceData());
     }
     // eslint-disable-next-line

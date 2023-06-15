@@ -30,11 +30,8 @@ export const fetchUserAsync = createAsyncThunk("user/fetchUser", async () => {
       withCredentials: true,
     });
 
-    console.log("RESPONSE ---->", response.data);
     const user = response.data.user;
 
-    console.log(user, "Sdffffffffffff");
-    // alert("dfsdgsgsdgsdgg", user);
     return user;
   } catch (error) {
     toast.error(error.response.data.message);

@@ -54,10 +54,6 @@ const bookingSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    paid: {
-      type: String,
-      default: false,
-    },
   },
   {
     timestamps: true,

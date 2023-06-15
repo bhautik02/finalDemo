@@ -4,12 +4,13 @@ const CatchAsync = require("../utils/CatchAsync");
 
 var instance = new Razorpay({
   key_id: process.env.RAZORPAY_API_KEY,
-  key_secret: process.env.RAZORPAY_APT_SECRET,
+  key_secret: process.env.RAZORPAY_API_SECRET,
 });
 
 const checkout = CatchAsync(async (req, res, next) => {
+  const { amount } = req.body;
   const options = {
-    amount: 50000,
+    amount: amount * 100,
     currency: "INR",
     receipt: crypto.randomBytes(10).toString("hex"),
   };
@@ -28,9 +29,11 @@ const checkout = CatchAsync(async (req, res, next) => {
 const verify = CatchAsync(async (req, res, next) => {
   const { razorpay_order_id, razorpay_payment_id, razorpay_signature } =
     req.body;
+
   const sign = razorpay_order_id + "|" + razorpay_payment_id;
+
   const expectedSign = crypto
-    .createHmac("sha256", process.env.KEY_SECRET)
+    .createHmac("sha256", process.env.RAZORPAY_API_SECRET)
     .update(sign.toString())
     .digest("hex");
 

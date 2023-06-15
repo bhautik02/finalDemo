@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import MyDatePicker from "./DatePicker";
 import { bookPlaceAsync } from "../store/booking";
 import datesBetween from "dates-between";
+import axios from "axios";
 
 export default function BookingWidget({ place }) {
   const [checkIn, setCheckIn] = useState("");
@@ -71,28 +72,65 @@ export default function BookingWidget({ place }) {
     const formattedDate = formatDateForCountNights(value);
     setCheckOut(formattedDate);
   };
+  const price = numberOfNights * place.price;
+
+  const initPayment = (order) => {
+    const options = {
+      key: "rzp_test_rD7nY8ydONcLyG",
+      amount: order.amount,
+      currency: order.currency,
+      name,
+      description: "Test Transaction",
+      order_id: order.id,
+      handler: async (response) => {
+        try {
+          const verifyUrl = "/verify";
+          const { data } = await axios.post(verifyUrl, response);
+
+          if (data) {
+            const bookedDates = bookedDateArray(checkIn, checkOut);
+            const formData = {
+              checkIn,
+              checkOut,
+              numberOfGuests,
+              name,
+              phone,
+              bookBy: user._id,
+              placeID: place._id,
+              price,
+              bookedDates,
+              placeName: place.title,
+              placeAddress: place.address,
+              placePhoto: place.photo[0],
+              checkInTime: place.checkIn,
+              checkOutTime: place.checkOut,
+              paid: false,
+            };
+
+            dispatch(bookPlaceAsync(formData));
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      },
+      theme: {
+        color: "#F5385D",
+      },
+    };
+    const rzp1 = new window.Razorpay(options);
+    rzp1.open();
+  };
 
   async function bookThisPlace() {
-    const bookedDates = bookedDateArray(checkIn, checkOut);
-    console.log("place", place);
-    const formData = {
-      checkIn,
-      checkOut,
-      numberOfGuests,
-      name,
-      phone,
-      bookBy: user._id,
-      placeID: place._id,
-      price: numberOfNights * place.price,
-      bookedDates,
-      placeName: place.title,
-      placeAddress: place.address,
-      placePhoto: place.photo[0],
-      checkInTime: place.checkIn,
-      checkOutTime: place.checkOut,
-    };
-
-    dispatch(bookPlaceAsync(formData));
+    //payment
+    try {
+      const orderUrl = "/checkout";
+      const { data } = await axios.post(orderUrl, { amount: price });
+      console.log(data);
+      initPayment(data.order);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   if (bookingData) {

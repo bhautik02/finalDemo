@@ -29,7 +29,6 @@ export const getPlaceAsync = createAsyncThunk(
 
 const InitialState = {
   allPlaces: null,
-
   placeData: null,
   bookedDatesOfPlace: null,
 };

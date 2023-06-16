@@ -20,6 +20,7 @@ import ReservationPage from "./pages/ReservationPage";
 import MyAccount from "./components/MyAccount";
 import ReservationDetailPage from "./pages/ReservationDetailPage";
 import MyPlaces from "./pages/ReservationPage";
+import { GoogleApiWrapper } from "google-maps-react";
 
 axios.defaults.baseURL = "http://localhost:5000/api/v1/";
 const URL = "http://localhost:5000/api/v1/users/profile";
@@ -47,6 +48,7 @@ function App() {
   return (
     <CookiesProvider>
       <ToastContainer theme="dark" autoClose={2000} />
+      {/* <GoogleApiWrapper /> */}
       <Routes>
         {/* <Route path="/" element={<Layout />}> */}
         <Route path="/" element={<Layout />}>
